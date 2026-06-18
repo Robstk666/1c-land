@@ -135,13 +135,30 @@
     <!-- Phase 0: Preloader & Logo -->
     <div
       id="preloader"
-      class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-cream-paper transition-transform duration-1000"
+      class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-cream-paper transition-transform duration-1000 overflow-hidden"
     >
-      <div id="logo-container" class="relative flex flex-col items-center">
-        <!-- Monogram inside a leaf SVG Logo -->
+      <!-- Large Outline Logo Mask -->
+      <div
+        class="relative w-[35vw] max-w-[400px] aspect-square flex items-center justify-center mb-12"
+      >
         <svg
           id="main-logo"
-          class="w-32 h-32 text-moss-veil"
+          class="absolute inset-0 w-full h-full text-moss-veil opacity-30"
+          viewBox="0 0 100 100"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M50 5C25 5 10 25 10 50C10 75 25 95 50 95C75 95 90 75 90 50C90 25 75 5 50 5Z"
+            stroke="currentColor"
+            stroke-width="2"
+          />
+          <path d="M50 5V95" stroke="currentColor" stroke-width="2" />
+          <path d="M30 40H50V60H30" stroke="currentColor" stroke-width="2" />
+        </svg>
+
+        <svg
+          class="absolute inset-0 w-full h-full text-forest-floor"
           viewBox="0 0 100 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -151,18 +168,7 @@
               <rect id="clip-rect" x="0" y="100" width="100" height="100" />
             </clipPath>
           </defs>
-
-          <!-- Base path (dimmed) -->
-          <path
-            d="M50 5C25 5 10 25 10 50C10 75 25 95 50 95C75 95 90 75 90 50C90 25 75 5 50 5Z"
-            stroke="currentColor"
-            stroke-width="2"
-          />
-          <path d="M50 5V95" stroke="currentColor" stroke-width="2" />
-          <path d="M30 40H50V60H30" stroke="currentColor" stroke-width="2" />
-
-          <!-- Filled path (clipped) -->
-          <g clip-path="url(#logo-clip)" class="text-forest-floor">
+          <g clip-path="url(#logo-clip)">
             <path
               d="M50 5C25 5 10 25 10 50C10 75 25 95 50 95C75 95 90 75 90 50C90 25 75 5 50 5Z"
               fill="currentColor"
@@ -170,12 +176,41 @@
             <path d="M30 40H50V60H30" fill="var(--color-cream-paper)" />
           </g>
         </svg>
+
+        <!-- Hamster Snippet inside Logo center -->
         <div
-          id="loading-text"
-          class="mt-4 font-body font-medium text-botanical-ink tracking-widest uppercase text-sm"
+          class="absolute inset-0 flex items-center justify-center scale-[0.6] pointer-events-none z-10 opacity-80"
         >
-          Загрузка 0%
+          <div
+            aria-label="Orange and tan hamster running in a metal wheel"
+            role="img"
+            class="wheel-and-hamster"
+          >
+            <div class="wheel"></div>
+            <div class="hamster">
+              <div class="hamster__body">
+                <div class="hamster__head">
+                  <div class="hamster__ear"></div>
+                  <div class="hamster__eye"></div>
+                  <div class="hamster__nose"></div>
+                </div>
+                <div class="hamster__limb hamster__limb--fr"></div>
+                <div class="hamster__limb hamster__limb--fl"></div>
+                <div class="hamster__limb hamster__limb--br"></div>
+                <div class="hamster__limb hamster__limb--bl"></div>
+                <div class="hamster__tail"></div>
+              </div>
+            </div>
+            <div class="spoke"></div>
+          </div>
         </div>
+      </div>
+
+      <div
+        id="loading-text"
+        class="font-body font-bold text-botanical-ink tracking-widest uppercase text-2xl mt-8"
+      >
+        0%
       </div>
     </div>
 
@@ -215,9 +250,12 @@
       >
     </div>
 
-    <main id="app">
+    <main id="app" class="relative z-10">
       <!-- Phase 1: Hero & Canvas Scrollytelling -->
-      <section id="scrollytelling-section" class="relative h-[400vh] w-full">
+      <section
+        id="scrollytelling-section"
+        class="relative h-[400vh] w-full z-10 bg-cream-paper"
+      >
         <div
           class="sticky top-0 h-screen w-full overflow-hidden bg-cream-paper"
         >
@@ -241,17 +279,15 @@
             class="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none"
           >
             <!-- Text 1 (Initial) -->
-            <div
-              id="hero-text-1"
-              class="flex flex-col items-center text-center opacity-0"
-            >
+            <div class="flex flex-col items-center text-center opacity-100">
               <h1
                 class="text-[53px] md:text-[80px] lg:text-[100px] leading-none tracking-[-0.04em] text-botanical-ink mb-4"
               >
                 ФинПарк
               </h1>
               <p
-                class="text-3xl md:text-5xl lg:text-6xl text-botanical-ink font-body mb-16 px-4"
+                id="hero-text-1"
+                class="text-xl md:text-2xl lg:text-3xl text-botanical-ink font-body mb-16 px-4 opacity-0 transform -translate-y-8"
               >
                 Аутсорсинг бухгалтерских услуг
               </p>
@@ -774,84 +810,136 @@
             </h2>
           </div>
 
-          <div class="relative flex flex-col items-center gap-8 pb-32">
-            <!-- Cards -->
-            <div
-              class="w-full max-w-2xl card-surface bg-lichen z-10 sticky shadow-subtle transition-all duration-300 hover:shadow-lg"
-              style="top: 10vh"
-            >
-              <div class="flex items-center gap-4 mb-6">
+          <div class="relative flex justify-center pb-[50vh]">
+            <div class="app-container relative mt-16 scale-125 origin-top">
+              <div class="wallet relative w-[280px] h-[160px]">
                 <div
-                  class="w-12 h-12 rounded-full bg-moss-veil flex items-center justify-center text-forest-floor font-bold font-headings text-xl"
-                >
-                  О
-                </div>
-                <div>
-                  <h3 class="font-bold text-xl text-botanical-ink">
-                    ООО "СтройПроект"
-                  </h3>
-                  <p class="text-sm text-botanical-ink/70 font-body">
-                    Строительство
-                  </p>
-                </div>
-              </div>
-              <p class="text-botanical-ink font-body leading-relaxed text-lg">
-                «Передали бухгалтерию на аутсорс в ФинПарк три года назад. За
-                это время прошли две налоговые проверки без единого штрафа.
-                Отличная команда.»
-              </p>
-            </div>
+                  class="wallet-back absolute inset-0 bg-[#3d5635] rounded-[10px_10px_20px_20px]"
+                ></div>
 
-            <div
-              class="w-full max-w-2xl card-surface bg-sage-mist z-20 sticky shadow-subtle transition-all duration-300 hover:shadow-lg"
-              style="top: 15vh"
-            >
-              <div class="flex items-center gap-4 mb-6">
                 <div
-                  class="w-12 h-12 rounded-full bg-eucalyptus flex items-center justify-center text-forest-floor font-bold font-headings text-xl"
+                  class="card stripe absolute w-[260px] h-[140px] bg-gradient-to-r from-lichen to-cream-paper rounded-xl shadow-lg border border-botanical-ink/10 flex flex-col justify-between p-4 left-[10px] top-2 transition-transform duration-500 ease-out z-10"
                 >
-                  И
+                  <div
+                    class="card-inner w-full h-full flex flex-col justify-between"
+                  >
+                    <div
+                      class="card-top flex justify-between items-center text-botanical-ink font-bold font-body text-sm"
+                    >
+                      <span>ООО "СтройПроект"</span>
+                      <div
+                        class="chip w-10 h-6 bg-moss-veil rounded border border-botanical-ink/20 opacity-80"
+                      ></div>
+                    </div>
+                    <div class="card-bottom">
+                      <div class="card-info flex flex-col gap-1">
+                        <span
+                          class="label text-[10px] uppercase tracking-widest text-botanical-ink/60"
+                          >Отзыв</span
+                        >
+                        <span
+                          class="value text-xs text-botanical-ink leading-tight"
+                          >Отличная команда, без штрафов</span
+                        >
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3 class="font-bold text-xl text-botanical-ink">
-                    ИП Иванов А.С.
-                  </h3>
-                  <p class="text-sm text-botanical-ink/70 font-body">
-                    Retail / E-commerce
-                  </p>
-                </div>
-              </div>
-              <p class="text-botanical-ink font-body leading-relaxed text-lg">
-                «Очень удобный доступ к 1С 24/7. Могу сам посмотреть остатки и
-                сформировать счет, а все сложные проводки и отчетность делает
-                ФинПарк.»
-              </p>
-            </div>
 
-            <div
-              class="w-full max-w-2xl card-surface bg-cream-paper z-30 sticky shadow-subtle border-eucalyptus transition-all duration-300 hover:shadow-lg"
-              style="top: 20vh"
-            >
-              <div class="flex items-center gap-4 mb-6">
                 <div
-                  class="w-12 h-12 rounded-full bg-warm-loam flex items-center justify-center text-cream-paper font-bold font-headings text-xl"
+                  class="card wise absolute w-[260px] h-[140px] bg-gradient-to-r from-sage-mist to-moss-veil rounded-xl shadow-lg border border-botanical-ink/10 flex flex-col justify-between p-4 left-[10px] top-4 transition-transform duration-500 ease-out z-20"
                 >
-                  А
+                  <div
+                    class="card-inner w-full h-full flex flex-col justify-between"
+                  >
+                    <div
+                      class="card-top flex justify-between items-center text-botanical-ink font-bold font-body text-sm"
+                    >
+                      <span>ИП Иванов А.С.</span>
+                      <div
+                        class="chip w-10 h-6 bg-cream-paper rounded border border-botanical-ink/20 opacity-80"
+                      ></div>
+                    </div>
+                    <div class="card-bottom">
+                      <div class="card-info flex flex-col gap-1">
+                        <span
+                          class="label text-[10px] uppercase tracking-widest text-botanical-ink/60"
+                          >Отзыв</span
+                        >
+                        <span
+                          class="value text-xs text-botanical-ink leading-tight"
+                          >Удобный доступ 24/7</span
+                        >
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3 class="font-bold text-xl text-botanical-ink">
-                    ООО "АгроКомплекс"
-                  </h3>
-                  <p class="text-sm text-botanical-ink/70 font-body">
-                    Сельское хозяйство
-                  </p>
+
+                <div
+                  class="card paypal absolute w-[260px] h-[140px] bg-gradient-to-r from-eucalyptus to-lichen rounded-xl shadow-lg border border-botanical-ink/10 flex flex-col justify-between p-4 left-[10px] top-6 transition-transform duration-500 ease-out z-30"
+                >
+                  <div
+                    class="card-inner w-full h-full flex flex-col justify-between"
+                  >
+                    <div
+                      class="card-top flex justify-between items-center text-botanical-ink font-bold font-body text-sm"
+                    >
+                      <span>АгроКомплекс</span>
+                      <div
+                        class="chip w-10 h-6 bg-sage-mist rounded border border-botanical-ink/20 opacity-80"
+                      ></div>
+                    </div>
+                    <div class="card-bottom">
+                      <div class="card-info flex flex-col gap-1">
+                        <span
+                          class="label text-[10px] uppercase tracking-widest text-botanical-ink/60"
+                          >Отзыв</span
+                        >
+                        <span
+                          class="value text-xs text-botanical-ink leading-tight"
+                          >Специфика сельхоз учета</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="pocket absolute -bottom-4 w-full h-[160px] z-40 pointer-events-none"
+                >
+                  <svg
+                    class="pocket-svg absolute inset-0 w-full h-full"
+                    viewBox="0 0 280 160"
+                    fill="none"
+                  >
+                    <path
+                      d="M 0 20 C 0 10, 5 10, 10 10 C 20 10, 25 25, 40 25 L 240 25 C 255 25, 260 10, 270 10 C 275 10, 280 10, 280 20 L 280 120 C 280 155, 260 160, 240 160 L 40 160 C 20 160, 0 155, 0 120 Z"
+                      fill="#1e341e"
+                    ></path>
+                    <path
+                      d="M 8 22 C 8 16, 12 16, 15 16 C 23 16, 27 29, 40 29 L 240 29 C 253 29, 257 16, 265 16 C 268 16, 272 16, 272 22 L 272 120 C 272 150, 255 152, 240 152 L 40 152 C 25 152, 8 152, 8 120 Z"
+                      stroke="#3d5635"
+                      stroke-width="1.5"
+                      stroke-dasharray="6 4"
+                    ></path>
+                  </svg>
+                  <div
+                    class="pocket-content absolute bottom-6 w-full text-center"
+                  >
+                    <div
+                      style="
+                        color: #698263;
+                        font-size: 14px;
+                        font-weight: 500;
+                        letter-spacing: 0.05em;
+                      "
+                      class="font-body uppercase"
+                    >
+                      Более 30-ти клиентов
+                    </div>
+                  </div>
                 </div>
               </div>
-              <p class="text-botanical-ink font-body leading-relaxed text-lg">
-                «Специфика сельхоз учета требует особых знаний. Специалисты
-                ФинПарк отлично справляются, всегда на связи и готовы помочь с
-                любым вопросом.»
-              </p>
             </div>
           </div>
         </div>
@@ -922,7 +1010,33 @@
                   <td class="py-6 px-4 text-xl">21 600 ₽</td>
                   <td class="py-6 px-4 text-xl">10 800 ₽</td>
                 </tr>
-                <!-- More potential rows could go here, but prompt specifically asked for this data -->
+                <tr
+                  class="group hover:bg-moss-veil/30 transition-colors border-b border-lichen/50"
+                >
+                  <td class="py-6 px-4 font-bold text-xl">УСН Доходы 6%</td>
+                  <td class="py-6 px-4 text-xl">5 000 ₽</td>
+                  <td class="py-6 px-4 text-xl">15 000 ₽</td>
+                  <td class="py-6 px-4 text-xl">12 000 ₽</td>
+                  <td class="py-6 px-4 text-xl">7 000 ₽</td>
+                </tr>
+                <tr
+                  class="group hover:bg-moss-veil/30 transition-colors border-b border-lichen/50"
+                >
+                  <td class="py-6 px-4 font-bold text-xl">УСН 15%</td>
+                  <td class="py-6 px-4 text-xl">5 000 ₽</td>
+                  <td class="py-6 px-4 text-xl">21 000 ₽</td>
+                  <td class="py-6 px-4 text-xl">16 800 ₽</td>
+                  <td class="py-6 px-4 text-xl">8 400 ₽</td>
+                </tr>
+                <tr
+                  class="group hover:bg-moss-veil/30 transition-colors border-b border-lichen/50"
+                >
+                  <td class="py-6 px-4 font-bold text-xl">Патент</td>
+                  <td class="py-6 px-4 text-xl text-botanical-ink/30">-</td>
+                  <td class="py-6 px-4 text-xl text-botanical-ink/30">-</td>
+                  <td class="py-6 px-4 text-xl">14 400 ₽</td>
+                  <td class="py-6 px-4 text-xl">7 000 ₽</td>
+                </tr>
               </tbody>
               <tfoot>
                 <tr>
@@ -1133,28 +1247,131 @@
       </section>
 
       <!-- Phase 6: Map & Floating Contact Widget -->
-      <section id="map-section" class="relative w-full h-screen bg-lichen z-20">
-        <iframe
-          src="https://yandex.ru/map-widget/v1/?um=constructor%3A9c855a9cf299bfdbbfdafb5d4a1329a28dbcc2a80dbafbfda4a1329a28dbcc2&amp;source=constructor"
-          width="100%"
-          height="100%"
-          frameborder="0"
-          class="w-full h-full grayscale opacity-80"
-          title="Yandex Map"
-        ></iframe>
-
-        <!-- Floating Action Button (Widget) -->
-        <div class="fixed bottom-8 right-8 z-50 flex flex-col items-end group">
-          <!-- Expanded Card (Glassmorphism) -->
+      <section
+        id="map-section"
+        class="relative w-full h-screen bg-lichen z-20 overflow-hidden"
+      >
+        <div
+          class="browser absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-[1000px] h-[70vh] max-h-[600px] bg-cream-paper rounded-xl shadow-2xl overflow-hidden border border-eucalyptus flex flex-col z-0"
+        >
           <div
-            class="mb-4 bg-cream-paper/80 backdrop-blur-md border border-eucalyptus rounded-2xl p-6 shadow-2xl opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transform-gpu origin-bottom-right scale-95 group-hover:scale-100 w-80"
+            class="tabs-head bg-sage-mist border-b border-lichen p-2 flex items-center justify-between"
           >
-            <h3
-              class="font-headings font-bold text-2xl text-botanical-ink mb-4 border-b border-lichen pb-2"
+            <div class="tabs flex items-center">
+              <div
+                class="tab-open bg-cream-paper px-4 py-2 rounded-t-lg text-xs font-body tracking-wide border border-b-0 border-lichen text-botanical-ink flex items-center gap-2"
+              >
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="text-forest-floor"
+                >
+                  <path
+                    d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <circle
+                    cx="12"
+                    cy="10"
+                    r="3"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <span>Карта</span>
+              </div>
+            </div>
+            <div class="window-opt flex gap-2">
+              <button class="w-3 h-3 rounded-full bg-moss-veil"></button>
+              <button class="w-3 h-3 rounded-full bg-eucalyptus"></button>
+              <button
+                class="window-close w-3 h-3 rounded-full bg-warm-loam"
+              ></button>
+            </div>
+          </div>
+          <div
+            class="head-browser bg-cream-paper p-2 border-b border-lichen flex items-center"
+          >
+            <div
+              class="bg-sage-mist w-full rounded-md px-3 py-1 flex items-center gap-2"
             >
-              ИП Гржмайло Л.К.
-            </h3>
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="text-botanical-ink/50"
+              >
+                <path
+                  d="M12 2L2 7L12 12L22 7L12 2Z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M2 17L12 22L22 17"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M2 12L12 17L22 12"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <input
+                type="text"
+                value="https://yandex.ru/maps/-/Казань-Ай-Ти-Парк"
+                readonly
+                class="text-xs text-botanical-ink/70 font-body outline-none w-full bg-transparent"
+              />
+            </div>
+          </div>
+          <div class="browser-content flex-grow relative">
+            <iframe
+              src="https://yandex.ru/map-widget/v1/?um=constructor%3A9c855a9cf299bfdbbfdafb5d4a1329a28dbcc2a80dbafbfda4a1329a28dbcc2&amp;source=constructor"
+              width="100%"
+              height="100%"
+              frameborder="0"
+              class="w-full h-full grayscale opacity-80 absolute inset-0"
+              title="Yandex Map"
+            ></iframe>
+          </div>
+        </div>
 
+        <!-- Floating Action Button (Widget) scoped to Map Section -->
+        <div
+          class="absolute bottom-8 right-8 z-10 flex flex-col items-end group"
+        >
+          <!-- Expanded Card (Ticket) -->
+          <div
+            class="container contacts-widget mb-4 opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transform-gpu origin-bottom-right scale-95 group-hover:scale-100 bg-cream-paper p-6 rounded-2xl shadow-2xl border border-eucalyptus relative max-w-sm"
+          >
+            <span
+              class="top-border absolute -top-[10px] left-8 w-[calc(100%-64px)] h-5 bg-sage-mist rounded-t-xl z-[-1]"
+            ></span>
+            <p
+              class="time font-headings tracking-widest text-lg font-bold border-b border-lichen pb-2 mb-4"
+            >
+              Контакты
+            </p>
+            <p class="date font-body text-xl text-botanical-ink mb-6">
+              ИП Гржимайло Л.К.
+            </p>
             <div
               class="flex flex-col gap-3 font-body text-sm text-botanical-ink mb-6"
             >
@@ -1341,6 +1558,9 @@
                 </svg>
               </a>
             </div>
+            <span
+              class="right-border top absolute -right-2 top-10 w-4 h-8 bg-lichen rounded-l-full z-[-1]"
+            ></span>
           </div>
 
           <!-- FAB Toggle Button -->
@@ -1371,7 +1591,7 @@
       </section>
 
       <footer
-        class="bg-botanical-ink text-cream-paper/60 font-body text-sm py-8 border-t border-cream-paper/10 text-center"
+        class="relative bg-botanical-ink text-cream-paper/60 font-body text-sm py-8 border-t border-cream-paper/10 text-center z-30"
       >
         <div
           class="max-w-[1200px] mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-4"
@@ -1390,6 +1610,366 @@
     </main>
 
     <style>
+      /* CSS for Hamster Snippet */
+      .wheel-and-hamster {
+        --dur: 1s;
+        position: relative;
+        width: 12em;
+        height: 12em;
+        font-size: 14px;
+      }
+
+      .wheel,
+      .hamster,
+      .hamster div,
+      .spoke {
+        position: absolute;
+      }
+
+      .wheel,
+      .spoke {
+        border-radius: 50%;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .wheel {
+        background: radial-gradient(
+          100% 100% at center,
+          hsla(0, 0%, 60%, 0) 47.8%,
+          hsl(0, 0%, 60%) 48%
+        );
+        z-index: 2;
+      }
+
+      .hamster {
+        animation: hamster var(--dur) ease-in-out infinite;
+        top: 50%;
+        left: calc(50% - 3.5em);
+        width: 7em;
+        height: 3.75em;
+        transform: rotate(4deg) translate(-0.8em, 1.85em);
+        transform-origin: 50% 0;
+        z-index: 1;
+      }
+
+      .hamster__head {
+        animation: hamsterHead var(--dur) ease-in-out infinite;
+        background: hsl(30, 90%, 55%);
+        border-radius: 70% 30% 0 100% / 40% 25% 25% 60%;
+        box-shadow:
+          0 -0.25em 0 hsl(30, 90%, 80%) inset,
+          0.75em -1.55em 0 hsl(30, 90%, 90%) inset;
+        top: 0;
+        left: -2em;
+        width: 2.75em;
+        height: 2.5em;
+        transform-origin: 100% 50%;
+      }
+
+      .hamster__ear {
+        animation: hamsterEar var(--dur) ease-in-out infinite;
+        background: hsl(0, 90%, 85%);
+        border-radius: 50%;
+        box-shadow: -0.25em 0 hsl(30, 90%, 55%) inset;
+        top: -0.25em;
+        right: -0.25em;
+        width: 0.75em;
+        height: 0.75em;
+        transform-origin: 50% 75%;
+      }
+
+      .hamster__eye {
+        animation: hamsterEye var(--dur) linear infinite;
+        background-color: hsl(0, 0%, 0%);
+        border-radius: 50%;
+        top: 0.375em;
+        left: 1.25em;
+        width: 0.5em;
+        height: 0.5em;
+      }
+
+      .hamster__nose {
+        background: hsl(0, 90%, 75%);
+        border-radius: 35% 65% 85% 15% / 70% 50% 50% 30%;
+        top: 0.75em;
+        left: 0;
+        width: 0.2em;
+        height: 0.25em;
+      }
+
+      .hamster__body {
+        animation: hamsterBody var(--dur) ease-in-out infinite;
+        background: hsl(30, 90%, 90%);
+        border-radius: 50% 30% 50% 30% / 15% 60% 40% 40%;
+        box-shadow:
+          0.1em 0.75em 0 hsl(30, 90%, 55%) inset,
+          0.15em -0.5em 0 hsl(30, 90%, 80%) inset;
+        top: 0.25em;
+        left: 2em;
+        width: 4.5em;
+        height: 3em;
+        transform-origin: 17% 50%;
+        transform-style: preserve-3d;
+      }
+
+      .hamster__limb--fr,
+      .hamster__limb--fl {
+        clip-path: polygon(0 0, 100% 0, 70% 80%, 60% 100%, 0% 100%, 40% 80%);
+        top: 2em;
+        left: 0.5em;
+        width: 1em;
+        height: 1.5em;
+        transform-origin: 50% 0;
+      }
+
+      .hamster__limb--fr {
+        animation: hamsterFRLimb var(--dur) linear infinite;
+        background: linear-gradient(
+          hsl(30, 90%, 80%) 80%,
+          hsl(0, 90%, 75%) 80%
+        );
+        transform: rotate(15deg) translateZ(-1px);
+      }
+
+      .hamster__limb--fl {
+        animation: hamsterFLLimb var(--dur) linear infinite;
+        background: linear-gradient(
+          hsl(30, 90%, 90%) 80%,
+          hsl(0, 90%, 85%) 80%
+        );
+        transform: rotate(15deg);
+      }
+
+      .hamster__limb--br,
+      .hamster__limb--bl {
+        border-radius: 0.75em 0.75em 0 0;
+        clip-path: polygon(
+          0 0,
+          100% 0,
+          100% 30%,
+          70% 90%,
+          70% 100%,
+          30% 100%,
+          40% 90%,
+          0% 30%
+        );
+        top: 1em;
+        left: 2.8em;
+        width: 1.5em;
+        height: 2.5em;
+        transform-origin: 50% 30%;
+      }
+
+      .hamster__limb--br {
+        animation: hamsterBRLimb var(--dur) linear infinite;
+        background: linear-gradient(
+          hsl(30, 90%, 80%) 90%,
+          hsl(0, 90%, 75%) 90%
+        );
+        transform: rotate(-25deg) translateZ(-1px);
+      }
+
+      .hamster__limb--bl {
+        animation: hamsterBLLimb var(--dur) linear infinite;
+        background: linear-gradient(
+          hsl(30, 90%, 90%) 90%,
+          hsl(0, 90%, 85%) 90%
+        );
+        transform: rotate(-25deg);
+      }
+
+      .hamster__tail {
+        animation: hamsterTail var(--dur) linear infinite;
+        background: hsl(0, 90%, 85%);
+        border-radius: 0.25em 50% 50% 0.25em;
+        box-shadow: 0 -0.2em 0 hsl(0, 90%, 75%) inset;
+        top: 1.5em;
+        right: -0.5em;
+        width: 1em;
+        height: 0.5em;
+        transform: rotate(30deg) translateZ(-1px);
+        transform-origin: 0.25em 0.25em;
+      }
+
+      .spoke {
+        animation: spoke var(--dur) linear infinite;
+        background:
+          radial-gradient(
+            100% 100% at center,
+            hsl(0, 0%, 60%) 4.8%,
+            hsla(0, 0%, 60%, 0) 5%
+          ),
+          linear-gradient(
+              hsla(0, 0%, 55%, 0) 46.9%,
+              hsl(0, 0%, 65%) 47%,
+              hsl(0, 0%, 65%) 52.9%,
+              hsla(0, 0%, 65%, 0) 53%
+            )
+            50% 50% / 99% 99% no-repeat;
+      }
+
+      /* Animations */
+      @keyframes hamster {
+        from,
+        to {
+          transform: rotate(4deg) translate(-0.8em, 1.85em);
+        }
+        50% {
+          transform: rotate(0) translate(-0.8em, 1.85em);
+        }
+      }
+
+      @keyframes hamsterHead {
+        from,
+        25%,
+        50%,
+        75%,
+        to {
+          transform: rotate(0);
+        }
+        12.5%,
+        37.5%,
+        62.5%,
+        87.5% {
+          transform: rotate(8deg);
+        }
+      }
+
+      @keyframes hamsterEye {
+        from,
+        90%,
+        to {
+          transform: scaleY(1);
+        }
+        95% {
+          transform: scaleY(0);
+        }
+      }
+
+      @keyframes hamsterEar {
+        from,
+        25%,
+        50%,
+        75%,
+        to {
+          transform: rotate(0);
+        }
+        12.5%,
+        37.5%,
+        62.5%,
+        87.5% {
+          transform: rotate(12deg);
+        }
+      }
+
+      @keyframes hamsterBody {
+        from,
+        25%,
+        50%,
+        75%,
+        to {
+          transform: rotate(0);
+        }
+        12.5%,
+        37.5%,
+        62.5%,
+        87.5% {
+          transform: rotate(-2deg);
+        }
+      }
+
+      @keyframes hamsterFRLimb {
+        from,
+        25%,
+        50%,
+        75%,
+        to {
+          transform: rotate(50deg) translateZ(-1px);
+        }
+        12.5%,
+        37.5%,
+        62.5%,
+        87.5% {
+          transform: rotate(-30deg) translateZ(-1px);
+        }
+      }
+
+      @keyframes hamsterFLLimb {
+        from,
+        25%,
+        50%,
+        75%,
+        to {
+          transform: rotate(-30deg);
+        }
+        12.5%,
+        37.5%,
+        62.5%,
+        87.5% {
+          transform: rotate(50deg);
+        }
+      }
+
+      @keyframes hamsterBRLimb {
+        from,
+        25%,
+        50%,
+        75%,
+        to {
+          transform: rotate(-60deg) translateZ(-1px);
+        }
+        12.5%,
+        37.5%,
+        62.5%,
+        87.5% {
+          transform: rotate(20deg) translateZ(-1px);
+        }
+      }
+
+      @keyframes hamsterBLLimb {
+        from,
+        25%,
+        50%,
+        75%,
+        to {
+          transform: rotate(20deg);
+        }
+        12.5%,
+        37.5%,
+        62.5%,
+        87.5% {
+          transform: rotate(-60deg);
+        }
+      }
+
+      @keyframes hamsterTail {
+        from,
+        25%,
+        50%,
+        75%,
+        to {
+          transform: rotate(30deg) translateZ(-1px);
+        }
+        12.5%,
+        37.5%,
+        62.5%,
+        87.5% {
+          transform: rotate(10deg) translateZ(-1px);
+        }
+      }
+
+      @keyframes spoke {
+        from {
+          transform: rotate(0);
+        }
+        to {
+          transform: rotate(-1turn);
+        }
+      }
+
       /* CSS for Marquee animation */
       @keyframes marquee {
         0% {
@@ -1629,7 +2209,7 @@
       // Fade in text 1 and marquee slightly after start
       scrollytellingTl.to(
         heroText1,
-        { opacity: 1, duration: 0.5, ease: "power1.out" },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power1.out" },
         0.5,
       );
       scrollytellingTl.to(
@@ -1651,16 +2231,16 @@
         0,
       );
 
-      // Phase 1.3: Text 1 disappears by frame 40 (approx 20% of timeline -> duration 2 at offset 2)
+      // Phase 1.3: Text 1 disappears by frame 60 (approx 30% of timeline -> duration 1.5 at offset 3)
       scrollytellingTl.to(
         heroText1,
         {
           opacity: 0,
-          y: -50,
-          duration: 1,
+          y: -20,
+          duration: 1.5,
           ease: "power1.inOut",
         },
-        1.5,
+        3,
       );
 
       scrollytellingTl.to(
@@ -1695,6 +2275,17 @@
 
       // Notice: NO canvas scale up or fade out at the end. The canvas remains and the next section slides over it natively.
 
+      // Fade out scroll icon when scrolling down
+      gsap.to("#scroll-icon", {
+        opacity: 0,
+        scrollTrigger: {
+          trigger: "#scrollytelling-section",
+          start: "top top-=100",
+          end: "top top-=300",
+          scrub: 1,
+        },
+      });
+
       // Phase 2: Trust Triggers Logic
       const trustItems = gsap.utils.toArray(".trust-item");
       const illustrations = gsap.utils.toArray('[id^="illus-"]');
@@ -1708,18 +2299,19 @@
           onEnterBack: () => activateIllustration(i),
         });
 
-        // Reveal animation for text
+        // Reveal animation for text (Fade in and Fade out)
         gsap.fromTo(
           item,
-          { opacity: 0, y: 50 },
+          { opacity: 0.2, scale: 0.95 },
           {
             opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power2.out",
+            scale: 1,
+            duration: 0.5,
             scrollTrigger: {
               trigger: item,
-              start: "top 80%",
+              start: "top center",
+              end: "bottom center",
+              toggleActions: "play reverse play reverse",
             },
           },
         );
@@ -1731,7 +2323,7 @@
             gsap.to(illus, {
               opacity: 1,
               y: -20,
-              duration: 0.8,
+              duration: 0.5,
               scale: 1,
               ease: "power2.out",
             });
@@ -1739,7 +2331,7 @@
             gsap.to(illus, {
               opacity: 0,
               y: 20,
-              duration: 0.8,
+              duration: 0.5,
               scale: 0.95,
               ease: "power2.out",
             });
@@ -1747,7 +2339,30 @@
         });
       }
 
-      // Phase 3: Social Proof Stacking uses pure CSS position: sticky
+      // Phase 3: Social Proof (Wallet) Stacking
+      const cards = gsap.utils.toArray("#social-proof-section .card");
+
+      const walletTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#social-proof-section",
+          start: "top center",
+          end: "bottom center",
+          scrub: 1,
+        },
+      });
+
+      cards.forEach((card, i) => {
+        walletTl.to(
+          card,
+          {
+            y: -100 - i * 120,
+            scale: 1 + i * 0.05,
+            ease: "power2.out",
+            duration: 1,
+          },
+          i * 0.5,
+        );
+      });
 
       // Phase 4: Pricing Reveal
       const pricingRows = gsap.utils.toArray(".pricing-row");
