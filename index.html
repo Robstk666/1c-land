@@ -224,7 +224,7 @@
           <!-- Layer 2: Canvas (Bottom) -->
           <canvas
             id="hero-canvas"
-            class="absolute inset-0 w-full h-full object-cover scale-[1.05] z-0 opacity-0"
+            class="absolute inset-0 w-full h-full object-cover z-0 opacity-0"
           ></canvas>
 
           <!-- Layer 1: Hero Image (Top) -->
@@ -235,32 +235,53 @@
             class="absolute inset-0 w-full h-full object-cover z-10"
           />
 
-          <!-- Overlay Text & Marquee (Hidden initially) -->
+          <!-- Overlay Text & Marquee -->
           <div
             id="hero-content"
-            class="absolute inset-0 z-20 flex flex-col items-center justify-center opacity-0 pointer-events-none"
+            class="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none"
           >
-            <h1
-              class="text-[53px] md:text-[80px] lg:text-[100px] leading-none tracking-[-0.04em] text-botanical-ink mb-4 text-center"
+            <!-- Text 1 (Initial) -->
+            <div
+              id="hero-text-1"
+              class="flex flex-col items-center text-center opacity-0"
             >
-              ФинПарк
-            </h1>
-            <p
-              class="text-lg md:text-2xl text-botanical-ink font-body mb-16 text-center max-w-2xl px-4"
+              <h1
+                class="text-[53px] md:text-[80px] lg:text-[100px] leading-none tracking-[-0.04em] text-botanical-ink mb-4"
+              >
+                ФинПарк
+              </h1>
+              <p
+                class="text-3xl md:text-5xl lg:text-6xl text-botanical-ink font-body mb-16 px-4"
+              >
+                Аутсорсинг бухгалтерских услуг
+              </p>
+            </div>
+
+            <!-- Text 2 (Middle) -->
+            <div
+              id="hero-text-2"
+              class="absolute inset-0 flex flex-col items-center justify-center text-center opacity-0"
             >
-              Аутсорсинг бухгалтерских услуг
-            </p>
+              <p
+                class="text-3xl md:text-5xl lg:text-6xl text-botanical-ink font-body max-w-4xl leading-tight px-4"
+              >
+                Спокойствие и порядок в ваших финансах
+              </p>
+            </div>
 
             <!-- Marquee Container -->
             <div
-              class="w-full overflow-hidden mt-12 pt-8 border-t border-eucalyptus"
+              id="hero-marquee"
+              class="absolute bottom-16 w-full flex flex-col items-center justify-center opacity-0 overflow-hidden"
             >
               <p
-                class="text-center text-sm font-body tracking-widest uppercase mb-6 text-botanical-ink"
+                class="text-center text-sm font-body tracking-widest uppercase mb-6 text-botanical-ink border-t border-eucalyptus pt-8 w-full max-w-3xl"
               >
                 Интегрированы с платформами и банками, которые вы любите
               </p>
-              <div class="flex whitespace-nowrap marquee-track">
+              <div
+                class="flex whitespace-nowrap marquee-track w-full justify-center"
+              >
                 <!-- Repeated items for infinite marquee -->
                 <div class="flex items-center space-x-16 px-8 animate-marquee">
                   <svg
@@ -564,137 +585,96 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
             <!-- Left Column: Sticky SVG Illustrations -->
             <div class="relative hidden md:block">
-              <div
-                class="sticky top-1/3 w-full aspect-square flex items-center justify-center"
-              >
-                <!-- Illus 1: Experience -->
+              <div class="sticky top-1/3 w-full aspect-square relative">
+                <!-- Floating Abstract SVG 1 -->
                 <svg
                   id="illus-1"
-                  class="absolute w-full h-full text-forest-floor opacity-100 transition-opacity duration-500"
-                  viewBox="0 0 200 200"
+                  class="absolute text-forest-floor opacity-0 transition-all duration-700 w-24 h-24 top-0 left-10"
+                  viewBox="0 0 100 100"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <circle
-                    cx="100"
-                    cy="100"
-                    r="80"
+                    cx="50"
+                    cy="50"
+                    r="40"
                     stroke="currentColor"
                     stroke-width="2"
-                    stroke-dasharray="8 8"
+                    stroke-dasharray="4 6"
                   />
-                  <path
-                    d="M100 40V100L140 140"
-                    stroke="currentColor"
-                    stroke-width="4"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <circle cx="100" cy="100" r="10" fill="currentColor" />
+                  <circle cx="50" cy="50" r="10" fill="currentColor" />
                 </svg>
 
-                <!-- Illus 2: 1C License -->
+                <!-- Floating Abstract SVG 2 -->
                 <svg
                   id="illus-2"
-                  class="absolute w-full h-full text-warm-loam opacity-0 transition-opacity duration-500"
-                  viewBox="0 0 200 200"
+                  class="absolute text-warm-loam opacity-0 transition-all duration-700 w-32 h-32 bottom-20 right-10"
+                  viewBox="0 0 100 100"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <rect
-                    x="40"
-                    y="40"
-                    width="120"
-                    height="120"
-                    rx="16"
-                    stroke="currentColor"
-                    stroke-width="4"
-                  />
-                  <path
-                    d="M40 80H160M80 40V160M120 40V160M40 120H160"
+                    x="20"
+                    y="20"
+                    width="60"
+                    height="60"
+                    rx="8"
                     stroke="currentColor"
                     stroke-width="2"
-                    opacity="0.3"
                   />
                   <path
-                    d="M80 100L95 115L125 85"
+                    d="M20 50H80"
                     stroke="currentColor"
-                    stroke-width="6"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    stroke-width="1"
+                    opacity="0.5"
                   />
                 </svg>
 
-                <!-- Illus 3: Moneyback -->
+                <!-- Floating Abstract SVG 3 -->
                 <svg
                   id="illus-3"
-                  class="absolute w-full h-full text-botanical-ink opacity-0 transition-opacity duration-500"
-                  viewBox="0 0 200 200"
+                  class="absolute text-botanical-ink opacity-0 transition-all duration-700 w-40 h-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                  viewBox="0 0 100 100"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M100 180C144.183 180 180 144.183 180 100C180 55.8172 144.183 20 100 20C55.8172 20 20 55.8172 20 100"
+                    d="M50 10C72.0914 10 90 27.9086 90 50C90 72.0914 72.0914 90 50 90"
                     stroke="currentColor"
-                    stroke-width="4"
-                    stroke-linecap="round"
+                    stroke-width="2"
                   />
                   <path
-                    d="M20 100L40 80M20 100L40 120"
+                    d="M50 10V90"
                     stroke="currentColor"
-                    stroke-width="4"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M85 70H115C123.284 70 130 76.7157 130 85C130 93.2843 123.284 100 115 100H85C76.7157 100 70 106.716 70 115C70 123.284 76.7157 130 85 130H115"
-                    stroke="currentColor"
-                    stroke-width="4"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M100 55V145"
-                    stroke="currentColor"
-                    stroke-width="4"
-                    stroke-linecap="round"
+                    stroke-width="2"
+                    stroke-dasharray="2 4"
                   />
                 </svg>
 
-                <!-- Illus 4: Security -->
+                <!-- Floating Abstract SVG 4 -->
                 <svg
                   id="illus-4"
-                  class="absolute w-full h-full text-forest-floor opacity-0 transition-opacity duration-500"
-                  viewBox="0 0 200 200"
+                  class="absolute text-eucalyptus opacity-0 transition-all duration-700 w-20 h-20 bottom-0 left-20"
+                  viewBox="0 0 100 100"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path
-                    d="M100 20L30 50V90C30 140 60 170 100 190C140 170 170 140 170 90V50L100 20Z"
+                  <polygon
+                    points="50,10 90,90 10,90"
                     stroke="currentColor"
-                    stroke-width="4"
+                    stroke-width="2"
                     stroke-linejoin="round"
-                  />
-                  <circle
-                    cx="100"
-                    cy="100"
-                    r="20"
-                    stroke="currentColor"
-                    stroke-width="4"
-                  />
-                  <path
-                    d="M100 120V140"
-                    stroke="currentColor"
-                    stroke-width="4"
-                    stroke-linecap="round"
                   />
                 </svg>
               </div>
             </div>
 
             <!-- Right Column: Scrolling Text Items -->
-            <div class="flex flex-col gap-32 py-32">
-              <div class="trust-item relative" data-index="1">
+            <div class="flex flex-col py-32">
+              <div
+                class="trust-item relative min-h-[50vh] flex flex-col justify-center"
+                data-index="1"
+              >
                 <span
                   class="inline-block px-3 py-1 bg-moss-veil text-botanical-ink text-sm font-body uppercase tracking-widest rounded-full mb-6"
                   >Экспертиза</span
@@ -712,7 +692,10 @@
                 </p>
               </div>
 
-              <div class="trust-item relative" data-index="2">
+              <div
+                class="trust-item relative min-h-[50vh] flex flex-col justify-center"
+                data-index="2"
+              >
                 <span
                   class="inline-block px-3 py-1 bg-moss-veil text-botanical-ink text-sm font-body uppercase tracking-widest rounded-full mb-6"
                   >Технологии</span
@@ -730,7 +713,10 @@
                 </p>
               </div>
 
-              <div class="trust-item relative" data-index="3">
+              <div
+                class="trust-item relative min-h-[50vh] flex flex-col justify-center"
+                data-index="3"
+              >
                 <span
                   class="inline-block px-3 py-1 bg-moss-veil text-botanical-ink text-sm font-body uppercase tracking-widest rounded-full mb-6"
                   >Гарантии</span
@@ -748,7 +734,10 @@
                 </p>
               </div>
 
-              <div class="trust-item relative" data-index="4">
+              <div
+                class="trust-item relative min-h-[50vh] flex flex-col justify-center"
+                data-index="4"
+              >
                 <span
                   class="inline-block px-3 py-1 bg-moss-veil text-botanical-ink text-sm font-body uppercase tracking-widest rounded-full mb-6"
                   >Безопасность</span
@@ -785,12 +774,11 @@
             </h2>
           </div>
 
-          <div
-            class="relative h-[800px] flex justify-center perspective-[1000px]"
-          >
+          <div class="relative flex flex-col items-center gap-8 pb-32">
             <!-- Cards -->
             <div
-              class="social-card absolute w-full max-w-lg card-surface bg-lichen top-0 z-10 origin-bottom transform-gpu"
+              class="w-full max-w-2xl card-surface bg-lichen z-10 sticky shadow-subtle transition-all duration-300 hover:shadow-lg"
+              style="top: 10vh"
             >
               <div class="flex items-center gap-4 mb-6">
                 <div
@@ -807,7 +795,7 @@
                   </p>
                 </div>
               </div>
-              <p class="text-botanical-ink font-body leading-relaxed">
+              <p class="text-botanical-ink font-body leading-relaxed text-lg">
                 «Передали бухгалтерию на аутсорс в ФинПарк три года назад. За
                 это время прошли две налоговые проверки без единого штрафа.
                 Отличная команда.»
@@ -815,7 +803,8 @@
             </div>
 
             <div
-              class="social-card absolute w-full max-w-lg card-surface bg-sage-mist top-12 z-20 origin-bottom transform-gpu"
+              class="w-full max-w-2xl card-surface bg-sage-mist z-20 sticky shadow-subtle transition-all duration-300 hover:shadow-lg"
+              style="top: 15vh"
             >
               <div class="flex items-center gap-4 mb-6">
                 <div
@@ -832,7 +821,7 @@
                   </p>
                 </div>
               </div>
-              <p class="text-botanical-ink font-body leading-relaxed">
+              <p class="text-botanical-ink font-body leading-relaxed text-lg">
                 «Очень удобный доступ к 1С 24/7. Могу сам посмотреть остатки и
                 сформировать счет, а все сложные проводки и отчетность делает
                 ФинПарк.»
@@ -840,7 +829,8 @@
             </div>
 
             <div
-              class="social-card absolute w-full max-w-lg card-surface bg-cream-paper top-24 z-30 origin-bottom transform-gpu border-eucalyptus shadow-subtle"
+              class="w-full max-w-2xl card-surface bg-cream-paper z-30 sticky shadow-subtle border-eucalyptus transition-all duration-300 hover:shadow-lg"
+              style="top: 20vh"
             >
               <div class="flex items-center gap-4 mb-6">
                 <div
@@ -857,7 +847,7 @@
                   </p>
                 </div>
               </div>
-              <p class="text-botanical-ink font-body leading-relaxed">
+              <p class="text-botanical-ink font-body leading-relaxed text-lg">
                 «Специфика сельхоз учета требует особых знаний. Специалисты
                 ФинПарк отлично справляются, всегда на связи и готовы помочь с
                 любым вопросом.»
@@ -887,188 +877,151 @@
             </p>
           </div>
 
-          <div class="w-full flex flex-col gap-4">
-            <!-- Pricing Row 1 -->
-            <div
-              class="pricing-row group flex flex-col md:flex-row items-center justify-between p-8 bg-cream-paper rounded-2xl border border-lichen hover:border-forest-floor transition-colors duration-300"
+          <div
+            class="w-full overflow-x-auto pricing-row bg-cream-paper rounded-2xl border border-lichen shadow-subtle p-6"
+          >
+            <table
+              class="w-full text-left font-body text-botanical-ink border-collapse"
             >
-              <div class="flex flex-col mb-4 md:mb-0 w-full md:w-1/3">
-                <h3 class="text-2xl font-bold text-botanical-ink mb-2">ОСНО</h3>
-                <p class="text-sm font-body text-botanical-ink/60">
-                  Общая система
-                </p>
-              </div>
-              <div
-                class="w-full md:w-1/3 text-left md:text-center mb-4 md:mb-0"
-              >
-                <span class="text-3xl font-body text-botanical-ink"
-                  >от 27 000 ₽</span
-                >
-                <span class="text-sm font-body text-botanical-ink/60"
-                  >/ мес</span
-                >
-              </div>
-              <div class="w-full md:w-1/3 flex justify-start md:justify-end">
-                <button
-                  class="btn-ghost flex items-center gap-2 group-hover:bg-moss-veil transition-colors"
-                >
-                  <span>Рассчитать</span>
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="transform group-hover:translate-x-1 transition-transform"
+              <thead>
+                <tr class="border-b border-lichen">
+                  <th
+                    class="py-6 px-4 font-bold text-sm tracking-widest uppercase text-botanical-ink/60"
                   >
-                    <path
-                      d="M4 10H16M16 10L10 4M16 10L10 16"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            <!-- Pricing Row 2 -->
-            <div
-              class="pricing-row group flex flex-col md:flex-row items-center justify-between p-8 bg-cream-paper rounded-2xl border border-lichen hover:border-forest-floor transition-colors duration-300"
-            >
-              <div class="flex flex-col mb-4 md:mb-0 w-full md:w-1/3">
-                <h3 class="text-2xl font-bold text-botanical-ink mb-2">
-                  УСН 15%
-                </h3>
-                <p class="text-sm font-body text-botanical-ink/60">
-                  Доходы минус расходы
-                </p>
-              </div>
-              <div
-                class="w-full md:w-1/3 text-left md:text-center mb-4 md:mb-0"
-              >
-                <span class="text-3xl font-body text-botanical-ink"
-                  >от 21 000 ₽</span
-                >
-                <span class="text-sm font-body text-botanical-ink/60"
-                  >/ мес</span
-                >
-              </div>
-              <div class="w-full md:w-1/3 flex justify-start md:justify-end">
-                <button
-                  class="btn-ghost flex items-center gap-2 group-hover:bg-moss-veil transition-colors"
-                >
-                  <span>Рассчитать</span>
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="transform group-hover:translate-x-1 transition-transform"
+                    Система налогообложения
+                  </th>
+                  <th
+                    class="py-6 px-4 font-bold text-sm tracking-widest uppercase text-botanical-ink/60"
                   >
-                    <path
-                      d="M4 10H16M16 10L10 4M16 10L10 16"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            <!-- Pricing Row 3 -->
-            <div
-              class="pricing-row group flex flex-col md:flex-row items-center justify-between p-8 bg-cream-paper rounded-2xl border border-lichen hover:border-forest-floor transition-colors duration-300"
-            >
-              <div class="flex flex-col mb-4 md:mb-0 w-full md:w-1/3">
-                <h3 class="text-2xl font-bold text-botanical-ink mb-2">
-                  УСН 6%
-                </h3>
-                <p class="text-sm font-body text-botanical-ink/60">Доходы</p>
-              </div>
-              <div
-                class="w-full md:w-1/3 text-left md:text-center mb-4 md:mb-0"
-              >
-                <span class="text-3xl font-body text-botanical-ink"
-                  >от 15 000 ₽</span
-                >
-                <span class="text-sm font-body text-botanical-ink/60"
-                  >/ мес</span
-                >
-              </div>
-              <div class="w-full md:w-1/3 flex justify-start md:justify-end">
-                <button
-                  class="btn-ghost flex items-center gap-2 group-hover:bg-moss-veil transition-colors"
-                >
-                  <span>Рассчитать</span>
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="transform group-hover:translate-x-1 transition-transform"
+                    Нулевая отчетность для ООО (ежеквартально)
+                  </th>
+                  <th
+                    class="py-6 px-4 font-bold text-sm tracking-widest uppercase text-botanical-ink/60"
                   >
-                    <path
-                      d="M4 10H16M16 10L10 4M16 10L10 16"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            <!-- Pricing Row 4 -->
-            <div
-              class="pricing-row group flex flex-col md:flex-row items-center justify-between p-8 bg-cream-paper rounded-2xl border border-lichen hover:border-forest-floor transition-colors duration-300"
-            >
-              <div class="flex flex-col mb-4 md:mb-0 w-full md:w-1/3">
-                <h3 class="text-2xl font-bold text-botanical-ink mb-2">
-                  Патент
-                </h3>
-                <p class="text-sm font-body text-botanical-ink/60">ПСН</p>
-              </div>
-              <div
-                class="w-full md:w-1/3 text-left md:text-center mb-4 md:mb-0"
-              >
-                <span class="text-3xl font-body text-botanical-ink"
-                  >от 14 400 ₽</span
-                >
-                <span class="text-sm font-body text-botanical-ink/60"
-                  >/ мес</span
-                >
-              </div>
-              <div class="w-full md:w-1/3 flex justify-start md:justify-end">
-                <button
-                  class="btn-ghost flex items-center gap-2 group-hover:bg-moss-veil transition-colors"
-                >
-                  <span>Рассчитать</span>
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="transform group-hover:translate-x-1 transition-transform"
+                    ООО
+                  </th>
+                  <th
+                    class="py-6 px-4 font-bold text-sm tracking-widest uppercase text-botanical-ink/60"
                   >
-                    <path
-                      d="M4 10H16M16 10L10 4M16 10L10 16"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
+                    ИП с сотрудниками
+                  </th>
+                  <th
+                    class="py-6 px-4 font-bold text-sm tracking-widest uppercase text-botanical-ink/60"
+                  >
+                    ИП без сотрудников
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class="group hover:bg-moss-veil/30 transition-colors border-b border-lichen/50"
+                >
+                  <td class="py-6 px-4 font-bold text-xl">ОСНО (с НДС)</td>
+                  <td class="py-6 px-4 text-xl">7 000 ₽</td>
+                  <td class="py-6 px-4 text-xl">27 000 ₽</td>
+                  <td class="py-6 px-4 text-xl">21 600 ₽</td>
+                  <td class="py-6 px-4 text-xl">10 800 ₽</td>
+                </tr>
+                <!-- More potential rows could go here, but prompt specifically asked for this data -->
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td class="py-6 px-4"></td>
+                  <td class="py-6 px-4">
+                    <button
+                      class="btn-ghost text-sm py-2 px-4 flex items-center gap-2 hover:bg-moss-veil transition-colors group"
+                    >
+                      <span>Рассчитать</span>
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="transform group-hover:translate-x-1 transition-transform"
+                      >
+                        <path
+                          d="M4 10H16M16 10L10 4M16 10L10 16"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </td>
+                  <td class="py-6 px-4">
+                    <button
+                      class="btn-ghost text-sm py-2 px-4 flex items-center gap-2 hover:bg-moss-veil transition-colors group"
+                    >
+                      <span>Рассчитать</span>
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="transform group-hover:translate-x-1 transition-transform"
+                      >
+                        <path
+                          d="M4 10H16M16 10L10 4M16 10L10 16"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </td>
+                  <td class="py-6 px-4">
+                    <button
+                      class="btn-ghost text-sm py-2 px-4 flex items-center gap-2 hover:bg-moss-veil transition-colors group"
+                    >
+                      <span>Рассчитать</span>
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="transform group-hover:translate-x-1 transition-transform"
+                      >
+                        <path
+                          d="M4 10H16M16 10L10 4M16 10L10 16"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </td>
+                  <td class="py-6 px-4">
+                    <button
+                      class="btn-ghost text-sm py-2 px-4 flex items-center gap-2 hover:bg-moss-veil transition-colors group"
+                    >
+                      <span>Рассчитать</span>
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="transform group-hover:translate-x-1 transition-transform"
+                      >
+                        <path
+                          d="M4 10H16M16 10L10 4M16 10L10 16"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
           </div>
         </div>
       </section>
@@ -1179,6 +1132,244 @@
         </div>
       </section>
 
+      <!-- Phase 6: Map & Floating Contact Widget -->
+      <section id="map-section" class="relative w-full h-screen bg-lichen z-20">
+        <iframe
+          src="https://yandex.ru/map-widget/v1/?um=constructor%3A9c855a9cf299bfdbbfdafb5d4a1329a28dbcc2a80dbafbfda4a1329a28dbcc2&amp;source=constructor"
+          width="100%"
+          height="100%"
+          frameborder="0"
+          class="w-full h-full grayscale opacity-80"
+          title="Yandex Map"
+        ></iframe>
+
+        <!-- Floating Action Button (Widget) -->
+        <div class="fixed bottom-8 right-8 z-50 flex flex-col items-end group">
+          <!-- Expanded Card (Glassmorphism) -->
+          <div
+            class="mb-4 bg-cream-paper/80 backdrop-blur-md border border-eucalyptus rounded-2xl p-6 shadow-2xl opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transform-gpu origin-bottom-right scale-95 group-hover:scale-100 w-80"
+          >
+            <h3
+              class="font-headings font-bold text-2xl text-botanical-ink mb-4 border-b border-lichen pb-2"
+            >
+              ИП Гржмайло Л.К.
+            </h3>
+
+            <div
+              class="flex flex-col gap-3 font-body text-sm text-botanical-ink mb-6"
+            >
+              <div class="flex items-start gap-3">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="text-forest-floor mt-0.5 shrink-0"
+                >
+                  <path
+                    d="M12 21C16 17 20 13 20 9C20 4.58172 16.4183 1 12 1C7.58172 1 4 4.58172 4 9C4 13 8 17 12 21Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <circle
+                    cx="12"
+                    cy="9"
+                    r="3"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                </svg>
+                <span>РТ, Казань, Ай Ти Парк им. Башира Рамеева</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="text-forest-floor shrink-0"
+                >
+                  <path
+                    d="M22 16.92V19.92C22 20.4723 21.5523 20.92 21 20.92C10.5066 20.92 2 12.4134 2 1.92C2 1.36772 2.44772 0.919998 3 0.919998H6C6.55228 0.919998 7 1.36772 7 1.92C7 3.32836 7.24076 4.70782 7.69614 6.00287C7.81846 6.35083 7.73473 6.74542 7.47723 7.00292L5.80168 8.67847C7.4589 11.5936 9.80637 13.9411 12.7215 15.5983L14.3971 13.9228C14.6546 13.6653 15.0492 13.5815 15.3971 13.7039C16.6922 14.1592 18.0716 14.4 19.48 14.4C20.0323 14.4 20.48 14.8477 20.48 15.4V16.92C20.48 16.92 22 16.92 22 16.92Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <span>+7 917 924 55 96</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="text-forest-floor shrink-0"
+                >
+                  <path
+                    d="M4 4H20C21.1046 4 22 4.89543 22 6V18C22 19.1046 21.1046 20 20 20H4C2.89543 20 2 19.1046 2 18V6C2 4.89543 2.89543 4 4 4Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M22 6L12 13L2 6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <span>1cbo.pro@gmail.com</span>
+              </div>
+            </div>
+
+            <!-- Social Icons Row -->
+            <div class="flex justify-between items-center pt-2">
+              <!-- Telegram -->
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full bg-sage-mist flex items-center justify-center text-botanical-ink hover:bg-forest-floor hover:text-cream-paper hover:scale-110 transition-all duration-300"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </a>
+              <!-- WhatsApp -->
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full bg-sage-mist flex items-center justify-center text-botanical-ink hover:bg-forest-floor hover:text-cream-paper hover:scale-110 transition-all duration-300"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 11.5A8.38 8.38 0 0 1 20.14 15L22 22L15 20.14A8.38 8.38 0 0 1 11.5 21C6.25 21 2 16.75 2 11.5C2 6.25 6.25 2 11.5 2C16.75 2 21 6.25 21 11.5Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </a>
+              <!-- VK -->
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full bg-sage-mist flex items-center justify-center text-botanical-ink hover:bg-forest-floor hover:text-cream-paper hover:scale-110 transition-all duration-300"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M8 10L11 16M16 10L13 16"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M10 10H14"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </a>
+              <!-- Instagram -->
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full bg-sage-mist flex items-center justify-center text-botanical-ink hover:bg-forest-floor hover:text-cream-paper hover:scale-110 transition-all duration-300"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="2"
+                    y="2"
+                    width="20"
+                    height="20"
+                    rx="5"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="4"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M18 6H18.01"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- FAB Toggle Button -->
+          <button
+            class="bg-botanical-ink text-cream-paper px-6 py-4 rounded-full flex items-center gap-3 shadow-[0_10px_20px_rgba(10,29,8,0.2)] group-hover:bg-forest-floor transition-colors"
+          >
+            <span class="font-body font-bold tracking-wider uppercase text-sm"
+              >Контакты</span
+            >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="group-hover:rotate-12 transition-transform"
+            >
+              <path
+                d="M8 10H16M8 14H12M22 12C22 17.5228 17.5228 22 12 22C10.2312 22 8.57147 21.5393 7.15174 20.7383L2 22L3.26174 16.8483C2.46067 15.4285 2 13.7688 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </section>
+
       <footer
         class="bg-botanical-ink text-cream-paper/60 font-body text-sm py-8 border-t border-cream-paper/10 text-center"
       >
@@ -1234,7 +1425,7 @@
       gsap.registerPlugin(ScrollTrigger);
 
       // Phase 0: Preloader Logic
-      const totalFrames = 160;
+      const totalFrames = 200;
       const framePrefix = "Woman_with_laptop_in_park_202606160620_frame_";
       const frameFormat = (num) => num.toString().padStart(3, "0");
       const images = [];
@@ -1405,80 +1596,104 @@
           trigger: "#scrollytelling-section",
           start: "top top",
           end: "bottom bottom",
-        scrub: 1 // Smooth scrubbing
+          scrub: 1, // Smooth scrubbing
         },
       });
 
-      // 1. Fade out hero image and fade in canvas
-      scrollytellingTl.to(
-        heroImage,
-        {
-          scale: 0.8,
-          opacity: 0,
-          duration: 1,
-          ease: "power1.inOut",
-        },
-        0,
-      );
+      const heroText1 = document.getElementById("hero-text-1");
+      const heroText2 = document.getElementById("hero-text-2");
+      const heroMarquee = document.getElementById("hero-marquee");
 
+      // Phase 1.1: Initialize Canvas and fade out hero image quickly (NO scale on hero image)
       scrollytellingTl.to(
         canvas,
         {
           opacity: 1,
-          duration: 1,
-          ease: "power1.inOut",
+          duration: 0.5,
+          ease: "none",
           onStart: () => renderCanvasFrame(0),
         },
         0,
       );
 
-      // 2. Scrub through canvas frames
+      scrollytellingTl.to(
+        heroImage,
+        {
+          opacity: 0,
+          duration: 0.5,
+          ease: "none",
+        },
+        0,
+      );
+
+      // Fade in text 1 and marquee slightly after start
+      scrollytellingTl.to(
+        heroText1,
+        { opacity: 1, duration: 0.5, ease: "power1.out" },
+        0.5,
+      );
+      scrollytellingTl.to(
+        heroMarquee,
+        { opacity: 1, duration: 0.5, ease: "power1.out" },
+        0.5,
+      );
+
+      // Phase 1.2: Scrub through canvas frames for the whole timeline
       scrollytellingTl.to(
         frameConfig,
         {
           frame: totalFrames - 1,
           snap: "frame",
           ease: "none",
-          duration: 4,
+          duration: 10,
           onUpdate: () => renderCanvasFrame(Math.round(frameConfig.frame)),
         },
-        1,
+        0,
       );
 
-      // 3. Fade in text and marquee early in the scrub (frames 1-20 roughly mapping to early duration)
+      // Phase 1.3: Text 1 disappears by frame 40 (approx 20% of timeline -> duration 2 at offset 2)
       scrollytellingTl.to(
-        heroContent,
+        heroText1,
         {
-          opacity: 1,
-          pointerEvents: "auto",
+          opacity: 0,
+          y: -50,
           duration: 1,
           ease: "power1.inOut",
         },
-        1.2,
-      );
-
-      // 4. Zoom through at the end
-      scrollytellingTl.to(
-        canvas,
-        {
-          scale: 30,
-          opacity: 0,
-          duration: 1,
-          ease: "power2.in",
-        },
-        4.5,
+        1.5,
       );
 
       scrollytellingTl.to(
-        heroContent,
+        heroMarquee,
         {
           opacity: 0,
-          scale: 1.5,
+          y: 50,
           duration: 1,
-          ease: "power2.in",
+          ease: "power1.inOut",
         },
-        4.5,
+        1.5,
       );
+
+      // Phase 1.4: Text 2 appears between frame 60 and 140 (approx 30% to 70% of timeline -> start at offset 3, end at offset 7)
+      scrollytellingTl.fromTo(
+        heroText2,
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 1.5, ease: "power1.out" },
+        2.5,
+      );
+
+      scrollytellingTl.to(
+        heroText2,
+        {
+          opacity: 0,
+          y: -50,
+          duration: 1.5,
+          ease: "power1.in",
+        },
+        6.5,
+      );
+
+      // Notice: NO canvas scale up or fade out at the end. The canvas remains and the next section slides over it natively.
 
       // Phase 2: Trust Triggers Logic
       const trustItems = gsap.utils.toArray(".trust-item");
@@ -1515,14 +1730,16 @@
           if (i === index) {
             gsap.to(illus, {
               opacity: 1,
-              duration: 0.5,
+              y: -20,
+              duration: 0.8,
               scale: 1,
               ease: "power2.out",
             });
           } else {
             gsap.to(illus, {
               opacity: 0,
-              duration: 0.5,
+              y: 20,
+              duration: 0.8,
               scale: 0.95,
               ease: "power2.out",
             });
@@ -1530,39 +1747,7 @@
         });
       }
 
-      // Phase 3: Social Proof (Картотека) Logic
-      const socialCards = gsap.utils.toArray(".social-card");
-
-      gsap.set(socialCards, {
-        y: (i) => i * 150 + 100, // Initial staggering down
-        rotateZ: 5, // Initial slight rotation
-        opacity: 0,
-        scale: 0.9,
-      });
-
-      const socialTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: "#social-proof-section",
-          start: "top center",
-          end: "bottom bottom",
-          scrub: 1,
-        },
-      });
-
-      socialCards.forEach((card, i) => {
-        socialTl.to(
-          card,
-          {
-            y: i * 48, // Final stacked position
-            rotateZ: 0,
-            opacity: 1,
-            scale: 1 - (socialCards.length - 1 - i) * 0.05, // Slight scaling for depth
-            duration: 1,
-            ease: "power2.out",
-          },
-          i * 0.3,
-        );
-      });
+      // Phase 3: Social Proof Stacking uses pure CSS position: sticky
 
       // Phase 4: Pricing Reveal
       const pricingRows = gsap.utils.toArray(".pricing-row");
