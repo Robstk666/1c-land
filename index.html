@@ -1,0 +1,2401 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ФинПарк — Аутсорсинг бухгалтерских услуг</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+    <!-- Custom Tailwind Config and CSS -->
+    <style type="text/tailwindcss">
+      @theme {
+        /* Colors */
+        --color-cream-paper: #fbfdf6;
+        --color-botanical-ink: #0a1d08;
+        --color-bark-brown: #31200b;
+        --color-warm-loam: #4a3212;
+        --color-forest-floor: #203b14;
+        --color-sage-mist: #eff2e8;
+        --color-lichen: #e0e5d5;
+        --color-moss-veil: #d7e8b5;
+        --color-eucalyptus: #c5ccb6;
+        --color-onyx: #000000;
+
+        /* Typography */
+        --font-headings: "Cormorant Garamond", serif;
+        --font-body: "Manrope", sans-serif;
+
+        /* Spacing */
+        --spacing-8: 8px;
+        --spacing-16: 16px;
+        --spacing-24: 24px;
+        --spacing-32: 32px;
+        --spacing-40: 40px;
+        --spacing-48: 48px;
+        --spacing-64: 64px;
+        --spacing-128: 128px;
+        --spacing-160: 160px;
+
+        /* Border Radius */
+        --radius-lg: 8px;
+        --radius-2xl: 20px;
+
+        /* Shadows */
+        --shadow-subtle: rgba(99, 143, 61, 0.1) 0px 0px 0px 1px;
+      }
+
+      /* Base styles to enforce the design system */
+      body {
+        font-family: var(--font-body);
+        background-color: var(--color-cream-paper);
+        color: var(--color-botanical-ink);
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: var(--font-headings);
+        color: var(--color-botanical-ink);
+      }
+
+      /* Utility classes for specific Adaline tokens */
+      .bg-cream-paper {
+        background-color: var(--color-cream-paper);
+      }
+      .bg-sage-mist {
+        background-color: var(--color-sage-mist);
+      }
+      .bg-lichen {
+        background-color: var(--color-lichen);
+      }
+      .bg-moss-veil {
+        background-color: var(--color-moss-veil);
+      }
+      .bg-eucalyptus {
+        background-color: var(--color-eucalyptus);
+      }
+
+      .text-botanical-ink {
+        color: var(--color-botanical-ink);
+      }
+      .text-cream-paper {
+        color: var(--color-cream-paper);
+      }
+
+      .btn-primary {
+        background-color: var(--color-warm-loam);
+        color: var(--color-cream-paper);
+        border-radius: 20px;
+        padding: 24px 32px;
+        font-weight: 700;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--color-forest-floor);
+      }
+
+      .btn-ghost {
+        background-color: transparent;
+        color: var(--color-botanical-ink);
+        border: 1px solid var(--color-botanical-ink);
+        border-radius: 20px;
+        padding: 12px 24px;
+        font-weight: 700;
+      }
+
+      .card-surface {
+        background-color: var(--color-lichen);
+        border: 1px solid var(--color-botanical-ink);
+        border-radius: 8px;
+        padding: 32px;
+      }
+    </style>
+
+    <!-- GSAP & ScrollTrigger via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  </head>
+  <body>
+    <!-- Phase 0: Preloader & Logo -->
+    <div
+      id="preloader"
+      class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-cream-paper transition-transform duration-1000 overflow-hidden"
+    >
+      <!-- Large Outline Logo Mask -->
+      <div
+        class="relative w-[35vw] max-w-[400px] aspect-square flex flex-col items-center justify-center mb-12"
+      >
+        <!-- Dimmed Logo Background -->
+        <img
+          src="./logotest.png"
+          class="absolute inset-0 w-full h-full object-contain opacity-20 grayscale"
+          alt="Logo outline"
+        />
+
+        <!-- Colored Logo Reveal via Clip Path -->
+        <img
+          src="./logotest.png"
+          id="colored-logo"
+          class="absolute inset-0 w-full h-full object-contain z-10"
+          style="clip-path: inset(100% 0 0 0)"
+          alt="Logo colored reveal"
+        />
+
+        <!-- Hamster Snippet inside Logo center -->
+        <div
+          class="absolute inset-0 flex items-center justify-center scale-[0.6] pointer-events-none z-20 opacity-80"
+        >
+          <div
+            aria-label="Orange and tan hamster running in a metal wheel"
+            role="img"
+            class="wheel-and-hamster"
+          >
+            <div class="wheel"></div>
+            <div class="hamster">
+              <div class="hamster__body">
+                <div class="hamster__head">
+                  <div class="hamster__ear"></div>
+                  <div class="hamster__eye"></div>
+                  <div class="hamster__nose"></div>
+                </div>
+                <div class="hamster__limb hamster__limb--fr"></div>
+                <div class="hamster__limb hamster__limb--fl"></div>
+                <div class="hamster__limb hamster__limb--br"></div>
+                <div class="hamster__limb hamster__limb--bl"></div>
+                <div class="hamster__tail"></div>
+              </div>
+            </div>
+            <div class="spoke"></div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="loading-text"
+        class="font-body font-bold text-botanical-ink tracking-widest uppercase text-2xl mt-8"
+      >
+        0%
+      </div>
+    </div>
+
+    <!-- Pulsing scroll icon, fixed at bottom initially -->
+    <div
+      id="scroll-icon"
+      class="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 opacity-0 flex flex-col items-center"
+    >
+      <svg
+        width="24"
+        height="40"
+        viewBox="0 0 24 40"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="text-botanical-ink"
+      >
+        <rect
+          x="1"
+          y="1"
+          width="22"
+          height="38"
+          rx="11"
+          stroke="currentColor"
+          stroke-width="2"
+        />
+        <circle
+          cx="12"
+          cy="12"
+          r="3"
+          fill="currentColor"
+          class="scroll-wheel"
+        />
+      </svg>
+      <span
+        class="text-xs uppercase mt-2 tracking-widest text-botanical-ink font-body"
+        >Вниз</span
+      >
+    </div>
+
+    <main id="app" class="relative z-10">
+      <!-- Phase 1: Hero & Canvas Scrollytelling with Macbook 3D -->
+      <section
+        id="scrollytelling-section"
+        class="relative h-[500vh] w-full z-10 bg-cream-paper"
+      >
+        <div
+          class="sticky top-0 h-screen w-full overflow-hidden bg-cream-paper flex flex-col items-center justify-center perspective-[2000px]"
+        >
+          <!-- Layer 2: Canvas (Bottom) -->
+          <canvas
+            id="hero-canvas"
+            class="absolute inset-0 w-full h-full object-cover z-0 opacity-0 transform-gpu"
+          ></canvas>
+
+          <!-- Layer 1: Hero Image (Top) -->
+          <img
+            id="hero-image"
+            src="./hero-girl.jpg"
+            alt="Woman with laptop in park"
+            class="absolute inset-0 w-full h-full object-cover z-10 transform-gpu"
+          />
+
+          <!-- Overlay Text & Marquee -->
+          <div
+            id="hero-content"
+            class="absolute top-0 w-full h-[50vh] z-50 pointer-events-none flex flex-col items-center justify-start pt-[5%]"
+          >
+            <!-- Text 1 (Initial Title) - Static Logo -->
+            <div id="hero-title" class="relative text-center opacity-0">
+              <h1
+                class="text-5xl md:text-[8vw] leading-none tracking-[-0.04em] text-botanical-ink font-headings"
+              >
+                ФинПарк
+              </h1>
+            </div>
+
+            <!-- Central Content Group -->
+            <div
+              id="hero-middle-group"
+              class="relative mt-8 w-full flex flex-col items-center justify-center opacity-100"
+            >
+              <!-- Titles Container (Relative to hold absolute swapping texts) -->
+              <div
+                class="relative w-full flex justify-center h-[120px] md:h-[180px] mb-8"
+              >
+                <!-- Subtitle 1 (Fades in first, then out) -->
+                <div
+                  id="hero-subtitle-1"
+                  class="absolute top-0 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-center w-full"
+                >
+                  <p
+                    class="text-2xl md:text-4xl lg:text-5xl text-botanical-ink font-body px-4 whitespace-nowrap"
+                  >
+                    Аутсорсинг бухгалтерских услуг
+                  </p>
+                </div>
+
+                <!-- Text 2 (Replaces Subtitle 1) -->
+                <div
+                  id="hero-text-2"
+                  class="absolute top-0 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-center w-full opacity-0"
+                >
+                  <h2
+                    class="text-[47px] md:text-5xl lg:text-6xl text-botanical-ink font-headings text-center max-w-4xl leading-tight px-4"
+                  >
+                    Спокойствие и порядок в ваших финансах
+                  </h2>
+                </div>
+              </div>
+
+              <!-- Marquee Container (Stays fixed relative to the group) -->
+              <div
+                class="w-full flex flex-col items-center justify-center overflow-hidden"
+              >
+                <p
+                  class="text-center text-[10px] font-body tracking-widest uppercase mb-6 text-botanical-ink/60 w-full max-w-3xl"
+                >
+                  Интегрированы с платформами и банками, которые вы любите
+                </p>
+                <div
+                  class="flex whitespace-nowrap marquee-track w-full justify-center"
+                >
+                  <!-- Repeated items for infinite marquee -->
+                  <div
+                    class="flex items-center space-x-16 px-8 animate-marquee"
+                  >
+                    <svg
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="text-botanical-ink opacity-70"
+                    >
+                      <circle
+                        cx="20"
+                        cy="20"
+                        r="16"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <circle cx="20" cy="20" r="6" fill="currentColor" />
+                    </svg>
+                    <svg
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="text-botanical-ink opacity-70"
+                    >
+                      <rect
+                        x="4"
+                        y="4"
+                        width="32"
+                        height="32"
+                        rx="4"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <path
+                        d="M12 20H28M20 12V28"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                    </svg>
+                    <svg
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="text-botanical-ink opacity-70"
+                    >
+                      <path
+                        d="M20 4L34 12V28L20 36L6 28V12L20 4Z"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                    </svg>
+                    <svg
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="text-botanical-ink opacity-70"
+                    >
+                      <rect
+                        x="8"
+                        y="14"
+                        width="24"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <circle cx="20" cy="20" r="2" fill="currentColor" />
+                    </svg>
+                    <svg
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="text-botanical-ink opacity-70"
+                    >
+                      <path
+                        d="M10 30L30 10M10 10L30 30"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                    </svg>
+                    <svg
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="text-botanical-ink opacity-70"
+                    >
+                      <circle
+                        cx="20"
+                        cy="20"
+                        r="16"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <circle cx="20" cy="20" r="6" fill="currentColor" />
+                    </svg>
+                    <svg
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="text-botanical-ink opacity-70"
+                    >
+                      <rect
+                        x="4"
+                        y="4"
+                        width="32"
+                        height="32"
+                        rx="4"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <path
+                        d="M12 20H28M20 12V28"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                    </svg>
+                    <svg
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="text-botanical-ink opacity-70"
+                    >
+                      <path
+                        d="M20 4L34 12V28L20 36L6 28V12L20 4Z"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="flex items-center space-x-16 px-8 animate-marquee"
+                    aria-hidden="true"
+                  >
+                    <svg
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="text-botanical-ink opacity-70"
+                    >
+                      <circle
+                        cx="20"
+                        cy="20"
+                        r="16"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <circle cx="20" cy="20" r="6" fill="currentColor" />
+                    </svg>
+                    <svg
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="text-botanical-ink opacity-70"
+                    >
+                      <rect
+                        x="4"
+                        y="4"
+                        width="32"
+                        height="32"
+                        rx="4"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <path
+                        d="M12 20H28M20 12V28"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                    </svg>
+                    <svg
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="text-botanical-ink opacity-70"
+                    >
+                      <path
+                        d="M20 4L34 12V28L20 36L6 28V12L20 4Z"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                    </svg>
+                    <svg
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="text-botanical-ink opacity-70"
+                    >
+                      <rect
+                        x="8"
+                        y="14"
+                        width="24"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <circle cx="20" cy="20" r="2" fill="currentColor" />
+                    </svg>
+                    <svg
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="text-botanical-ink opacity-70"
+                    >
+                      <path
+                        d="M10 30L30 10M10 10L30 30"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                    </svg>
+                    <svg
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="text-botanical-ink opacity-70"
+                    >
+                      <circle
+                        cx="20"
+                        cy="20"
+                        r="16"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <circle cx="20" cy="20" r="6" fill="currentColor" />
+                    </svg>
+                    <svg
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="text-botanical-ink opacity-70"
+                    >
+                      <rect
+                        x="4"
+                        y="4"
+                        width="32"
+                        height="32"
+                        rx="4"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <path
+                        d="M12 20H28M20 12V28"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                    </svg>
+                    <svg
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="text-botanical-ink opacity-70"
+                    >
+                      <path
+                        d="M20 4L34 12V28L20 36L6 28V12L20 4Z"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Phase 2: Trust Triggers -->
+      <section
+        id="trust-section"
+        class="relative bg-sage-mist w-full py-32 z-30 origin-bottom transform-gpu"
+      >
+        <div class="max-w-[1200px] mx-auto px-8 relative">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+            <!-- Left Column: Sticky SVG Illustrations -->
+            <div class="relative hidden md:block">
+              <div class="sticky top-1/3 w-full aspect-square relative">
+                <!-- Floating Abstract SVG 1 -->
+                <svg
+                  id="illus-1"
+                  class="absolute text-forest-floor opacity-0 transition-all duration-700 w-24 h-24 top-0 left-10"
+                  viewBox="0 0 100 100"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="40"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-dasharray="4 6"
+                  />
+                  <circle cx="50" cy="50" r="10" fill="currentColor" />
+                </svg>
+
+                <!-- Floating Abstract SVG 2 -->
+                <svg
+                  id="illus-2"
+                  class="absolute text-warm-loam opacity-0 transition-all duration-700 w-32 h-32 bottom-20 right-10"
+                  viewBox="0 0 100 100"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="20"
+                    y="20"
+                    width="60"
+                    height="60"
+                    rx="8"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M20 50H80"
+                    stroke="currentColor"
+                    stroke-width="1"
+                    opacity="0.5"
+                  />
+                </svg>
+
+                <!-- Floating Abstract SVG 3 -->
+                <svg
+                  id="illus-3"
+                  class="absolute text-botanical-ink opacity-0 transition-all duration-700 w-40 h-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                  viewBox="0 0 100 100"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M50 10C72.0914 10 90 27.9086 90 50C90 72.0914 72.0914 90 50 90"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M50 10V90"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-dasharray="2 4"
+                  />
+                </svg>
+
+                <!-- Floating Abstract SVG 4 -->
+                <svg
+                  id="illus-4"
+                  class="absolute text-eucalyptus opacity-0 transition-all duration-700 w-20 h-20 bottom-0 left-20"
+                  viewBox="0 0 100 100"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <polygon
+                    points="50,10 90,90 10,90"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
+
+            <!-- Right Column: Scrolling Text Items -->
+            <div class="flex flex-col py-32">
+              <div
+                class="trust-item relative min-h-[50vh] flex flex-col justify-center"
+                data-index="1"
+              >
+                <span
+                  class="inline-block px-3 py-1 bg-moss-veil text-botanical-ink text-sm font-body uppercase tracking-widest rounded-full mb-6"
+                  >Экспертиза</span
+                >
+                <h2
+                  class="text-[47px] leading-tight tracking-[-1.88px] text-botanical-ink mb-6"
+                >
+                  Опыт работы более 10 лет
+                </h2>
+                <p
+                  class="text-lg text-botanical-ink/80 font-body leading-relaxed max-w-md"
+                >
+                  Команда профессиональных бухгалтеров с глубоким пониманием
+                  специфики малого и среднего бизнеса.
+                </p>
+              </div>
+
+              <div
+                class="trust-item relative min-h-[50vh] flex flex-col justify-center"
+                data-index="2"
+              >
+                <span
+                  class="inline-block px-3 py-1 bg-moss-veil text-botanical-ink text-sm font-body uppercase tracking-widest rounded-full mb-6"
+                  >Технологии</span
+                >
+                <h2
+                  class="text-[47px] leading-tight tracking-[-1.88px] text-botanical-ink mb-6"
+                >
+                  Бесплатная лицензия 1С 24/7
+                </h2>
+                <p
+                  class="text-lg text-botanical-ink/80 font-body leading-relaxed max-w-md"
+                >
+                  Прозрачный учет, возможность формировать документы
+                  самостоятельно в любое время суток.
+                </p>
+              </div>
+
+              <div
+                class="trust-item relative min-h-[50vh] flex flex-col justify-center"
+                data-index="3"
+              >
+                <span
+                  class="inline-block px-3 py-1 bg-moss-veil text-botanical-ink text-sm font-body uppercase tracking-widest rounded-full mb-6"
+                  >Гарантии</span
+                >
+                <h2
+                  class="text-[47px] leading-tight tracking-[-1.88px] text-botanical-ink mb-6"
+                >
+                  Финансовые гарантии Moneyback
+                </h2>
+                <p
+                  class="text-lg text-botanical-ink/80 font-body leading-relaxed max-w-md"
+                >
+                  Полное возмещение убытков при нарушении сроков или ошибках в
+                  отчетности, закрепленное в договоре.
+                </p>
+              </div>
+
+              <div
+                class="trust-item relative min-h-[50vh] flex flex-col justify-center"
+                data-index="4"
+              >
+                <span
+                  class="inline-block px-3 py-1 bg-moss-veil text-botanical-ink text-sm font-body uppercase tracking-widest rounded-full mb-6"
+                  >Безопасность</span
+                >
+                <h2
+                  class="text-[47px] leading-tight tracking-[-1.88px] text-botanical-ink mb-6"
+                >
+                  Конфиденциальность данных
+                </h2>
+                <p
+                  class="text-lg text-botanical-ink/80 font-body leading-relaxed max-w-md"
+                >
+                  Строгое соблюдение законодательства и NDA. Ваши финансовые
+                  данные надежно защищены.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Phase 3: Social Proof (Картотека) -->
+      <section
+        id="social-proof-section"
+        class="relative bg-cream-paper w-full py-32 z-30 overflow-hidden"
+      >
+        <div class="max-w-[1200px] mx-auto px-8 relative">
+          <div class="text-center mb-24">
+            <h2
+              class="text-[47px] md:text-[53px] leading-tight tracking-[-2.12px] text-botanical-ink max-w-3xl mx-auto"
+            >
+              Среди наших клиентов более 30-ти представителей малого и среднего
+              бизнеса Республики Татарстан
+            </h2>
+          </div>
+
+          <div class="relative flex justify-center pb-[50vh]">
+            <div class="app-container relative mt-16 scale-125 origin-top">
+              <div class="wallet relative w-[280px] h-[160px]">
+                <div
+                  class="wallet-back absolute inset-0 bg-[#3d5635] rounded-[10px_10px_20px_20px]"
+                ></div>
+
+                <div
+                  class="card stripe absolute w-[260px] h-[140px] bg-gradient-to-r from-lichen to-cream-paper rounded-xl shadow-lg border border-botanical-ink/10 flex flex-col justify-between p-4 left-[10px] top-2 transition-transform duration-500 ease-out z-10"
+                >
+                  <div
+                    class="card-inner w-full h-full flex flex-col justify-between"
+                  >
+                    <div
+                      class="card-top flex justify-between items-center text-botanical-ink font-bold font-body text-sm"
+                    >
+                      <span>ООО "СтройПроект"</span>
+                      <div
+                        class="chip w-10 h-6 bg-moss-veil rounded border border-botanical-ink/20 opacity-80"
+                      ></div>
+                    </div>
+                    <div class="card-bottom">
+                      <div class="card-info flex flex-col gap-1">
+                        <span
+                          class="label text-[10px] uppercase tracking-widest text-botanical-ink/60"
+                          >Отзыв</span
+                        >
+                        <span
+                          class="value text-xs text-botanical-ink leading-tight"
+                          >Отличная команда, без штрафов</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="card wise absolute w-[260px] h-[140px] bg-gradient-to-r from-sage-mist to-moss-veil rounded-xl shadow-lg border border-botanical-ink/10 flex flex-col justify-between p-4 left-[10px] top-4 transition-transform duration-500 ease-out z-20"
+                >
+                  <div
+                    class="card-inner w-full h-full flex flex-col justify-between"
+                  >
+                    <div
+                      class="card-top flex justify-between items-center text-botanical-ink font-bold font-body text-sm"
+                    >
+                      <span>ИП Иванов А.С.</span>
+                      <div
+                        class="chip w-10 h-6 bg-cream-paper rounded border border-botanical-ink/20 opacity-80"
+                      ></div>
+                    </div>
+                    <div class="card-bottom">
+                      <div class="card-info flex flex-col gap-1">
+                        <span
+                          class="label text-[10px] uppercase tracking-widest text-botanical-ink/60"
+                          >Отзыв</span
+                        >
+                        <span
+                          class="value text-xs text-botanical-ink leading-tight"
+                          >Удобный доступ 24/7</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="card paypal absolute w-[260px] h-[140px] bg-gradient-to-r from-eucalyptus to-lichen rounded-xl shadow-lg border border-botanical-ink/10 flex flex-col justify-between p-4 left-[10px] top-6 transition-transform duration-500 ease-out z-30"
+                >
+                  <div
+                    class="card-inner w-full h-full flex flex-col justify-between"
+                  >
+                    <div
+                      class="card-top flex justify-between items-center text-botanical-ink font-bold font-body text-sm"
+                    >
+                      <span>АгроКомплекс</span>
+                      <div
+                        class="chip w-10 h-6 bg-sage-mist rounded border border-botanical-ink/20 opacity-80"
+                      ></div>
+                    </div>
+                    <div class="card-bottom">
+                      <div class="card-info flex flex-col gap-1">
+                        <span
+                          class="label text-[10px] uppercase tracking-widest text-botanical-ink/60"
+                          >Отзыв</span
+                        >
+                        <span
+                          class="value text-xs text-botanical-ink leading-tight"
+                          >Специфика сельхоз учета</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="pocket absolute -bottom-4 w-full h-[160px] z-40 pointer-events-none"
+                >
+                  <svg
+                    class="pocket-svg absolute inset-0 w-full h-full"
+                    viewBox="0 0 280 160"
+                    fill="none"
+                  >
+                    <path
+                      d="M 0 20 C 0 10, 5 10, 10 10 C 20 10, 25 25, 40 25 L 240 25 C 255 25, 260 10, 270 10 C 275 10, 280 10, 280 20 L 280 120 C 280 155, 260 160, 240 160 L 40 160 C 20 160, 0 155, 0 120 Z"
+                      fill="#1e341e"
+                    ></path>
+                    <path
+                      d="M 8 22 C 8 16, 12 16, 15 16 C 23 16, 27 29, 40 29 L 240 29 C 253 29, 257 16, 265 16 C 268 16, 272 16, 272 22 L 272 120 C 272 150, 255 152, 240 152 L 40 152 C 25 152, 8 152, 8 120 Z"
+                      stroke="#3d5635"
+                      stroke-width="1.5"
+                      stroke-dasharray="6 4"
+                    ></path>
+                  </svg>
+                  <div
+                    class="pocket-content absolute bottom-6 w-full text-center"
+                  >
+                    <div
+                      style="
+                        color: #698263;
+                        font-size: 14px;
+                        font-weight: 500;
+                        letter-spacing: 0.05em;
+                      "
+                      class="font-body uppercase"
+                    >
+                      Более 30-ти клиентов
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Phase 4: Pricing -->
+      <section
+        id="pricing-section"
+        class="relative bg-sage-mist w-full py-32 z-30 border-t border-lichen"
+      >
+        <div class="max-w-[1200px] mx-auto px-8 relative">
+          <div
+            class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8"
+          >
+            <h2
+              class="text-[53px] leading-tight tracking-[-2.12px] text-botanical-ink max-w-xl"
+            >
+              Прозрачная система тарифов
+            </h2>
+            <p class="text-lg text-botanical-ink/80 font-body max-w-sm">
+              Стоимость зависит от системы налогообложения и количества
+              операций.
+            </p>
+          </div>
+
+          <div
+            class="w-full overflow-x-auto pricing-row bg-cream-paper rounded-2xl border border-lichen shadow-subtle p-6"
+          >
+            <table
+              class="w-full text-left font-body text-botanical-ink border-collapse"
+            >
+              <thead>
+                <tr class="border-b border-lichen">
+                  <th
+                    class="py-6 px-4 font-bold text-sm tracking-widest uppercase text-botanical-ink/60"
+                  >
+                    Система налогообложения
+                  </th>
+                  <th
+                    class="py-6 px-4 font-bold text-sm tracking-widest uppercase text-botanical-ink/60"
+                  >
+                    Нулевая отчетность для ООО (ежеквартально)
+                  </th>
+                  <th
+                    class="py-6 px-4 font-bold text-sm tracking-widest uppercase text-botanical-ink/60"
+                  >
+                    ООО
+                  </th>
+                  <th
+                    class="py-6 px-4 font-bold text-sm tracking-widest uppercase text-botanical-ink/60"
+                  >
+                    ИП с сотрудниками
+                  </th>
+                  <th
+                    class="py-6 px-4 font-bold text-sm tracking-widest uppercase text-botanical-ink/60"
+                  >
+                    ИП без сотрудников
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class="group hover:bg-moss-veil/30 transition-colors border-b border-lichen/50"
+                >
+                  <td class="py-6 px-4 font-bold text-xl">ОСНО (с НДС)</td>
+                  <td class="py-6 px-4 text-xl">7 000 ₽</td>
+                  <td class="py-6 px-4 text-xl">27 000 ₽</td>
+                  <td class="py-6 px-4 text-xl">21 600 ₽</td>
+                  <td class="py-6 px-4 text-xl">10 800 ₽</td>
+                </tr>
+                <tr
+                  class="group hover:bg-moss-veil/30 transition-colors border-b border-lichen/50"
+                >
+                  <td class="py-6 px-4 font-bold text-xl">УСН Доходы 6%</td>
+                  <td class="py-6 px-4 text-xl">5 000 ₽</td>
+                  <td class="py-6 px-4 text-xl">15 000 ₽</td>
+                  <td class="py-6 px-4 text-xl">12 000 ₽</td>
+                  <td class="py-6 px-4 text-xl">7 000 ₽</td>
+                </tr>
+                <tr
+                  class="group hover:bg-moss-veil/30 transition-colors border-b border-lichen/50"
+                >
+                  <td class="py-6 px-4 font-bold text-xl">УСН 15%</td>
+                  <td class="py-6 px-4 text-xl">5 000 ₽</td>
+                  <td class="py-6 px-4 text-xl">21 000 ₽</td>
+                  <td class="py-6 px-4 text-xl">16 800 ₽</td>
+                  <td class="py-6 px-4 text-xl">8 400 ₽</td>
+                </tr>
+                <tr
+                  class="group hover:bg-moss-veil/30 transition-colors border-b border-lichen/50"
+                >
+                  <td class="py-6 px-4 font-bold text-xl">Патент</td>
+                  <td class="py-6 px-4 text-xl text-botanical-ink/30">-</td>
+                  <td class="py-6 px-4 text-xl text-botanical-ink/30">-</td>
+                  <td class="py-6 px-4 text-xl">14 400 ₽</td>
+                  <td class="py-6 px-4 text-xl">7 000 ₽</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td class="py-6 px-4"></td>
+                  <td class="py-6 px-4">
+                    <button
+                      class="btn-ghost text-sm py-2 px-4 flex items-center gap-2 hover:bg-moss-veil transition-colors group"
+                    >
+                      <span>Рассчитать</span>
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="transform group-hover:translate-x-1 transition-transform"
+                      >
+                        <path
+                          d="M4 10H16M16 10L10 4M16 10L10 16"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </td>
+                  <td class="py-6 px-4">
+                    <button
+                      class="btn-ghost text-sm py-2 px-4 flex items-center gap-2 hover:bg-moss-veil transition-colors group"
+                    >
+                      <span>Рассчитать</span>
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="transform group-hover:translate-x-1 transition-transform"
+                      >
+                        <path
+                          d="M4 10H16M16 10L10 4M16 10L10 16"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </td>
+                  <td class="py-6 px-4">
+                    <button
+                      class="btn-ghost text-sm py-2 px-4 flex items-center gap-2 hover:bg-moss-veil transition-colors group"
+                    >
+                      <span>Рассчитать</span>
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="transform group-hover:translate-x-1 transition-transform"
+                      >
+                        <path
+                          d="M4 10H16M16 10L10 4M16 10L10 16"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </td>
+                  <td class="py-6 px-4">
+                    <button
+                      class="btn-ghost text-sm py-2 px-4 flex items-center gap-2 hover:bg-moss-veil transition-colors group"
+                    >
+                      <span>Рассчитать</span>
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="transform group-hover:translate-x-1 transition-transform"
+                      >
+                        <path
+                          d="M4 10H16M16 10L10 4M16 10L10 16"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Phase 5: Contact Form Assembly -->
+      <section
+        id="contact-section"
+        class="relative bg-botanical-ink w-full py-40 z-30 overflow-hidden"
+      >
+        <div
+          class="max-w-[1200px] mx-auto px-8 relative z-10 flex flex-col items-center"
+        >
+          <div class="text-center mb-16">
+            <h2
+              class="text-[53px] leading-tight tracking-[-2.12px] text-cream-paper mb-4"
+            >
+              Бесплатная консультация
+            </h2>
+            <p class="text-lg text-cream-paper/70 font-body">
+              Оставьте заявку, и мы свяжемся с вами для обсуждения деталей.
+            </p>
+          </div>
+
+          <form class="w-full max-w-3xl relative">
+            <div
+              class="flex flex-col md:flex-row gap-6 mb-8 overflow-hidden py-2 px-2"
+            >
+              <!-- Name Field (Slides from left) -->
+              <div
+                id="form-name-field"
+                class="w-full md:w-1/2 relative bg-sage-mist/10 rounded-2xl border border-eucalyptus/30 backdrop-blur-sm p-2 transform -translate-x-full opacity-0"
+              >
+                <label for="name" class="sr-only">Имя</label>
+                <input
+                  type="text"
+                  id="name"
+                  placeholder="Ваше имя"
+                  class="w-full bg-transparent text-cream-paper font-body px-6 py-4 outline-none placeholder-cream-paper/50 focus:border-moss-veil transition-colors"
+                />
+              </div>
+
+              <!-- Phone Field (Slides from right) -->
+              <div
+                id="form-phone-field"
+                class="w-full md:w-1/2 relative bg-sage-mist/10 rounded-2xl border border-eucalyptus/30 backdrop-blur-sm p-2 transform translate-x-full opacity-0"
+              >
+                <label for="phone" class="sr-only">Телефон / TG</label>
+                <input
+                  type="text"
+                  id="phone"
+                  placeholder="Телефон / Telegram"
+                  class="w-full bg-transparent text-cream-paper font-body px-6 py-4 outline-none placeholder-cream-paper/50 focus:border-moss-veil transition-colors"
+                />
+              </div>
+            </div>
+
+            <!-- Submit Button (Slides from bottom) -->
+            <div
+              id="form-submit-container"
+              class="flex justify-center transform translate-y-full opacity-0"
+            >
+              <button
+                type="submit"
+                class="btn-primary flex items-center gap-4 text-lg w-full md:w-auto justify-center group overflow-hidden relative"
+              >
+                <span class="relative z-10">Отправить заявку</span>
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="relative z-10 transform group-hover:translate-x-2 transition-transform duration-300"
+                >
+                  <path
+                    d="M5 12H19M19 12L12 5M19 12L12 19"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          </form>
+
+          <!-- Decorative subtle background SVG -->
+          <svg
+            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] text-cream-paper opacity-5 pointer-events-none z-0"
+            viewBox="0 0 100 100"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="50"
+              cy="50"
+              r="40"
+              stroke="currentColor"
+              stroke-width="1"
+              stroke-dasharray="2 4"
+            />
+            <path
+              d="M50 10V90M10 50H90"
+              stroke="currentColor"
+              stroke-width="0.5"
+            />
+          </svg>
+        </div>
+      </section>
+
+      <!-- Phase 6: Map & Floating Contact Widget -->
+      <section
+        id="map-section"
+        class="relative w-full h-screen bg-lichen z-20 overflow-hidden"
+      >
+        <div
+          class="browser absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-[1000px] h-[70vh] max-h-[600px] bg-cream-paper rounded-xl shadow-2xl overflow-hidden border border-eucalyptus flex flex-col z-0"
+        >
+          <div
+            class="tabs-head bg-sage-mist border-b border-lichen p-2 flex items-center justify-between"
+          >
+            <div class="tabs flex items-center">
+              <div
+                class="tab-open bg-cream-paper px-4 py-2 rounded-t-lg text-xs font-body tracking-wide border border-b-0 border-lichen text-botanical-ink flex items-center gap-2"
+              >
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="text-forest-floor"
+                >
+                  <path
+                    d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <circle
+                    cx="12"
+                    cy="10"
+                    r="3"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <span>Карта</span>
+              </div>
+            </div>
+            <div class="window-opt flex gap-2">
+              <button class="w-3 h-3 rounded-full bg-moss-veil"></button>
+              <button class="w-3 h-3 rounded-full bg-eucalyptus"></button>
+              <button
+                class="window-close w-3 h-3 rounded-full bg-warm-loam"
+              ></button>
+            </div>
+          </div>
+          <div
+            class="head-browser bg-cream-paper p-2 border-b border-lichen flex items-center"
+          >
+            <div
+              class="bg-sage-mist w-full rounded-md px-3 py-1 flex items-center gap-2"
+            >
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="text-botanical-ink/50"
+              >
+                <path
+                  d="M12 2L2 7L12 12L22 7L12 2Z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M2 17L12 22L22 17"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M2 12L12 17L22 12"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <input
+                type="text"
+                value="https://yandex.ru/maps/-/Казань-Ай-Ти-Парк"
+                readonly
+                class="text-xs text-botanical-ink/70 font-body outline-none w-full bg-transparent"
+              />
+            </div>
+          </div>
+          <div class="browser-content flex-grow relative">
+            <iframe
+              src="https://yandex.ru/map-widget/v1/?um=constructor%3A9c855a9cf299bfdbbfdafb5d4a1329a28dbcc2a80dbafbfda4a1329a28dbcc2&amp;source=constructor"
+              width="100%"
+              height="100%"
+              frameborder="0"
+              class="w-full h-full grayscale opacity-80 absolute inset-0"
+              title="Yandex Map"
+            ></iframe>
+          </div>
+        </div>
+
+        <!-- Floating Action Button (Widget) scoped to Map Section -->
+        <div
+          class="absolute bottom-8 right-8 z-10 flex flex-col items-end group"
+        >
+          <!-- Expanded Card (Ticket) -->
+          <div
+            class="container contacts-widget mb-4 opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transform-gpu origin-bottom-right scale-95 group-hover:scale-100 bg-cream-paper p-6 rounded-2xl shadow-2xl border border-eucalyptus relative max-w-sm"
+          >
+            <span
+              class="top-border absolute -top-[10px] left-8 w-[calc(100%-64px)] h-5 bg-sage-mist rounded-t-xl z-[-1]"
+            ></span>
+            <p
+              class="time font-headings tracking-widest text-lg font-bold border-b border-lichen pb-2 mb-4"
+            >
+              Контакты
+            </p>
+            <p class="date font-body text-xl text-botanical-ink mb-6">
+              ИП Гржимайло Л.К.
+            </p>
+            <div
+              class="flex flex-col gap-3 font-body text-sm text-botanical-ink mb-6"
+            >
+              <div class="flex items-start gap-3">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="text-forest-floor mt-0.5 shrink-0"
+                >
+                  <path
+                    d="M12 21C16 17 20 13 20 9C20 4.58172 16.4183 1 12 1C7.58172 1 4 4.58172 4 9C4 13 8 17 12 21Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <circle
+                    cx="12"
+                    cy="9"
+                    r="3"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                </svg>
+                <span>РТ, Казань, Ай Ти Парк им. Башира Рамеева</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="text-forest-floor shrink-0"
+                >
+                  <path
+                    d="M22 16.92V19.92C22 20.4723 21.5523 20.92 21 20.92C10.5066 20.92 2 12.4134 2 1.92C2 1.36772 2.44772 0.919998 3 0.919998H6C6.55228 0.919998 7 1.36772 7 1.92C7 3.32836 7.24076 4.70782 7.69614 6.00287C7.81846 6.35083 7.73473 6.74542 7.47723 7.00292L5.80168 8.67847C7.4589 11.5936 9.80637 13.9411 12.7215 15.5983L14.3971 13.9228C14.6546 13.6653 15.0492 13.5815 15.3971 13.7039C16.6922 14.1592 18.0716 14.4 19.48 14.4C20.0323 14.4 20.48 14.8477 20.48 15.4V16.92C20.48 16.92 22 16.92 22 16.92Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <span>+7 917 924 55 96</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="text-forest-floor shrink-0"
+                >
+                  <path
+                    d="M4 4H20C21.1046 4 22 4.89543 22 6V18C22 19.1046 21.1046 20 20 20H4C2.89543 20 2 19.1046 2 18V6C2 4.89543 2.89543 4 4 4Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M22 6L12 13L2 6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <span>1cbo.pro@gmail.com</span>
+              </div>
+            </div>
+
+            <!-- Social Icons Row -->
+            <div class="flex justify-between items-center pt-2">
+              <!-- Telegram -->
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full bg-sage-mist flex items-center justify-center text-botanical-ink hover:bg-forest-floor hover:text-cream-paper hover:scale-110 transition-all duration-300"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </a>
+              <!-- WhatsApp -->
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full bg-sage-mist flex items-center justify-center text-botanical-ink hover:bg-forest-floor hover:text-cream-paper hover:scale-110 transition-all duration-300"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 11.5A8.38 8.38 0 0 1 20.14 15L22 22L15 20.14A8.38 8.38 0 0 1 11.5 21C6.25 21 2 16.75 2 11.5C2 6.25 6.25 2 11.5 2C16.75 2 21 6.25 21 11.5Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </a>
+              <!-- VK -->
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full bg-sage-mist flex items-center justify-center text-botanical-ink hover:bg-forest-floor hover:text-cream-paper hover:scale-110 transition-all duration-300"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M8 10L11 16M16 10L13 16"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M10 10H14"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </a>
+              <!-- Instagram -->
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full bg-sage-mist flex items-center justify-center text-botanical-ink hover:bg-forest-floor hover:text-cream-paper hover:scale-110 transition-all duration-300"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="2"
+                    y="2"
+                    width="20"
+                    height="20"
+                    rx="5"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="4"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M18 6H18.01"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </a>
+            </div>
+            <span
+              class="right-border top absolute -right-2 top-10 w-4 h-8 bg-lichen rounded-l-full z-[-1]"
+            ></span>
+          </div>
+
+          <!-- FAB Toggle Button -->
+          <button
+            class="bg-botanical-ink text-cream-paper px-6 py-4 rounded-full flex items-center gap-3 shadow-[0_10px_20px_rgba(10,29,8,0.2)] group-hover:bg-forest-floor transition-colors"
+          >
+            <span class="font-body font-bold tracking-wider uppercase text-sm"
+              >Контакты</span
+            >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="group-hover:rotate-12 transition-transform"
+            >
+              <path
+                d="M8 10H16M8 14H12M22 12C22 17.5228 17.5228 22 12 22C10.2312 22 8.57147 21.5393 7.15174 20.7383L2 22L3.26174 16.8483C2.46067 15.4285 2 13.7688 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <footer
+        class="relative bg-botanical-ink text-cream-paper/60 font-body text-sm py-8 border-t border-cream-paper/10 text-center z-30"
+      >
+        <div
+          class="max-w-[1200px] mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-4"
+        >
+          <span>© 2026 ФинПарк. Все права защищены.</span>
+          <div class="flex gap-8">
+            <a href="#" class="hover:text-cream-paper transition-colors"
+              >Политика конфиденциальности</a
+            >
+            <a href="#" class="hover:text-cream-paper transition-colors"
+              >Договор оферты</a
+            >
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <style>
+      /* CSS for Hamster Snippet */
+      .wheel-and-hamster {
+        --dur: 1s;
+        position: relative;
+        width: 12em;
+        height: 12em;
+        font-size: 14px;
+      }
+
+      .wheel,
+      .hamster,
+      .hamster div,
+      .spoke {
+        position: absolute;
+      }
+
+      .wheel,
+      .spoke {
+        border-radius: 50%;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .wheel {
+        background: radial-gradient(
+          100% 100% at center,
+          hsla(0, 0%, 60%, 0) 47.8%,
+          hsl(0, 0%, 60%) 48%
+        );
+        z-index: 2;
+      }
+
+      .hamster {
+        animation: hamster var(--dur) ease-in-out infinite;
+        top: 50%;
+        left: calc(50% - 3.5em);
+        width: 7em;
+        height: 3.75em;
+        transform: rotate(4deg) translate(-0.8em, 1.85em);
+        transform-origin: 50% 0;
+        z-index: 1;
+      }
+
+      .hamster__head {
+        animation: hamsterHead var(--dur) ease-in-out infinite;
+        background: hsl(30, 90%, 55%);
+        border-radius: 70% 30% 0 100% / 40% 25% 25% 60%;
+        box-shadow:
+          0 -0.25em 0 hsl(30, 90%, 80%) inset,
+          0.75em -1.55em 0 hsl(30, 90%, 90%) inset;
+        top: 0;
+        left: -2em;
+        width: 2.75em;
+        height: 2.5em;
+        transform-origin: 100% 50%;
+      }
+
+      .hamster__ear {
+        animation: hamsterEar var(--dur) ease-in-out infinite;
+        background: hsl(0, 90%, 85%);
+        border-radius: 50%;
+        box-shadow: -0.25em 0 hsl(30, 90%, 55%) inset;
+        top: -0.25em;
+        right: -0.25em;
+        width: 0.75em;
+        height: 0.75em;
+        transform-origin: 50% 75%;
+      }
+
+      .hamster__eye {
+        animation: hamsterEye var(--dur) linear infinite;
+        background-color: hsl(0, 0%, 0%);
+        border-radius: 50%;
+        top: 0.375em;
+        left: 1.25em;
+        width: 0.5em;
+        height: 0.5em;
+      }
+
+      .hamster__nose {
+        background: hsl(0, 90%, 75%);
+        border-radius: 35% 65% 85% 15% / 70% 50% 50% 30%;
+        top: 0.75em;
+        left: 0;
+        width: 0.2em;
+        height: 0.25em;
+      }
+
+      .hamster__body {
+        animation: hamsterBody var(--dur) ease-in-out infinite;
+        background: hsl(30, 90%, 90%);
+        border-radius: 50% 30% 50% 30% / 15% 60% 40% 40%;
+        box-shadow:
+          0.1em 0.75em 0 hsl(30, 90%, 55%) inset,
+          0.15em -0.5em 0 hsl(30, 90%, 80%) inset;
+        top: 0.25em;
+        left: 2em;
+        width: 4.5em;
+        height: 3em;
+        transform-origin: 17% 50%;
+        transform-style: preserve-3d;
+      }
+
+      .hamster__limb--fr,
+      .hamster__limb--fl {
+        clip-path: polygon(0 0, 100% 0, 70% 80%, 60% 100%, 0% 100%, 40% 80%);
+        top: 2em;
+        left: 0.5em;
+        width: 1em;
+        height: 1.5em;
+        transform-origin: 50% 0;
+      }
+
+      .hamster__limb--fr {
+        animation: hamsterFRLimb var(--dur) linear infinite;
+        background: linear-gradient(
+          hsl(30, 90%, 80%) 80%,
+          hsl(0, 90%, 75%) 80%
+        );
+        transform: rotate(15deg) translateZ(-1px);
+      }
+
+      .hamster__limb--fl {
+        animation: hamsterFLLimb var(--dur) linear infinite;
+        background: linear-gradient(
+          hsl(30, 90%, 90%) 80%,
+          hsl(0, 90%, 85%) 80%
+        );
+        transform: rotate(15deg);
+      }
+
+      .hamster__limb--br,
+      .hamster__limb--bl {
+        border-radius: 0.75em 0.75em 0 0;
+        clip-path: polygon(
+          0 0,
+          100% 0,
+          100% 30%,
+          70% 90%,
+          70% 100%,
+          30% 100%,
+          40% 90%,
+          0% 30%
+        );
+        top: 1em;
+        left: 2.8em;
+        width: 1.5em;
+        height: 2.5em;
+        transform-origin: 50% 30%;
+      }
+
+      .hamster__limb--br {
+        animation: hamsterBRLimb var(--dur) linear infinite;
+        background: linear-gradient(
+          hsl(30, 90%, 80%) 90%,
+          hsl(0, 90%, 75%) 90%
+        );
+        transform: rotate(-25deg) translateZ(-1px);
+      }
+
+      .hamster__limb--bl {
+        animation: hamsterBLLimb var(--dur) linear infinite;
+        background: linear-gradient(
+          hsl(30, 90%, 90%) 90%,
+          hsl(0, 90%, 85%) 90%
+        );
+        transform: rotate(-25deg);
+      }
+
+      .hamster__tail {
+        animation: hamsterTail var(--dur) linear infinite;
+        background: hsl(0, 90%, 85%);
+        border-radius: 0.25em 50% 50% 0.25em;
+        box-shadow: 0 -0.2em 0 hsl(0, 90%, 75%) inset;
+        top: 1.5em;
+        right: -0.5em;
+        width: 1em;
+        height: 0.5em;
+        transform: rotate(30deg) translateZ(-1px);
+        transform-origin: 0.25em 0.25em;
+      }
+
+      .spoke {
+        animation: spoke var(--dur) linear infinite;
+        background:
+          radial-gradient(
+            100% 100% at center,
+            hsl(0, 0%, 60%) 4.8%,
+            hsla(0, 0%, 60%, 0) 5%
+          ),
+          linear-gradient(
+              hsla(0, 0%, 55%, 0) 46.9%,
+              hsl(0, 0%, 65%) 47%,
+              hsl(0, 0%, 65%) 52.9%,
+              hsla(0, 0%, 65%, 0) 53%
+            )
+            50% 50% / 99% 99% no-repeat;
+      }
+
+      /* Animations */
+      @keyframes hamster {
+        from,
+        to {
+          transform: rotate(4deg) translate(-0.8em, 1.85em);
+        }
+        50% {
+          transform: rotate(0) translate(-0.8em, 1.85em);
+        }
+      }
+
+      @keyframes hamsterHead {
+        from,
+        25%,
+        50%,
+        75%,
+        to {
+          transform: rotate(0);
+        }
+        12.5%,
+        37.5%,
+        62.5%,
+        87.5% {
+          transform: rotate(8deg);
+        }
+      }
+
+      @keyframes hamsterEye {
+        from,
+        90%,
+        to {
+          transform: scaleY(1);
+        }
+        95% {
+          transform: scaleY(0);
+        }
+      }
+
+      @keyframes hamsterEar {
+        from,
+        25%,
+        50%,
+        75%,
+        to {
+          transform: rotate(0);
+        }
+        12.5%,
+        37.5%,
+        62.5%,
+        87.5% {
+          transform: rotate(12deg);
+        }
+      }
+
+      @keyframes hamsterBody {
+        from,
+        25%,
+        50%,
+        75%,
+        to {
+          transform: rotate(0);
+        }
+        12.5%,
+        37.5%,
+        62.5%,
+        87.5% {
+          transform: rotate(-2deg);
+        }
+      }
+
+      @keyframes hamsterFRLimb {
+        from,
+        25%,
+        50%,
+        75%,
+        to {
+          transform: rotate(50deg) translateZ(-1px);
+        }
+        12.5%,
+        37.5%,
+        62.5%,
+        87.5% {
+          transform: rotate(-30deg) translateZ(-1px);
+        }
+      }
+
+      @keyframes hamsterFLLimb {
+        from,
+        25%,
+        50%,
+        75%,
+        to {
+          transform: rotate(-30deg);
+        }
+        12.5%,
+        37.5%,
+        62.5%,
+        87.5% {
+          transform: rotate(50deg);
+        }
+      }
+
+      @keyframes hamsterBRLimb {
+        from,
+        25%,
+        50%,
+        75%,
+        to {
+          transform: rotate(-60deg) translateZ(-1px);
+        }
+        12.5%,
+        37.5%,
+        62.5%,
+        87.5% {
+          transform: rotate(20deg) translateZ(-1px);
+        }
+      }
+
+      @keyframes hamsterBLLimb {
+        from,
+        25%,
+        50%,
+        75%,
+        to {
+          transform: rotate(20deg);
+        }
+        12.5%,
+        37.5%,
+        62.5%,
+        87.5% {
+          transform: rotate(-60deg);
+        }
+      }
+
+      @keyframes hamsterTail {
+        from,
+        25%,
+        50%,
+        75%,
+        to {
+          transform: rotate(30deg) translateZ(-1px);
+        }
+        12.5%,
+        37.5%,
+        62.5%,
+        87.5% {
+          transform: rotate(10deg) translateZ(-1px);
+        }
+      }
+
+      @keyframes spoke {
+        from {
+          transform: rotate(0);
+        }
+        to {
+          transform: rotate(-1turn);
+        }
+      }
+
+      /* CSS for Marquee animation */
+      @keyframes marquee {
+        0% {
+          transform: translateX(0%);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+      .animate-marquee {
+        animation: marquee 20s linear infinite;
+      }
+      .marquee-track {
+        mask-image: linear-gradient(
+          to right,
+          transparent,
+          black 10%,
+          black 90%,
+          transparent
+        );
+        -webkit-mask-image: linear-gradient(
+          to right,
+          transparent,
+          black 10%,
+          black 90%,
+          transparent
+        );
+      }
+    </style>
+
+    <script>
+      // Initialize GSAP ScrollTrigger
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Phase 0: Preloader Logic
+      const totalFrames = 200;
+      const framePrefix = "Woman_with_laptop_in_park_202606160620_frame_";
+      const frameFormat = (num) => num.toString().padStart(3, "0");
+      const images = [];
+      let loadedCount = 0;
+
+      const coloredLogo = document.getElementById("colored-logo");
+      const loadingText = document.getElementById("loading-text");
+      const preloader = document.getElementById("preloader");
+      const scrollIcon = document.getElementById("scroll-icon");
+
+      function updateProgress() {
+        const progress = loadedCount / totalFrames;
+        const percentage = Math.floor(progress * 100);
+
+        // Update text
+        loadingText.textContent = `${percentage}%`;
+
+        // Update clip-path inset from 100% to 0% (bottom up)
+        gsap.to(coloredLogo, {
+          clipPath: `inset(${100 - percentage}% 0 0 0)`,
+          duration: 0.1,
+          ease: "power1.out",
+        });
+
+        if (loadedCount === totalFrames) {
+          completeLoading();
+        }
+      }
+
+      function completeLoading() {
+        // Hide loading text and preloader container smoothly
+        gsap.to([loadingText, ".wheel-and-hamster"], {
+          opacity: 0,
+          duration: 0.5,
+        });
+
+        // Move preloader up
+        gsap.to(preloader, {
+          yPercent: -100,
+          duration: 1.2,
+          ease: "power3.inOut",
+          delay: 0.5,
+          onComplete: () => {
+            preloader.style.display = "none";
+          },
+        });
+
+        // Show scroll icon
+        gsap.to(scrollIcon, {
+          opacity: 1,
+          duration: 1,
+          delay: 1.5,
+        });
+
+        // Animate scroll wheel
+        gsap.to(".scroll-wheel", {
+          y: 10,
+          duration: 1.5,
+          repeat: -1,
+          yoyo: true,
+          ease: "power1.inOut",
+        });
+      }
+
+      // Preload images
+      for (let i = 1; i <= totalFrames; i++) {
+        const img = new Image();
+        img.src = `./Woman_with_laptop_in_park_202606160620_frames/${framePrefix}${frameFormat(i)}.webp`;
+        img.onload = () => {
+          loadedCount++;
+          updateProgress();
+        };
+        img.onerror = () => {
+          // Fallback for missing frames so it doesn't get stuck
+          loadedCount++;
+          updateProgress();
+        };
+        images.push(img);
+      }
+
+      // Phase 1: Scrollytelling Logic
+      const canvas = document.getElementById("hero-canvas");
+      const context = canvas.getContext("2d");
+      const heroImage = document.getElementById("hero-image");
+      const heroContent = document.getElementById("hero-content");
+
+      // Set canvas size
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        renderCanvasFrame(frameConfig.frame);
+      });
+
+      const frameConfig = { frame: 0 };
+
+      function renderCanvasFrame(index) {
+        if (images[index] && images[index].complete) {
+          // Calculate aspect ratio to cover canvas
+          const imgRatio = images[index].width / images[index].height;
+          const canvasRatio = canvas.width / canvas.height;
+          let drawWidth, drawHeight, offsetX, offsetY;
+
+          if (canvasRatio > imgRatio) {
+            drawWidth = canvas.width;
+            drawHeight = canvas.width / imgRatio;
+            offsetX = 0;
+            offsetY = (canvas.height - drawHeight) / 2;
+          } else {
+            drawWidth = canvas.height * imgRatio;
+            drawHeight = canvas.height;
+            offsetX = (canvas.width - drawWidth) / 2;
+            offsetY = 0;
+          }
+
+          context.clearRect(0, 0, canvas.width, canvas.height);
+          context.drawImage(
+            images[index],
+            offsetX,
+            offsetY,
+            drawWidth,
+            drawHeight,
+          );
+        }
+      }
+
+      // Phase 1.1: Ensure Canvas is properly pinned throughout
+      const scrollytellingTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#scrollytelling-section",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1,
+          pin: true,
+          pinSpacing: false,
+        },
+      });
+
+      const heroTitle = document.getElementById("hero-title");
+      const heroSubtitle1 = document.getElementById("hero-subtitle-1");
+      const heroMiddleGroup = document.getElementById("hero-middle-group");
+      const heroText2 = document.getElementById("hero-text-2");
+
+      scrollytellingTl.to(
+        canvas,
+        {
+          opacity: 1,
+          duration: 0.5,
+          ease: "none",
+          onStart: () => renderCanvasFrame(0),
+        },
+        0,
+      );
+      scrollytellingTl.to(
+        heroImage,
+        { opacity: 0, duration: 0.5, ease: "none" },
+        0,
+      );
+
+      // Scrub through canvas frames for the whole timeline
+      scrollytellingTl.to(
+        frameConfig,
+        {
+          frame: totalFrames - 1,
+          snap: "frame",
+          ease: "none",
+          duration: 10,
+          onUpdate: () => renderCanvasFrame(Math.round(frameConfig.frame)),
+        },
+        0,
+      );
+
+      // Title Animation: Static Logo, just fades in at the very start
+      scrollytellingTl.to(
+        heroTitle,
+        { opacity: 1, duration: 0.5, ease: "power1.out" },
+        0,
+      );
+
+      // Subtitle 1 fades in at start
+      scrollytellingTl.to(
+        heroSubtitle1,
+        { opacity: 1, duration: 0.5, ease: "power1.out" },
+        0.5,
+      );
+
+      // Phase 1.3: Subtitle 1 disappears by frame 100+ (approx offset 5)
+      scrollytellingTl.to(
+        heroSubtitle1,
+        { opacity: 0, y: -20, duration: 0.5, ease: "power1.in" },
+        5,
+      );
+
+      // Text 2 (Спокойствие) appears exactly in its place at frame 110-120 (approx offset 5.5)
+      scrollytellingTl.fromTo(
+        heroText2,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 1, ease: "power1.out" },
+        5.5,
+      );
+
+      // Entire Middle group (Text + Marquee) fades out at the end of the sequence
+      scrollytellingTl.to(
+        heroMiddleGroup,
+        {
+          opacity: 0,
+          y: -20,
+          duration: 1,
+          ease: "power1.in",
+        },
+        7.5,
+      );
+
+      // Fade out the overlay text elements completely before closing
+      scrollytellingTl.to(
+        [heroTitle, heroMiddleGroup],
+        {
+          opacity: 0,
+          duration: 0.5,
+          ease: "power1.out",
+        },
+        8,
+      );
+
+      // Phase 1.5: Container Scroll 3D effect
+      // Instead of locking to the canvas timeline, we create a specific timeline for the section sliding up
+      const trustSection = document.getElementById("trust-section");
+
+      gsap.fromTo(
+        trustSection,
+        {
+          y: "20vh", // Start slightly lower
+          rotateX: 20,
+          transformPerspective: 1000,
+          scale: 0.9,
+          transformOrigin: "top",
+        },
+        {
+          y: "0vh",
+          rotateX: 0,
+          scale: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: trustSection,
+            start: "top bottom",
+            end: "top top",
+            scrub: 1,
+          },
+        },
+      );
+
+      // Fade out scroll icon when scrolling down
+      gsap.to("#scroll-icon", {
+        opacity: 0,
+        scrollTrigger: {
+          trigger: "#scrollytelling-section",
+          start: "top top-=100",
+          end: "top top-=300",
+          scrub: 1,
+        },
+      });
+
+      // Phase 2: Trust Triggers Logic
+      const trustItems = gsap.utils.toArray(".trust-item");
+      const illustrations = gsap.utils.toArray('[id^="illus-"]');
+
+      trustItems.forEach((item, i) => {
+        ScrollTrigger.create({
+          trigger: item,
+          start: "top center",
+          end: "bottom center",
+          onEnter: () => activateIllustration(i),
+          onEnterBack: () => activateIllustration(i),
+        });
+
+        // Reveal animation for text (Fade in and Fade out)
+        gsap.fromTo(
+          item,
+          { opacity: 0.2, scale: 0.95 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.5,
+            scrollTrigger: {
+              trigger: item,
+              start: "top center",
+              end: "bottom center",
+              toggleActions: "play reverse play reverse",
+            },
+          },
+        );
+      });
+
+      function activateIllustration(index) {
+        illustrations.forEach((illus, i) => {
+          if (i === index) {
+            gsap.to(illus, {
+              opacity: 1,
+              y: -20,
+              duration: 0.5,
+              scale: 1,
+              ease: "power2.out",
+            });
+          } else {
+            gsap.to(illus, {
+              opacity: 0,
+              y: 20,
+              duration: 0.5,
+              scale: 0.95,
+              ease: "power2.out",
+            });
+          }
+        });
+      }
+
+      // Phase 3: Social Proof (Wallet) Stacking
+      const cards = gsap.utils.toArray("#social-proof-section .card");
+
+      const walletTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#social-proof-section",
+          start: "top center",
+          end: "bottom center",
+          scrub: 1,
+        },
+      });
+
+      cards.forEach((card, i) => {
+        walletTl.to(
+          card,
+          {
+            y: -100 - i * 120,
+            scale: 1 + i * 0.05,
+            ease: "power2.out",
+            duration: 1,
+          },
+          i * 0.5,
+        );
+      });
+
+      // Phase 4: Pricing Reveal
+      const pricingRows = gsap.utils.toArray(".pricing-row");
+
+      pricingRows.forEach((row, i) => {
+        gsap.fromTo(
+          row,
+          { opacity: 0, x: -50 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.6,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: row,
+              start: "top 85%",
+            },
+          },
+        );
+      });
+
+      // Phase 5: Contact Form Assembly Logic
+      const contactSection = document.getElementById("contact-section");
+      const nameField = document.getElementById("form-name-field");
+      const phoneField = document.getElementById("form-phone-field");
+      const submitBtn = document.getElementById("form-submit-container");
+
+      const formTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: contactSection,
+          start: "top 70%",
+          end: "top 30%",
+          scrub: 1,
+        },
+      });
+
+      formTl.to(
+        nameField,
+        { x: 0, opacity: 1, duration: 1, ease: "power2.out" },
+        0,
+      );
+      formTl.to(
+        phoneField,
+        { x: 0, opacity: 1, duration: 1, ease: "power2.out" },
+        0,
+      );
+      formTl.to(
+        submitBtn,
+        { y: 0, opacity: 1, duration: 1, ease: "power2.out" },
+        0.5,
+      );
+    </script>
+  </body>
+</html>
