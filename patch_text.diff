@@ -1,0 +1,27 @@
+--- index.html
++++ index.html
+@@ -375,14 +375,14 @@
+           <!-- Overlay Text & Marquee -->
+           <div
+             id="hero-content"
+-            class="absolute inset-0 z-20 pointer-events-none flex flex-col items-center"
++            class="absolute top-0 w-full h-[50vh] z-50 pointer-events-none flex flex-col items-center justify-start pt-[5%]"
+           >
+             <!-- Text 1 (Initial Title) - Static Logo -->
+             <div
+               id="hero-title"
+-              class="absolute top-[8%] left-1/2 transform -translate-x-1/2 text-center opacity-0 z-50 h-[50vh]"
++              class="relative text-center opacity-0"
+             >
+               <h1
+                 class="text-5xl md:text-[8vw] leading-none tracking-[-0.04em] text-botanical-ink font-headings"
+               >
+@@ -391,7 +391,7 @@
+             <!-- Central Content Group -->
+             <div
+               id="hero-middle-group"
+-              class="absolute top-[25%] md:top-[30%] w-full flex flex-col items-center justify-center opacity-0 z-50"
++              class="relative mt-8 w-full flex flex-col items-center justify-center opacity-0"
+             >
+               <!-- Titles Container (Relative to hold absolute swapping texts) -->
+               <div

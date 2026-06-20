@@ -1,0 +1,19 @@
+--- index.html
++++ index.html
+@@ -2278,6 +2278,16 @@
+         7.5,
+       );
+
++      // Fade out the overlay text elements completely before closing
++      scrollytellingTl.to(
++        [heroTitle, heroMiddleGroup],
++        {
++          opacity: 0,
++          duration: 0.5,
++          ease: "power1.out",
++        },
++        8,
++      );
++
+       // Phase 1.5: Container Scroll 3D effect
+       const trustSection = document.getElementById("trust-section");
