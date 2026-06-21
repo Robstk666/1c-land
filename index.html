@@ -135,11 +135,11 @@
     <!-- Phase 0: Preloader & Logo -->
     <div
       id="preloader"
-      class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-cream-paper transition-transform duration-1000 overflow-hidden"
+      class="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6 bg-cream-paper transition-transform duration-1000 overflow-hidden"
     >
       <!-- Large Outline Logo Mask -->
       <div
-        class="relative w-[35vw] max-w-[400px] aspect-square flex flex-col items-center justify-center mb-12"
+        class="relative w-[35vw] max-w-[200px] aspect-square flex flex-col items-center justify-center"
       >
         <!-- Dimmed Logo Background -->
         <img
@@ -156,41 +156,40 @@
           style="clip-path: inset(100% 0 0 0)"
           alt="Logo colored reveal"
         />
+      </div>
 
-        <!-- Hamster Snippet inside Logo center -->
+      <!-- Hamster Snippet below Logo -->
+      <div
+        class="flex items-center justify-center scale-[0.5] pointer-events-none z-20 opacity-80 h-32"
+      >
         <div
-          class="absolute inset-0 flex items-center justify-center scale-[0.6] pointer-events-none z-20 opacity-80"
+          aria-label="Orange and tan hamster running in a metal wheel"
+          role="img"
+          class="wheel-and-hamster"
         >
-          <div
-            aria-label="Orange and tan hamster running in a metal wheel"
-            role="img"
-            class="wheel-and-hamster"
-          >
-            <div class="wheel"></div>
-            <div class="hamster">
-              <div class="hamster__body">
-                <div class="hamster__head">
-                  <div class="hamster__ear"></div>
-                  <div class="hamster__eye"></div>
-                  <div class="hamster__nose"></div>
-                </div>
-                <div class="hamster__limb hamster__limb--fr"></div>
-                <div class="hamster__limb hamster__limb--fl"></div>
-                <div class="hamster__limb hamster__limb--br"></div>
-                <div class="hamster__limb hamster__limb--bl"></div>
-                <div class="hamster__tail"></div>
+          <div class="wheel"></div>
+          <div class="hamster">
+            <div class="hamster__body">
+              <div class="hamster__head">
+                <div class="hamster__ear"></div>
+                <div class="hamster__eye"></div>
+                <div class="hamster__nose"></div>
               </div>
+              <div class="hamster__limb hamster__limb--fr"></div>
+              <div class="hamster__limb hamster__limb--fl"></div>
+              <div class="hamster__limb hamster__limb--br"></div>
+              <div class="hamster__limb hamster__limb--bl"></div>
+              <div class="hamster__tail"></div>
             </div>
-            <div class="spoke"></div>
           </div>
+          <div class="spoke"></div>
         </div>
       </div>
 
       <div
-        id="loading-text"
-        class="font-body font-bold text-botanical-ink tracking-widest uppercase text-2xl mt-8"
+        class="w-16 text-center tabular-nums font-body font-bold text-botanical-ink tracking-widest uppercase text-2xl mt-4"
       >
-        0%
+        <span id="loading-text">0%</span>
       </div>
     </div>
 
@@ -256,10 +255,10 @@
           <!-- Overlay Text & Marquee -->
           <div
             id="hero-content"
-            class="absolute top-0 w-full h-[50vh] z-50 pointer-events-none flex flex-col items-center justify-start pt-[5%]"
+            class="absolute top-0 w-full h-full z-50 pointer-events-none flex flex-col items-center justify-start pt-[10%] opacity-0 invisible"
           >
             <!-- Text 1 (Initial Title) - Static Logo -->
-            <div id="hero-title" class="relative text-center opacity-0">
+            <div id="hero-title" class="relative text-center opacity-0 mt-8">
               <h1
                 class="text-5xl md:text-[8vw] leading-none tracking-[-0.04em] text-botanical-ink font-headings"
               >
@@ -267,14 +266,14 @@
               </h1>
             </div>
 
-            <!-- Central Content Group -->
+            <!-- Central Content Group (Fixed position container at ~35%) -->
             <div
               id="hero-middle-group"
-              class="relative mt-8 w-full flex flex-col items-center justify-center opacity-100"
+              class="absolute top-[35%] w-full flex flex-col items-center justify-center opacity-100"
             >
               <!-- Titles Container (Relative to hold absolute swapping texts) -->
               <div
-                class="relative w-full flex justify-center h-[120px] md:h-[180px] mb-8"
+                class="relative w-full flex justify-center h-[60px] md:h-[100px] mb-6"
               >
                 <!-- Subtitle 1 (Fades in first, then out) -->
                 <div
@@ -303,7 +302,7 @@
 
               <!-- Marquee Container (Stays fixed relative to the group) -->
               <div
-                class="w-full flex flex-col items-center justify-center overflow-hidden"
+                class="w-full flex flex-col items-center justify-center overflow-hidden mt-4"
               >
                 <p
                   class="text-center text-[10px] font-body tracking-widest uppercase mb-6 text-botanical-ink/60 w-full max-w-3xl"
@@ -610,188 +609,218 @@
         </div>
       </section>
 
-      <!-- Phase 2: Trust Triggers -->
-      <section
-        id="trust-section"
-        class="relative bg-sage-mist w-full py-32 z-30 origin-bottom transform-gpu"
+      <!-- Phase 2: Trust Triggers wrapped in 3D Mockup -->
+      <div
+        class="relative w-full z-50 pointer-events-none"
+        style="perspective: 1000px"
       >
-        <div class="max-w-[1200px] mx-auto px-8 relative">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-            <!-- Left Column: Sticky SVG Illustrations -->
-            <div class="relative hidden md:block">
-              <div class="sticky top-1/3 w-full aspect-square relative">
-                <!-- Floating Abstract SVG 1 -->
-                <svg
-                  id="illus-1"
-                  class="absolute text-forest-floor opacity-0 transition-all duration-700 w-24 h-24 top-0 left-10"
-                  viewBox="0 0 100 100"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="40"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-dasharray="4 6"
-                  />
-                  <circle cx="50" cy="50" r="10" fill="currentColor" />
-                </svg>
+        <section
+          id="trust-section"
+          class="max-w-[1400px] mx-auto w-full border-[6px] border-[#444] bg-[#222] rounded-[30px] shadow-[0_-20px_50px_rgba(0,0,0,0.5)] origin-bottom pointer-events-auto overflow-hidden"
+        >
+          <div
+            class="rounded-2xl overflow-hidden bg-sage-mist pt-32 pb-16 w-full"
+          >
+            <div class="max-w-[1200px] mx-auto px-8 relative">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                <!-- Left Column: Sticky SVG Illustrations -->
+                <div class="relative hidden md:block">
+                  <div class="sticky top-1/3 w-full aspect-square relative">
+                    <!-- Icon 1: Experience / Chart -->
+                    <svg
+                      id="illus-0"
+                      class="absolute text-forest-floor opacity-0 transition-all duration-700 w-40 h-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M18 20V10"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M12 20V4"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M6 20V14"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
 
-                <!-- Floating Abstract SVG 2 -->
-                <svg
-                  id="illus-2"
-                  class="absolute text-warm-loam opacity-0 transition-all duration-700 w-32 h-32 bottom-20 right-10"
-                  viewBox="0 0 100 100"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    x="20"
-                    y="20"
-                    width="60"
-                    height="60"
-                    rx="8"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  />
-                  <path
-                    d="M20 50H80"
-                    stroke="currentColor"
-                    stroke-width="1"
-                    opacity="0.5"
-                  />
-                </svg>
+                    <!-- Icon 2: Technologies / Clock -->
+                    <svg
+                      id="illus-1"
+                      class="absolute text-warm-loam opacity-0 transition-all duration-700 w-40 h-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M12 6V12L16 14"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
 
-                <!-- Floating Abstract SVG 3 -->
-                <svg
-                  id="illus-3"
-                  class="absolute text-botanical-ink opacity-0 transition-all duration-700 w-40 h-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                  viewBox="0 0 100 100"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M50 10C72.0914 10 90 27.9086 90 50C90 72.0914 72.0914 90 50 90"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  />
-                  <path
-                    d="M50 10V90"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-dasharray="2 4"
-                  />
-                </svg>
+                    <!-- Icon 3: Guarantees / Shield -->
+                    <svg
+                      id="illus-2"
+                      class="absolute text-botanical-ink opacity-0 transition-all duration-700 w-40 h-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 22S8 18 8 12V6L12 2L16 6V12C16 18 12 22 12 22Z"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
 
-                <!-- Floating Abstract SVG 4 -->
-                <svg
-                  id="illus-4"
-                  class="absolute text-eucalyptus opacity-0 transition-all duration-700 w-20 h-20 bottom-0 left-20"
-                  viewBox="0 0 100 100"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <polygon
-                    points="50,10 90,90 10,90"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
-            </div>
+                    <!-- Icon 4: Security / Lock -->
+                    <svg
+                      id="illus-3"
+                      class="absolute text-eucalyptus opacity-0 transition-all duration-700 w-40 h-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect
+                        x="5"
+                        y="11"
+                        width="14"
+                        height="11"
+                        rx="2"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M7 11V7C7 5.67392 7.52678 4.40215 8.46447 3.46447C9.40215 2.52678 10.6739 2 12 2C13.3261 2 14.5979 2.52678 15.5355 3.46447C16.4732 4.40215 17 5.67392 17 7V11"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </div>
 
-            <!-- Right Column: Scrolling Text Items -->
-            <div class="flex flex-col py-32">
-              <div
-                class="trust-item relative min-h-[50vh] flex flex-col justify-center"
-                data-index="1"
-              >
-                <span
-                  class="inline-block px-3 py-1 bg-moss-veil text-botanical-ink text-sm font-body uppercase tracking-widest rounded-full mb-6"
-                  >Экспертиза</span
-                >
-                <h2
-                  class="text-[47px] leading-tight tracking-[-1.88px] text-botanical-ink mb-6"
-                >
-                  Опыт работы более 10 лет
-                </h2>
-                <p
-                  class="text-lg text-botanical-ink/80 font-body leading-relaxed max-w-md"
-                >
-                  Команда профессиональных бухгалтеров с глубоким пониманием
-                  специфики малого и среднего бизнеса.
-                </p>
-              </div>
+                <!-- Right Column: Scrolling Text Items -->
+                <div class="flex flex-col py-32">
+                  <div
+                    class="trust-item relative min-h-[50vh] flex flex-col justify-center items-start"
+                    data-index="0"
+                  >
+                    <span
+                      class="inline-block px-3 py-1 bg-moss-veil text-botanical-ink text-sm font-body uppercase tracking-widest rounded-full mb-6"
+                      >Экспертиза</span
+                    >
+                    <h2
+                      class="text-[47px] leading-tight tracking-[-1.88px] text-botanical-ink mb-6"
+                    >
+                      Опыт работы более 10 лет
+                    </h2>
+                    <p
+                      class="text-lg text-botanical-ink/80 font-body leading-relaxed max-w-md"
+                    >
+                      Команда профессиональных бухгалтеров с глубоким пониманием
+                      специфики малого и среднего бизнеса.
+                    </p>
+                  </div>
 
-              <div
-                class="trust-item relative min-h-[50vh] flex flex-col justify-center"
-                data-index="2"
-              >
-                <span
-                  class="inline-block px-3 py-1 bg-moss-veil text-botanical-ink text-sm font-body uppercase tracking-widest rounded-full mb-6"
-                  >Технологии</span
-                >
-                <h2
-                  class="text-[47px] leading-tight tracking-[-1.88px] text-botanical-ink mb-6"
-                >
-                  Бесплатная лицензия 1С 24/7
-                </h2>
-                <p
-                  class="text-lg text-botanical-ink/80 font-body leading-relaxed max-w-md"
-                >
-                  Прозрачный учет, возможность формировать документы
-                  самостоятельно в любое время суток.
-                </p>
-              </div>
+                  <div
+                    class="trust-item relative min-h-[50vh] flex flex-col justify-center items-start"
+                    data-index="1"
+                  >
+                    <span
+                      class="inline-block px-3 py-1 bg-moss-veil text-botanical-ink text-sm font-body uppercase tracking-widest rounded-full mb-6"
+                      >Технологии</span
+                    >
+                    <h2
+                      class="text-[47px] leading-tight tracking-[-1.88px] text-botanical-ink mb-6"
+                    >
+                      Бесплатная лицензия 1С 24/7
+                    </h2>
+                    <p
+                      class="text-lg text-botanical-ink/80 font-body leading-relaxed max-w-md"
+                    >
+                      Прозрачный учет, возможность формировать документы
+                      самостоятельно в любое время суток.
+                    </p>
+                  </div>
 
-              <div
-                class="trust-item relative min-h-[50vh] flex flex-col justify-center"
-                data-index="3"
-              >
-                <span
-                  class="inline-block px-3 py-1 bg-moss-veil text-botanical-ink text-sm font-body uppercase tracking-widest rounded-full mb-6"
-                  >Гарантии</span
-                >
-                <h2
-                  class="text-[47px] leading-tight tracking-[-1.88px] text-botanical-ink mb-6"
-                >
-                  Финансовые гарантии Moneyback
-                </h2>
-                <p
-                  class="text-lg text-botanical-ink/80 font-body leading-relaxed max-w-md"
-                >
-                  Полное возмещение убытков при нарушении сроков или ошибках в
-                  отчетности, закрепленное в договоре.
-                </p>
-              </div>
+                  <div
+                    class="trust-item relative min-h-[50vh] flex flex-col justify-center items-start"
+                    data-index="2"
+                  >
+                    <span
+                      class="inline-block px-3 py-1 bg-moss-veil text-botanical-ink text-sm font-body uppercase tracking-widest rounded-full mb-6"
+                      >Гарантии</span
+                    >
+                    <h2
+                      class="text-[47px] leading-tight tracking-[-1.88px] text-botanical-ink mb-6"
+                    >
+                      Финансовые гарантии Moneyback
+                    </h2>
+                    <p
+                      class="text-lg text-botanical-ink/80 font-body leading-relaxed max-w-md"
+                    >
+                      Полное возмещение убытков при нарушении сроков или ошибках
+                      в отчетности, закрепленное в договоре.
+                    </p>
+                  </div>
 
-              <div
-                class="trust-item relative min-h-[50vh] flex flex-col justify-center"
-                data-index="4"
-              >
-                <span
-                  class="inline-block px-3 py-1 bg-moss-veil text-botanical-ink text-sm font-body uppercase tracking-widest rounded-full mb-6"
-                  >Безопасность</span
-                >
-                <h2
-                  class="text-[47px] leading-tight tracking-[-1.88px] text-botanical-ink mb-6"
-                >
-                  Конфиденциальность данных
-                </h2>
-                <p
-                  class="text-lg text-botanical-ink/80 font-body leading-relaxed max-w-md"
-                >
-                  Строгое соблюдение законодательства и NDA. Ваши финансовые
-                  данные надежно защищены.
-                </p>
+                  <div
+                    class="trust-item relative min-h-[50vh] flex flex-col justify-center items-start"
+                    data-index="3"
+                  >
+                    <span
+                      class="inline-block px-3 py-1 bg-moss-veil text-botanical-ink text-sm font-body uppercase tracking-widest rounded-full mb-6"
+                      >Безопасность</span
+                    >
+                    <h2
+                      class="text-[47px] leading-tight tracking-[-1.88px] text-botanical-ink mb-6"
+                    >
+                      Конфиденциальность данных
+                    </h2>
+                    <p
+                      class="text-lg text-botanical-ink/80 font-body leading-relaxed max-w-md"
+                    >
+                      Строгое соблюдение законодательства и NDA. Ваши финансовые
+                      данные надежно защищены.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       <!-- Phase 3: Social Proof (Картотека) -->
       <section
@@ -2048,6 +2077,13 @@
           delay: 0.5,
           onComplete: () => {
             preloader.style.display = "none";
+            // Reveal Hero content
+            gsap.set("#hero-content", { autoAlpha: 1 });
+            gsap.to("#hero-title", {
+              opacity: 1,
+              duration: 1,
+              ease: "power1.out",
+            });
           },
         });
 
@@ -2178,32 +2214,23 @@
         0,
       );
 
-      // Title Animation: Static Logo, just fades in at the very start
-      scrollytellingTl.to(
-        heroTitle,
-        { opacity: 1, duration: 0.5, ease: "power1.out" },
-        0,
-      );
+      // Title Animation: (Already faded in after preloader, we just ensure it stays, or if needed we can remove it from timeline completely, but leaving it static is fine. It was faded in during completeLoading).
 
-      // Subtitle 1 fades in at start
+      // Subtitle 1 is visible from start by default, just ensuring state
+      gsap.set(heroSubtitle1, { opacity: 1 });
+
+      // Phase 1.3: Strict Frame 100 Swap (Timeline duration is 10, so 0.5 progress is at offset 5.0)
       scrollytellingTl.to(
         heroSubtitle1,
-        { opacity: 1, duration: 0.5, ease: "power1.out" },
-        0.5,
-      );
-
-      // Phase 1.3: Subtitle 1 disappears by frame 100+ (approx offset 5)
-      scrollytellingTl.to(
-        heroSubtitle1,
-        { opacity: 0, y: -20, duration: 0.5, ease: "power1.in" },
+        { opacity: 0, duration: 0.5, ease: "power1.inOut" },
         5,
       );
 
-      // Text 2 (Спокойствие) appears exactly in its place at frame 110-120 (approx offset 5.5)
+      // Text 2 (Спокойствие) appears exactly in its place at frame 100
       scrollytellingTl.fromTo(
         heroText2,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 1, ease: "power1.out" },
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5, ease: "power1.inOut" },
         5.5,
       );
 
@@ -2216,7 +2243,7 @@
           duration: 1,
           ease: "power1.in",
         },
-        7.5,
+        8,
       );
 
       // Fade out the overlay text elements completely before closing
@@ -2227,27 +2254,26 @@
           duration: 0.5,
           ease: "power1.out",
         },
-        8,
+        9,
       );
 
       // Phase 1.5: Container Scroll 3D effect
-      // Instead of locking to the canvas timeline, we create a specific timeline for the section sliding up
+      // Instead of locking to the canvas timeline, we create a specific timeline for the section sliding up over the pinned canvas
       const trustSection = document.getElementById("trust-section");
 
       gsap.fromTo(
         trustSection,
         {
-          y: "20vh", // Start slightly lower
-          rotateX: 20,
-          transformPerspective: 1000,
+          y: 200,
+          rotateX: 45,
           scale: 0.9,
-          transformOrigin: "top",
+          transformOrigin: "bottom",
         },
         {
-          y: "0vh",
+          y: 0,
           rotateX: 0,
           scale: 1,
-          ease: "power2.out",
+          ease: "none",
           scrollTrigger: {
             trigger: trustSection,
             start: "top bottom",
