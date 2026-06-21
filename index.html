@@ -139,47 +139,27 @@
     >
       <!-- Large Outline Logo Mask -->
       <div
-        class="relative w-[35vw] max-w-[400px] aspect-square flex items-center justify-center mb-12"
+        class="relative w-[35vw] max-w-[400px] aspect-square flex flex-col items-center justify-center mb-12"
       >
-        <svg
-          id="main-logo"
-          class="absolute inset-0 w-full h-full text-moss-veil opacity-30"
-          viewBox="0 0 100 100"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M50 5C25 5 10 25 10 50C10 75 25 95 50 95C75 95 90 75 90 50C90 25 75 5 50 5Z"
-            stroke="currentColor"
-            stroke-width="2"
-          />
-          <path d="M50 5V95" stroke="currentColor" stroke-width="2" />
-          <path d="M30 40H50V60H30" stroke="currentColor" stroke-width="2" />
-        </svg>
+        <!-- Dimmed Logo Background -->
+        <img
+          src="./logotest.png"
+          class="absolute inset-0 w-full h-full object-contain opacity-20 grayscale"
+          alt="Logo outline"
+        />
 
-        <svg
-          class="absolute inset-0 w-full h-full text-forest-floor"
-          viewBox="0 0 100 100"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <clipPath id="logo-clip">
-              <rect id="clip-rect" x="0" y="100" width="100" height="100" />
-            </clipPath>
-          </defs>
-          <g clip-path="url(#logo-clip)">
-            <path
-              d="M50 5C25 5 10 25 10 50C10 75 25 95 50 95C75 95 90 75 90 50C90 25 75 5 50 5Z"
-              fill="currentColor"
-            />
-            <path d="M30 40H50V60H30" fill="var(--color-cream-paper)" />
-          </g>
-        </svg>
+        <!-- Colored Logo Reveal via Clip Path -->
+        <img
+          src="./logotest.png"
+          id="colored-logo"
+          class="absolute inset-0 w-full h-full object-contain z-10"
+          style="clip-path: inset(100% 0 0 0)"
+          alt="Logo colored reveal"
+        />
 
         <!-- Hamster Snippet inside Logo center -->
         <div
-          class="absolute inset-0 flex items-center justify-center scale-[0.6] pointer-events-none z-10 opacity-80"
+          class="absolute inset-0 flex items-center justify-center scale-[0.6] pointer-events-none z-20 opacity-80"
         >
           <div
             aria-label="Orange and tan hamster running in a metal wheel"
@@ -259,165 +239,27 @@
         <div
           class="sticky top-0 h-screen w-full overflow-hidden bg-cream-paper flex flex-col items-center justify-center perspective-[2000px]"
         >
-          <!-- Macbook 3D Container -->
-          <div
-            id="macbook-container"
-            class="relative w-full h-full transform-gpu flex flex-col items-center justify-center transform-style-3d"
-          >
-            <!-- Lid containing Canvas -->
-            <div
-              id="macbook-lid"
-              class="relative w-full h-full origin-bottom transform-gpu overflow-hidden bg-onyx transition-all"
-            >
-              <!-- Layer 2: Canvas (Bottom) -->
-              <canvas
-                id="hero-canvas"
-                class="absolute inset-0 w-full h-full object-cover z-0 opacity-0 transform-gpu"
-              ></canvas>
+          <!-- Layer 2: Canvas (Bottom) -->
+          <canvas
+            id="hero-canvas"
+            class="absolute inset-0 w-full h-full object-cover z-0 opacity-0 transform-gpu"
+          ></canvas>
 
-              <!-- Layer 1: Hero Image (Top) -->
-              <img
-                id="hero-image"
-                src="./hero-girl.jpg"
-                alt="Woman with laptop in park"
-                class="absolute inset-0 w-full h-full object-cover z-10 transform-gpu"
-              />
-
-              <!-- Macbook Bezel (invisible initially, fades in when scale down begins) -->
-              <div
-                id="macbook-bezel"
-                class="absolute inset-0 border-[24px] border-onyx rounded-2xl pointer-events-none opacity-0 z-30 transition-opacity"
-              >
-                <!-- Camera Notch -->
-                <div
-                  class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-onyx rounded-b-xl flex justify-center items-center"
-                >
-                  <div
-                    class="w-3 h-3 bg-black rounded-full border border-gray-800"
-                  ></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Macbook Base (Keyboard area, rotates up from bottom) -->
-            <div
-              id="macbook-base"
-              class="absolute bottom-[-22rem] -z-10 h-[22rem] w-full max-w-[32rem] overflow-hidden rounded-2xl bg-gray-200 dark:bg-[#272729] transform-gpu origin-top rotate-x-[-90deg] opacity-0"
-            >
-              <!-- above keyboard bar -->
-              <div class="relative h-10 w-full">
-                <div
-                  class="absolute inset-x-0 mx-auto h-4 w-[80%] bg-[#050505]"
-                />
-              </div>
-              <div class="relative flex h-[12rem]">
-                <div class="mx-auto h-full w-[10%] overflow-hidden">
-                  <div
-                    class="mt-2 flex h-full gap-[2px] px-[0.5px]"
-                    style="
-                      background-image: radial-gradient(
-                        circle,
-                        #08080a 0.5px,
-                        transparent 0.5px
-                      );
-                      background-size: 3px 3px;
-                    "
-                  ></div>
-                </div>
-                <div class="mx-auto h-full w-[80%] p-1 rounded-md bg-[#050505]">
-                  <!-- Fake Keyboard Grid -->
-                  <div class="w-full h-full flex flex-col justify-between p-1">
-                    <div class="w-full h-[12%] flex gap-[2px]">
-                      <div
-                        class="bg-gray-800 w-10 h-full rounded shadow-[0_0_1px_#000]"
-                      ></div>
-                      <div
-                        class="flex-grow bg-gray-800 h-full rounded shadow-[0_0_1px_#000]"
-                      ></div>
-                    </div>
-                    <div class="w-full h-[18%] flex gap-[2px]">
-                      <div
-                        class="flex-grow bg-gray-800 h-full rounded shadow-[0_0_1px_#000]"
-                      ></div>
-                    </div>
-                    <div class="w-full h-[18%] flex gap-[2px]">
-                      <div
-                        class="bg-gray-800 w-12 h-full rounded shadow-[0_0_1px_#000]"
-                      ></div>
-                      <div
-                        class="flex-grow bg-gray-800 h-full rounded shadow-[0_0_1px_#000]"
-                      ></div>
-                      <div
-                        class="bg-gray-800 w-12 h-full rounded shadow-[0_0_1px_#000]"
-                      ></div>
-                    </div>
-                    <div class="w-full h-[18%] flex gap-[2px]">
-                      <div
-                        class="bg-gray-800 w-14 h-full rounded shadow-[0_0_1px_#000]"
-                      ></div>
-                      <div
-                        class="flex-grow bg-gray-800 h-full rounded shadow-[0_0_1px_#000]"
-                      ></div>
-                      <div
-                        class="bg-gray-800 w-14 h-full rounded shadow-[0_0_1px_#000]"
-                      ></div>
-                    </div>
-                    <div class="w-full h-[18%] flex gap-[2px]">
-                      <div
-                        class="bg-gray-800 w-10 h-full rounded shadow-[0_0_1px_#000]"
-                      ></div>
-                      <div
-                        class="bg-gray-800 w-10 h-full rounded shadow-[0_0_1px_#000]"
-                      ></div>
-                      <div
-                        class="bg-gray-800 w-10 h-full rounded shadow-[0_0_1px_#000]"
-                      ></div>
-                      <div
-                        class="flex-grow bg-gray-800 h-full rounded shadow-[0_0_1px_#000]"
-                      ></div>
-                      <div
-                        class="bg-gray-800 w-10 h-full rounded shadow-[0_0_1px_#000]"
-                      ></div>
-                      <div
-                        class="bg-gray-800 w-16 h-full rounded shadow-[0_0_1px_#000]"
-                      ></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="mx-auto h-full w-[10%] overflow-hidden">
-                  <div
-                    class="mt-2 flex h-full gap-[2px] px-[0.5px]"
-                    style="
-                      background-image: radial-gradient(
-                        circle,
-                        #08080a 0.5px,
-                        transparent 0.5px
-                      );
-                      background-size: 3px 3px;
-                    "
-                  ></div>
-                </div>
-              </div>
-              <!-- Trackpad -->
-              <div
-                class="mx-auto my-1 h-20 w-[40%] rounded-xl shadow-[0px_0px_1px_1px_#00000020_inset]"
-              ></div>
-              <div
-                class="absolute inset-x-0 bottom-0 mx-auto h-2 w-20 rounded-tl-3xl rounded-tr-3xl bg-gradient-to-t from-[#272729] to-[#050505]"
-              />
-            </div>
-          </div>
+          <!-- Layer 1: Hero Image (Top) -->
+          <img
+            id="hero-image"
+            src="./hero-girl.jpg"
+            alt="Woman with laptop in park"
+            class="absolute inset-0 w-full h-full object-cover z-10 transform-gpu"
+          />
 
           <!-- Overlay Text & Marquee -->
           <div
             id="hero-content"
-            class="absolute inset-0 z-20 pointer-events-none flex flex-col items-center"
+            class="absolute top-0 w-full h-[50vh] z-50 pointer-events-none flex flex-col items-center justify-start pt-[5%]"
           >
             <!-- Text 1 (Initial Title) - Static Logo -->
-            <div
-              id="hero-title"
-              class="absolute top-[8%] left-1/2 transform -translate-x-1/2 text-center opacity-0"
-            >
+            <div id="hero-title" class="relative text-center opacity-0">
               <h1
                 class="text-5xl md:text-[8vw] leading-none tracking-[-0.04em] text-botanical-ink font-headings"
               >
@@ -428,7 +270,7 @@
             <!-- Central Content Group -->
             <div
               id="hero-middle-group"
-              class="absolute top-[25%] md:top-[30%] w-full flex flex-col items-center justify-center opacity-0"
+              class="relative mt-8 w-full flex flex-col items-center justify-center opacity-100"
             >
               <!-- Titles Container (Relative to hold absolute swapping texts) -->
               <div
@@ -771,7 +613,7 @@
       <!-- Phase 2: Trust Triggers -->
       <section
         id="trust-section"
-        class="relative bg-sage-mist w-full py-32 z-30"
+        class="relative bg-sage-mist w-full py-32 z-30 origin-bottom transform-gpu"
       >
         <div class="max-w-[1200px] mx-auto px-8 relative">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
@@ -2167,11 +2009,9 @@
       const images = [];
       let loadedCount = 0;
 
-      const clipRect = document.getElementById("clip-rect");
+      const coloredLogo = document.getElementById("colored-logo");
       const loadingText = document.getElementById("loading-text");
       const preloader = document.getElementById("preloader");
-      const logoContainer = document.getElementById("logo-container");
-      const mainLogo = document.getElementById("main-logo");
       const scrollIcon = document.getElementById("scroll-icon");
 
       function updateProgress() {
@@ -2179,11 +2019,11 @@
         const percentage = Math.floor(progress * 100);
 
         // Update text
-        loadingText.textContent = `Загрузка ${percentage}%`;
+        loadingText.textContent = `${percentage}%`;
 
-        // Update clip-path y position (from 100 down to 0)
-        gsap.to(clipRect, {
-          attr: { y: 100 - progress * 100 },
+        // Update clip-path inset from 100% to 0% (bottom up)
+        gsap.to(coloredLogo, {
+          clipPath: `inset(${100 - percentage}% 0 0 0)`,
           duration: 0.1,
           ease: "power1.out",
         });
@@ -2194,8 +2034,11 @@
       }
 
       function completeLoading() {
-        // Hide loading text
-        gsap.to(loadingText, { opacity: 0, duration: 0.5 });
+        // Hide loading text and preloader container smoothly
+        gsap.to([loadingText, ".wheel-and-hamster"], {
+          opacity: 0,
+          duration: 0.5,
+        });
 
         // Move preloader up
         gsap.to(preloader, {
@@ -2205,43 +2048,6 @@
           delay: 0.5,
           onComplete: () => {
             preloader.style.display = "none";
-          },
-        });
-
-        // Transform logo to fixed position top-left
-        // We detach it from preloader and append to body to keep it fixed
-        document.body.appendChild(mainLogo);
-
-        gsap.set(mainLogo, {
-          position: "fixed",
-          top: "50%",
-          left: "50%",
-          xPercent: -50,
-          yPercent: -50,
-          width: "8rem",
-          height: "8rem",
-          zIndex: 50,
-        });
-
-        gsap.to(mainLogo, {
-          top: "32px",
-          left: "32px",
-          xPercent: 0,
-          yPercent: 0,
-          width: "4rem",
-          height: "4rem",
-          duration: 1.2,
-          ease: "power3.inOut",
-          delay: 0.5,
-          onComplete: () => {
-            // Continuous breathing animation
-            gsap.to(mainLogo, {
-              y: -10,
-              duration: 2,
-              repeat: -1,
-              yoyo: true,
-              ease: "sine.inOut",
-            });
           },
         });
 
@@ -2326,7 +2132,7 @@
         }
       }
 
-      // Ensure Canvas is properly pinned throughout
+      // Phase 1.1: Ensure Canvas is properly pinned throughout
       const scrollytellingTl = gsap.timeline({
         scrollTrigger: {
           trigger: "#scrollytelling-section",
@@ -2340,10 +2146,9 @@
 
       const heroTitle = document.getElementById("hero-title");
       const heroSubtitle1 = document.getElementById("hero-subtitle-1");
-      const heroText2 = document.getElementById("hero-text-2");
       const heroMiddleGroup = document.getElementById("hero-middle-group");
+      const heroText2 = document.getElementById("hero-text-2");
 
-      // Phase 1.1: Initialize Canvas and fade out hero image
       scrollytellingTl.to(
         canvas,
         {
@@ -2376,30 +2181,21 @@
       // Title Animation: Static Logo, just fades in at the very start
       scrollytellingTl.to(
         heroTitle,
-        {
-          opacity: 1,
-          duration: 0.5,
-          ease: "power1.out",
-        },
+        { opacity: 1, duration: 0.5, ease: "power1.out" },
         0,
       );
 
-      // Central Group (which contains the marquee) fades in at start
+      // Subtitle 1 fades in at start
       scrollytellingTl.to(
-        heroMiddleGroup,
+        heroSubtitle1,
         { opacity: 1, duration: 0.5, ease: "power1.out" },
         0.5,
       );
 
-      // Subtitle 1 (Аутсорсинг) disappears by frame 100+ (approx offset 5)
+      // Phase 1.3: Subtitle 1 disappears by frame 100+ (approx offset 5)
       scrollytellingTl.to(
         heroSubtitle1,
-        {
-          opacity: 0,
-          y: -20,
-          duration: 0.5,
-          ease: "power1.in",
-        },
+        { opacity: 0, y: -20, duration: 0.5, ease: "power1.in" },
         5,
       );
 
@@ -2423,35 +2219,6 @@
         7.5,
       );
 
-      // Phase 1.5: Macbook 3D Transition at the end of the 200 frame sequence (from offset 8 to 10)
-      const macbookContainer = document.getElementById("macbook-container");
-      const macbookLid = document.getElementById("macbook-lid");
-      const macbookBase = document.getElementById("macbook-base");
-      const macbookBezel = document.getElementById("macbook-bezel");
-
-      // 1. Scale down the entire full-screen canvas to look like a laptop screen (matches React code)
-      scrollytellingTl.to(
-        macbookContainer,
-        {
-          scale: 0.45, // React component uses 0.35 to 1. We scale down from fullscreen to laptop size
-          y: "-15%",
-          duration: 1,
-          ease: "power2.inOut",
-        },
-        8,
-      );
-
-      // Fade in the macbook bezel (the black border around the screen)
-      scrollytellingTl.to(
-        macbookBezel,
-        {
-          opacity: 1,
-          duration: 0.5,
-          ease: "power1.inOut",
-        },
-        8,
-      );
-
       // Fade out the overlay text elements completely before closing
       scrollytellingTl.to(
         [heroTitle, heroMiddleGroup],
@@ -2463,40 +2230,31 @@
         8,
       );
 
-      // Show the base (keyboard) as we scale down, it rotates into flat view
-      scrollytellingTl.to(
-        macbookBase,
-        {
-          opacity: 1,
-          rotateX: 0, // flatten it out
-          duration: 1,
-          ease: "power2.inOut",
-        },
-        8,
-      );
+      // Phase 1.5: Container Scroll 3D effect
+      // Instead of locking to the canvas timeline, we create a specific timeline for the section sliding up
+      const trustSection = document.getElementById("trust-section");
 
-      // 2. Rotate the lid to close the laptop
-      scrollytellingTl.to(
-        macbookLid,
+      gsap.fromTo(
+        trustSection,
         {
-          rotateX: -90, // Close lid towards base
-          duration: 1,
-          ease: "power2.in",
+          y: "20vh", // Start slightly lower
+          rotateX: 20,
+          transformPerspective: 1000,
+          scale: 0.9,
+          transformOrigin: "top",
         },
-        9,
-      );
-
-      // 3. Translate closed laptop up into oblivion
-      scrollytellingTl.to(
-        macbookContainer,
         {
-          y: "-80%",
-          scale: 0.3,
-          opacity: 0,
-          duration: 0.5,
-          ease: "power1.in",
+          y: "0vh",
+          rotateX: 0,
+          scale: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: trustSection,
+            start: "top bottom",
+            end: "top top",
+            scrub: 1,
+          },
         },
-        10,
       );
 
       // Fade out scroll icon when scrolling down
