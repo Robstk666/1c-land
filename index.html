@@ -135,11 +135,12 @@
     <!-- Phase 0: Preloader & Logo -->
     <div
       id="preloader"
-      class="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6 bg-cream-paper transition-transform duration-1000 overflow-hidden"
+      class="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6 bg-cream-paper overflow-hidden"
     >
       <!-- Large Outline Logo Mask -->
       <div
-        class="relative w-[35vw] max-w-[200px] aspect-square flex flex-col items-center justify-center"
+        id="preloader-logo-container"
+        class="relative w-48 md:w-64 aspect-square flex flex-col items-center justify-center"
       >
         <!-- Dimmed Logo Background -->
         <img
@@ -160,7 +161,7 @@
 
       <!-- Hamster Snippet below Logo -->
       <div
-        class="flex items-center justify-center scale-[0.5] pointer-events-none z-20 opacity-80 h-32"
+        class="flex items-center justify-center scale-[0.5] pointer-events-none z-20 opacity-80 h-32 loading-elements"
       >
         <div
           aria-label="Orange and tan hamster running in a metal wheel"
@@ -186,10 +187,18 @@
         </div>
       </div>
 
-      <div
-        class="w-16 text-center tabular-nums font-body font-bold text-botanical-ink tracking-widest uppercase text-2xl mt-4"
-      >
-        <span id="loading-text">0%</span>
+      <div class="flex flex-col items-center mt-4 loading-elements">
+        <div
+          class="w-16 text-center tabular-nums font-body font-bold text-botanical-ink tracking-widest uppercase text-2xl"
+        >
+          <span id="loading-text">0%</span>
+        </div>
+        <div
+          id="dynamic-phrase"
+          class="mt-4 font-body text-sm text-botanical-ink/70 tracking-widest uppercase h-6 text-center transition-opacity duration-300"
+        >
+          Инициализация системы...
+        </div>
       </div>
     </div>
 
@@ -236,21 +245,28 @@
         class="relative h-[500vh] w-full z-10 bg-cream-paper"
       >
         <div
-          class="sticky top-0 h-screen w-full overflow-hidden bg-cream-paper flex flex-col items-center justify-center perspective-[2000px]"
+          id="canvas-perspective-wrapper"
+          class="sticky top-0 h-screen w-full overflow-hidden bg-cream-paper flex flex-col items-center justify-center"
+          style="perspective: 1500px"
         >
-          <!-- Layer 2: Canvas (Bottom) -->
-          <canvas
-            id="hero-canvas"
-            class="absolute inset-0 w-full h-full object-cover z-0 opacity-0 transform-gpu"
-          ></canvas>
+          <div
+            id="canvas-fold-container"
+            class="absolute inset-0 w-full h-full origin-bottom"
+          >
+            <!-- Layer 2: Canvas (Bottom) -->
+            <canvas
+              id="hero-canvas"
+              class="absolute inset-0 w-full h-full object-cover z-0 opacity-0 transform-gpu scale-105"
+            ></canvas>
 
-          <!-- Layer 1: Hero Image (Top) -->
-          <img
-            id="hero-image"
-            src="./hero-girl.jpg"
-            alt="Woman with laptop in park"
-            class="absolute inset-0 w-full h-full object-cover z-10 transform-gpu"
-          />
+            <!-- Layer 1: Hero Image (Top) -->
+            <img
+              id="hero-image"
+              src="./hero-girl.jpg"
+              alt="Woman with laptop in park"
+              class="absolute inset-0 w-full h-full object-cover z-10 transform-gpu"
+            />
+          </div>
 
           <!-- Overlay Text & Marquee -->
           <div
@@ -269,338 +285,342 @@
             <!-- Central Content Group (Fixed position container at ~35%) -->
             <div
               id="hero-middle-group"
-              class="absolute top-[35%] w-full flex flex-col items-center justify-center opacity-100"
+              class="absolute top-[35%] w-full flex flex-col items-center justify-center opacity-100 max-w-5xl mx-auto px-4"
             >
-              <!-- Titles Container (Relative to hold absolute swapping texts) -->
               <div
-                class="relative w-full flex justify-center h-[60px] md:h-[100px] mb-6"
+                class="bg-white/20 backdrop-blur-md border border-white/30 rounded-3xl p-6 md:p-10 shadow-lg w-full flex flex-col items-center"
               >
-                <!-- Subtitle 1 (Fades in first, then out) -->
+                <!-- Titles Container (Relative to hold absolute swapping texts) -->
                 <div
-                  id="hero-subtitle-1"
-                  class="absolute top-0 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-center w-full"
+                  class="relative w-full flex justify-center h-[60px] md:h-[100px] mb-6"
+                >
+                  <!-- Subtitle 1 (Fades in first, then out) -->
+                  <div
+                    id="hero-subtitle-1"
+                    class="absolute top-0 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-center w-full"
+                  >
+                    <p
+                      class="text-[32px] md:text-5xl lg:text-6xl text-botanical-ink font-headings leading-tight px-4 whitespace-nowrap"
+                    >
+                      Аутсорсинг бухгалтерских услуг
+                    </p>
+                  </div>
+
+                  <!-- Text 2 (Replaces Subtitle 1) -->
+                  <div
+                    id="hero-text-2"
+                    class="absolute top-0 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-center w-full opacity-0"
+                  >
+                    <h2
+                      class="text-[32px] md:text-5xl lg:text-6xl text-botanical-ink font-headings leading-tight px-4 whitespace-nowrap"
+                    >
+                      Спокойствие и порядок в ваших финансах
+                    </h2>
+                  </div>
+                </div>
+
+                <!-- Marquee Container (Stays fixed relative to the group) -->
+                <div
+                  class="w-full flex flex-col items-center justify-center overflow-hidden mt-4"
                 >
                   <p
-                    class="text-2xl md:text-4xl lg:text-5xl text-botanical-ink font-body px-4 whitespace-nowrap"
+                    class="text-center text-[10px] font-body tracking-widest uppercase mb-6 text-botanical-ink/80 w-full max-w-3xl font-bold"
                   >
-                    Аутсорсинг бухгалтерских услуг
+                    Интегрированы с платформами и банками, которые вы любите
                   </p>
-                </div>
-
-                <!-- Text 2 (Replaces Subtitle 1) -->
-                <div
-                  id="hero-text-2"
-                  class="absolute top-0 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-center w-full opacity-0"
-                >
-                  <h2
-                    class="text-[47px] md:text-5xl lg:text-6xl text-botanical-ink font-headings text-center max-w-4xl leading-tight px-4"
-                  >
-                    Спокойствие и порядок в ваших финансах
-                  </h2>
-                </div>
-              </div>
-
-              <!-- Marquee Container (Stays fixed relative to the group) -->
-              <div
-                class="w-full flex flex-col items-center justify-center overflow-hidden mt-4"
-              >
-                <p
-                  class="text-center text-[10px] font-body tracking-widest uppercase mb-6 text-botanical-ink/60 w-full max-w-3xl"
-                >
-                  Интегрированы с платформами и банками, которые вы любите
-                </p>
-                <div
-                  class="flex whitespace-nowrap marquee-track w-full justify-center"
-                >
-                  <!-- Repeated items for infinite marquee -->
                   <div
-                    class="flex items-center space-x-16 px-8 animate-marquee"
+                    class="flex whitespace-nowrap marquee-track w-full justify-center"
                   >
-                    <svg
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="text-botanical-ink opacity-70"
+                    <!-- Repeated items for infinite marquee -->
+                    <div
+                      class="flex items-center space-x-16 px-8 animate-marquee"
                     >
-                      <circle
-                        cx="20"
-                        cy="20"
-                        r="16"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                      <circle cx="20" cy="20" r="6" fill="currentColor" />
-                    </svg>
-                    <svg
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="text-botanical-ink opacity-70"
+                      <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="text-botanical-ink opacity-70"
+                      >
+                        <circle
+                          cx="20"
+                          cy="20"
+                          r="16"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                        <circle cx="20" cy="20" r="6" fill="currentColor" />
+                      </svg>
+                      <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="text-botanical-ink opacity-70"
+                      >
+                        <rect
+                          x="4"
+                          y="4"
+                          width="32"
+                          height="32"
+                          rx="4"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                        <path
+                          d="M12 20H28M20 12V28"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                      </svg>
+                      <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="text-botanical-ink opacity-70"
+                      >
+                        <path
+                          d="M20 4L34 12V28L20 36L6 28V12L20 4Z"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                      </svg>
+                      <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="text-botanical-ink opacity-70"
+                      >
+                        <rect
+                          x="8"
+                          y="14"
+                          width="24"
+                          height="12"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                        <circle cx="20" cy="20" r="2" fill="currentColor" />
+                      </svg>
+                      <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="text-botanical-ink opacity-70"
+                      >
+                        <path
+                          d="M10 30L30 10M10 10L30 30"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                      </svg>
+                      <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="text-botanical-ink opacity-70"
+                      >
+                        <circle
+                          cx="20"
+                          cy="20"
+                          r="16"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                        <circle cx="20" cy="20" r="6" fill="currentColor" />
+                      </svg>
+                      <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="text-botanical-ink opacity-70"
+                      >
+                        <rect
+                          x="4"
+                          y="4"
+                          width="32"
+                          height="32"
+                          rx="4"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                        <path
+                          d="M12 20H28M20 12V28"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                      </svg>
+                      <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="text-botanical-ink opacity-70"
+                      >
+                        <path
+                          d="M20 4L34 12V28L20 36L6 28V12L20 4Z"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="flex items-center space-x-16 px-8 animate-marquee"
+                      aria-hidden="true"
                     >
-                      <rect
-                        x="4"
-                        y="4"
-                        width="32"
-                        height="32"
-                        rx="4"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                      <path
-                        d="M12 20H28M20 12V28"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                    </svg>
-                    <svg
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="text-botanical-ink opacity-70"
-                    >
-                      <path
-                        d="M20 4L34 12V28L20 36L6 28V12L20 4Z"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                    </svg>
-                    <svg
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="text-botanical-ink opacity-70"
-                    >
-                      <rect
-                        x="8"
-                        y="14"
-                        width="24"
-                        height="12"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                      <circle cx="20" cy="20" r="2" fill="currentColor" />
-                    </svg>
-                    <svg
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="text-botanical-ink opacity-70"
-                    >
-                      <path
-                        d="M10 30L30 10M10 10L30 30"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                    </svg>
-                    <svg
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="text-botanical-ink opacity-70"
-                    >
-                      <circle
-                        cx="20"
-                        cy="20"
-                        r="16"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                      <circle cx="20" cy="20" r="6" fill="currentColor" />
-                    </svg>
-                    <svg
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="text-botanical-ink opacity-70"
-                    >
-                      <rect
-                        x="4"
-                        y="4"
-                        width="32"
-                        height="32"
-                        rx="4"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                      <path
-                        d="M12 20H28M20 12V28"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                    </svg>
-                    <svg
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="text-botanical-ink opacity-70"
-                    >
-                      <path
-                        d="M20 4L34 12V28L20 36L6 28V12L20 4Z"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                    </svg>
-                  </div>
-                  <div
-                    class="flex items-center space-x-16 px-8 animate-marquee"
-                    aria-hidden="true"
-                  >
-                    <svg
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="text-botanical-ink opacity-70"
-                    >
-                      <circle
-                        cx="20"
-                        cy="20"
-                        r="16"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                      <circle cx="20" cy="20" r="6" fill="currentColor" />
-                    </svg>
-                    <svg
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="text-botanical-ink opacity-70"
-                    >
-                      <rect
-                        x="4"
-                        y="4"
-                        width="32"
-                        height="32"
-                        rx="4"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                      <path
-                        d="M12 20H28M20 12V28"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                    </svg>
-                    <svg
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="text-botanical-ink opacity-70"
-                    >
-                      <path
-                        d="M20 4L34 12V28L20 36L6 28V12L20 4Z"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                    </svg>
-                    <svg
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="text-botanical-ink opacity-70"
-                    >
-                      <rect
-                        x="8"
-                        y="14"
-                        width="24"
-                        height="12"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                      <circle cx="20" cy="20" r="2" fill="currentColor" />
-                    </svg>
-                    <svg
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="text-botanical-ink opacity-70"
-                    >
-                      <path
-                        d="M10 30L30 10M10 10L30 30"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                    </svg>
-                    <svg
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="text-botanical-ink opacity-70"
-                    >
-                      <circle
-                        cx="20"
-                        cy="20"
-                        r="16"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                      <circle cx="20" cy="20" r="6" fill="currentColor" />
-                    </svg>
-                    <svg
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="text-botanical-ink opacity-70"
-                    >
-                      <rect
-                        x="4"
-                        y="4"
-                        width="32"
-                        height="32"
-                        rx="4"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                      <path
-                        d="M12 20H28M20 12V28"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                    </svg>
-                    <svg
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="text-botanical-ink opacity-70"
-                    >
-                      <path
-                        d="M20 4L34 12V28L20 36L6 28V12L20 4Z"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      />
-                    </svg>
+                      <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="text-botanical-ink opacity-70"
+                      >
+                        <circle
+                          cx="20"
+                          cy="20"
+                          r="16"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                        <circle cx="20" cy="20" r="6" fill="currentColor" />
+                      </svg>
+                      <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="text-botanical-ink opacity-70"
+                      >
+                        <rect
+                          x="4"
+                          y="4"
+                          width="32"
+                          height="32"
+                          rx="4"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                        <path
+                          d="M12 20H28M20 12V28"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                      </svg>
+                      <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="text-botanical-ink opacity-70"
+                      >
+                        <path
+                          d="M20 4L34 12V28L20 36L6 28V12L20 4Z"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                      </svg>
+                      <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="text-botanical-ink opacity-70"
+                      >
+                        <rect
+                          x="8"
+                          y="14"
+                          width="24"
+                          height="12"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                        <circle cx="20" cy="20" r="2" fill="currentColor" />
+                      </svg>
+                      <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="text-botanical-ink opacity-70"
+                      >
+                        <path
+                          d="M10 30L30 10M10 10L30 30"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                      </svg>
+                      <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="text-botanical-ink opacity-70"
+                      >
+                        <circle
+                          cx="20"
+                          cy="20"
+                          r="16"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                        <circle cx="20" cy="20" r="6" fill="currentColor" />
+                      </svg>
+                      <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="text-botanical-ink opacity-70"
+                      >
+                        <rect
+                          x="4"
+                          y="4"
+                          width="32"
+                          height="32"
+                          rx="4"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                        <path
+                          d="M12 20H28M20 12V28"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                      </svg>
+                      <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="text-botanical-ink opacity-70"
+                      >
+                        <path
+                          d="M20 4L34 12V28L20 36L6 28V12L20 4Z"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -609,18 +629,13 @@
         </div>
       </section>
 
-      <!-- Phase 2: Trust Triggers wrapped in 3D Mockup -->
-      <div
-        class="relative w-full z-50 pointer-events-none"
-        style="perspective: 1000px"
-      >
+      <!-- Phase 2: Trust Triggers -->
+      <div class="relative w-full z-50 bg-cream-paper">
         <section
           id="trust-section"
-          class="max-w-[1400px] mx-auto w-full border-[6px] border-[#444] bg-[#222] rounded-[30px] shadow-[0_-20px_50px_rgba(0,0,0,0.5)] origin-bottom pointer-events-auto overflow-hidden"
+          class="w-full bg-sage-mist origin-bottom pointer-events-auto overflow-hidden shadow-[0_-20px_50px_rgba(0,0,0,0.1)] relative"
         >
-          <div
-            class="rounded-2xl overflow-hidden bg-sage-mist pt-32 pb-16 w-full"
-          >
+          <div class="w-full pt-32 pb-16">
             <div class="max-w-[1200px] mx-auto px-8 relative">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
                 <!-- Left Column: Sticky SVG Illustrations -->
@@ -2042,6 +2057,16 @@
       const loadingText = document.getElementById("loading-text");
       const preloader = document.getElementById("preloader");
       const scrollIcon = document.getElementById("scroll-icon");
+      const logoContainer = document.getElementById("preloader-logo-container");
+      const dynamicPhraseEl = document.getElementById("dynamic-phrase");
+
+      const loadingPhrases = [
+        "Инициализация системы...",
+        "Синхронизация баз данных 1С...",
+        "Обновление налоговых реестров...",
+        "Подготовка защищенного шлюза...",
+        "Оптимизация учетных процессов...",
+      ];
 
       function updateProgress() {
         const progress = loadedCount / totalFrames;
@@ -2049,6 +2074,25 @@
 
         // Update text
         loadingText.textContent = `${percentage}%`;
+
+        // Update dynamic phrase based on progress chunks
+        const phraseIndex = Math.min(
+          Math.floor(progress * loadingPhrases.length),
+          loadingPhrases.length - 1,
+        );
+
+        if (
+          dynamicPhraseEl.textContent.trim() !== loadingPhrases[phraseIndex]
+        ) {
+          gsap.to(dynamicPhraseEl, {
+            opacity: 0,
+            duration: 0.1,
+            onComplete: () => {
+              dynamicPhraseEl.textContent = loadingPhrases[phraseIndex];
+              gsap.to(dynamicPhraseEl, { opacity: 1, duration: 0.2 });
+            },
+          });
+        }
 
         // Update clip-path inset from 100% to 0% (bottom up)
         gsap.to(coloredLogo, {
@@ -2063,21 +2107,48 @@
       }
 
       function completeLoading() {
-        // Hide loading text and preloader container smoothly
-        gsap.to([loadingText, ".wheel-and-hamster"], {
+        // Hide loading elements (hamster, text) but keep logo
+        gsap.to(".loading-elements", {
           opacity: 0,
           duration: 0.5,
         });
 
-        // Move preloader up
+        // Make preloader background transparent so we can see the hero behind it
         gsap.to(preloader, {
-          yPercent: -100,
-          duration: 1.2,
+          backgroundColor: "transparent",
+          duration: 1,
+          delay: 0.2,
+          pointerEvents: "none", // allow clicking through
+        });
+
+        // Calculate destination for logo fly-out (top-6 left-8 fixed position equivalent)
+        const destRect = { top: 24, left: 32, width: 80, height: 80 }; // approximate w-20 h-20 for top corner
+        const startRect = logoContainer.getBoundingClientRect();
+
+        const xDist = destRect.left - startRect.left;
+        const yDist = destRect.top - startRect.top;
+        const scaleVal = destRect.width / startRect.width;
+
+        // Animate Logo Container flying to the top left
+        gsap.to(logoContainer, {
+          x: xDist,
+          y: yDist,
+          scale: scaleVal,
+          transformOrigin: "top left",
+          duration: 1.5,
           ease: "power3.inOut",
           delay: 0.5,
           onComplete: () => {
-            preloader.style.display = "none";
-            // Reveal Hero content
+            // Once in corner, start floating animation
+            gsap.to(logoContainer, {
+              y: "-=10",
+              duration: 2,
+              repeat: -1,
+              yoyo: true,
+              ease: "sine.inOut",
+            });
+
+            // Reveal Hero content smoothly
             gsap.set("#hero-content", { autoAlpha: 1 });
             gsap.to("#hero-title", {
               opacity: 1,
@@ -2234,45 +2305,46 @@
         5.5,
       );
 
-      // Entire Middle group (Text + Marquee) fades out at the end of the sequence
-      scrollytellingTl.to(
-        heroMiddleGroup,
-        {
-          opacity: 0,
-          y: -20,
-          duration: 1,
-          ease: "power1.in",
-        },
-        8,
-      );
+      // We explicitly DO NOT fade out heroTitle and heroMiddleGroup here.
+      // They should remain visible until the end of the 200 frame sequence.
 
-      // Fade out the overlay text elements completely before closing
-      scrollytellingTl.to(
-        [heroTitle, heroMiddleGroup],
-        {
-          opacity: 0,
-          duration: 0.5,
-          ease: "power1.out",
-        },
-        9,
-      );
-
-      // Phase 1.5: Container Scroll 3D effect
-      // Instead of locking to the canvas timeline, we create a specific timeline for the section sliding up over the pinned canvas
+      // Phase 1.5: Canvas Folding 3D effect
+      // When the trust section scrolls into view from the bottom, the canvas folds backward like a laptop closing.
       const trustSection = document.getElementById("trust-section");
+      const canvasFoldContainer = document.getElementById(
+        "canvas-fold-container",
+      );
 
       gsap.fromTo(
-        trustSection,
+        canvasFoldContainer,
         {
-          y: 200,
-          rotateX: 45,
-          scale: 0.9,
+          rotateX: 0,
+          scale: 1,
+          y: 0,
+          opacity: 1,
           transformOrigin: "bottom",
         },
         {
+          rotateX: -60,
+          scale: 0.6,
+          y: -200,
+          opacity: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: trustSection,
+            start: "top bottom",
+            end: "top top",
+            scrub: 1,
+          },
+        },
+      );
+
+      // Keep trust section simple scroll
+      gsap.fromTo(
+        trustSection,
+        { y: 100 },
+        {
           y: 0,
-          rotateX: 0,
-          scale: 1,
           ease: "none",
           scrollTrigger: {
             trigger: trustSection,
