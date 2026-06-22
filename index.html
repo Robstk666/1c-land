@@ -188,9 +188,9 @@
           </div>
         </div>
 
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center justify-center gap-12">
           <div
-            class="w-16 text-center tabular-nums font-body font-bold text-botanical-ink tracking-widest uppercase text-2xl"
+            class="text-2xl font-mono tabular-nums text-center w-24 block"
           >
             <span id="loading-text">0%</span>
           </div>
@@ -246,37 +246,20 @@
         id="scrollytelling-section"
         class="relative h-[500vh] w-full z-10 bg-cream-paper"
       >
-        <div
-          id="canvas-perspective-wrapper"
-          class="sticky top-0 h-screen w-full overflow-hidden bg-cream-paper flex flex-col items-center justify-center"
-          style="perspective: 1500px"
-        >
-          <div
-            id="canvas-fold-container"
-            class="absolute inset-0 w-full h-full origin-bottom"
-          >
-            <!-- Layer 3: Static Finish Image (Bottom, replaces canvas at end) -->
-            <img
-              id="hero-finish-image"
-              src="./Woman_with_laptop_in_park_202606160620_frames/Woman_with_laptop_in_park_202606160620_frame_160.webp"
-              alt="Woman with laptop in park finished frame"
-              class="absolute inset-0 w-full h-full object-cover -z-10 opacity-0 transform-gpu scale-105"
-            />
+        <div id="hero-pinned-wrapper" class="relative w-full h-screen overflow-hidden bg-[#fbfdf6] sticky top-0" style="perspective: 1500px;">
+          <!-- Layer 1: Hero Finish Image for the fold -->
+          <img src="./Woman_with_laptop_in_park_202606160620_frames/Woman_with_laptop_in_park_202606160620_frame_160.webp" id="hero-finish-img" class="absolute top-0 left-0 w-full h-full object-cover opacity-0 origin-bottom z-0 transform-gpu scale-105" />
 
-            <!-- Layer 2: Canvas (Middle) -->
-            <canvas
-              id="hero-canvas"
-              class="absolute inset-0 w-full h-full object-cover z-0 opacity-0 transform-gpu scale-105"
-            ></canvas>
+          <!-- Layer 2: Scrollytelling Canvas -->
+          <canvas id="hero-canvas" class="absolute top-0 left-0 w-full h-full object-cover z-10" style="transform: scale(1.05);"></canvas>
 
-            <!-- Layer 1: Hero Image (Top) -->
-            <img
-              id="hero-image"
-              src="./hero-girl.jpg"
-              alt="Woman with laptop in park"
-              class="absolute inset-0 w-full h-full object-cover z-10 transform-gpu"
-            />
-          </div>
+          <!-- Layer 3: Initial Hero Image that fades out at start -->
+          <img
+            id="hero-image"
+            src="./hero-girl.jpg"
+            alt="Woman with laptop in park"
+            class="absolute inset-0 w-full h-full object-cover z-20 transform-gpu scale-105"
+          />
 
           <!-- Overlay Text & Marquee -->
           <div
@@ -2326,44 +2309,33 @@
       // We explicitly DO NOT fade out heroTitle and heroMiddleGroup here.
       // They should remain visible until the end of the 200 frame sequence.
 
-      // Right at the very end of the sequence, swap canvas to opacity 0, and finish image to opacity 1
-      const heroFinishImage = document.getElementById("hero-finish-image");
-      scrollytellingTl.to(canvas, { opacity: 0, duration: 0.1, ease: "none" }, 9.9);
-      scrollytellingTl.to(heroFinishImage, { opacity: 1, duration: 0.1, ease: "none" }, 9.9);
+      // 1. In your 1-200 frames Canvas ScrollTrigger, add an onUpdate:
+      scrollytellingTl.eventCallback("onUpdate", function() {
+        if (this.progress() > 0.99) {
+          gsap.set("#hero-canvas", { opacity: 0 });
+          gsap.set("#hero-finish-img", { opacity: 1 });
+        } else {
+          gsap.set("#hero-canvas", { opacity: 1 });
+          gsap.set("#hero-finish-img", { opacity: 0 });
+        }
+      });
 
       // Phase 1.5: Canvas Folding 3D effect
-      // As the trust section (which has -mt-[100vh] to overlap) comes up from the bottom,
-      // fold the canvas backwards behind it.
       const trustSection = document.getElementById("trust-section");
-      const canvasFoldContainer = document.getElementById("canvas-fold-container");
-      const canvasPerspectiveWrapper = document.getElementById("canvas-perspective-wrapper");
 
-      // Give perspective to the wrapper dynamically
-      gsap.set(canvasPerspectiveWrapper, { perspective: 1500 });
-      gsap.set(canvasFoldContainer, { transformOrigin: "bottom center" });
-
-      gsap.fromTo(
-        canvasFoldContainer,
-        {
-          rotateX: 0,
-          scale: 1,
-          y: 0,
-          opacity: 1,
-        },
-        {
-          rotateX: -60,
-          scale: 0.8,
-          y: -100,
-          opacity: 0.3,
-          ease: "none",
-          scrollTrigger: {
-            trigger: trustSection,
-            start: "top bottom", // Starts when trust-section enters the viewport
-            end: "top top",      // Finishes folding when trust-section reaches top
-            scrub: 1,
-          },
-        },
-      );
+      // 2. Create the 3D Fold for the next section:
+      gsap.to("#hero-finish-img", {
+        rotateX: -60,
+        scale: 0.8,
+        y: -150,
+        opacity: 0,
+        scrollTrigger: {
+          trigger: trustSection, // Target the white section below the hero
+          start: "top bottom",
+          end: "top top",
+          scrub: true
+        }
+      });
 
       // Fade out scroll icon when scrolling down
       gsap.to("#scroll-icon", {
