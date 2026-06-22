@@ -1,0 +1,25 @@
+const { chromium } = require('playwright');
+
+(async () => {
+  const browser = await chromium.launch();
+  const page = await browser.newPage();
+
+  page.on('console', msg => {
+    if (msg.type() === 'error') {
+      console.error(`PAGE LOG ERROR: ${msg.text()}`);
+    } else {
+      console.log(`PAGE LOG: ${msg.text()}`);
+    }
+  });
+
+  page.on('pageerror', exception => {
+    console.error(`PAGE EXCEPTION: ${exception}`);
+  });
+
+  await page.goto('http://localhost:3000');
+
+  // Wait a bit to let scripts run
+  await page.waitForTimeout(3000);
+
+  await browser.close();
+})();

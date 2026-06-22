@@ -159,45 +159,47 @@
         />
       </div>
 
-      <!-- Hamster Snippet below Logo -->
-      <div
-        class="flex items-center justify-center scale-[0.5] pointer-events-none z-20 opacity-80 h-32 loading-elements"
-      >
+      <!-- Hamster & Progress container -->
+      <div class="flex flex-col items-center justify-center gap-12 mt-4 loading-elements">
         <div
-          aria-label="Orange and tan hamster running in a metal wheel"
-          role="img"
-          class="wheel-and-hamster"
+          class="flex items-center justify-center scale-[0.5] pointer-events-none z-20 opacity-80 h-16"
         >
-          <div class="wheel"></div>
-          <div class="hamster">
-            <div class="hamster__body">
-              <div class="hamster__head">
-                <div class="hamster__ear"></div>
-                <div class="hamster__eye"></div>
-                <div class="hamster__nose"></div>
+          <div
+            aria-label="Orange and tan hamster running in a metal wheel"
+            role="img"
+            class="wheel-and-hamster"
+          >
+            <div class="wheel"></div>
+            <div class="hamster">
+              <div class="hamster__body">
+                <div class="hamster__head">
+                  <div class="hamster__ear"></div>
+                  <div class="hamster__eye"></div>
+                  <div class="hamster__nose"></div>
+                </div>
+                <div class="hamster__limb hamster__limb--fr"></div>
+                <div class="hamster__limb hamster__limb--fl"></div>
+                <div class="hamster__limb hamster__limb--br"></div>
+                <div class="hamster__limb hamster__limb--bl"></div>
+                <div class="hamster__tail"></div>
               </div>
-              <div class="hamster__limb hamster__limb--fr"></div>
-              <div class="hamster__limb hamster__limb--fl"></div>
-              <div class="hamster__limb hamster__limb--br"></div>
-              <div class="hamster__limb hamster__limb--bl"></div>
-              <div class="hamster__tail"></div>
             </div>
+            <div class="spoke"></div>
           </div>
-          <div class="spoke"></div>
         </div>
-      </div>
 
-      <div class="flex flex-col items-center mt-4 loading-elements">
-        <div
-          class="w-16 text-center tabular-nums font-body font-bold text-botanical-ink tracking-widest uppercase text-2xl"
-        >
-          <span id="loading-text">0%</span>
-        </div>
-        <div
-          id="dynamic-phrase"
-          class="mt-4 font-body text-sm text-botanical-ink/70 tracking-widest uppercase h-6 text-center transition-opacity duration-300"
-        >
-          Инициализация системы...
+        <div class="flex flex-col items-center">
+          <div
+            class="w-16 text-center tabular-nums font-body font-bold text-botanical-ink tracking-widest uppercase text-2xl"
+          >
+            <span id="loading-text">0%</span>
+          </div>
+          <div
+            id="dynamic-phrase"
+            class="mt-4 font-body text-sm text-botanical-ink/70 tracking-widest uppercase h-6 text-center transition-opacity duration-300"
+          >
+            Инициализация системы...
+          </div>
         </div>
       </div>
     </div>
@@ -253,7 +255,15 @@
             id="canvas-fold-container"
             class="absolute inset-0 w-full h-full origin-bottom"
           >
-            <!-- Layer 2: Canvas (Bottom) -->
+            <!-- Layer 3: Static Finish Image (Bottom, replaces canvas at end) -->
+            <img
+              id="hero-finish-image"
+              src="./Woman_with_laptop_in_park_202606160620_frames/Woman_with_laptop_in_park_202606160620_frame_160.webp"
+              alt="Woman with laptop in park finished frame"
+              class="absolute inset-0 w-full h-full object-cover -z-10 opacity-0 transform-gpu scale-105"
+            />
+
+            <!-- Layer 2: Canvas (Middle) -->
             <canvas
               id="hero-canvas"
               class="absolute inset-0 w-full h-full object-cover z-0 opacity-0 transform-gpu scale-105"
@@ -273,10 +283,10 @@
             id="hero-content"
             class="absolute top-0 w-full h-full z-50 pointer-events-none flex flex-col items-center justify-start pt-[10%] opacity-0 invisible"
           >
-            <!-- Central Content Group (Fixed position container at ~35%) -->
+            <!-- Central Content Group (Fixed position container at ~15vh) -->
             <div
               id="hero-middle-group"
-              class="absolute top-[35%] w-full flex flex-col items-center justify-center opacity-100 px-4"
+              class="absolute top-[15vh] left-1/2 -translate-x-1/2 w-full flex flex-col items-center justify-center opacity-100 px-4"
             >
               <div
                 class="w-full max-w-4xl bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 shadow-2xl flex flex-col items-center opacity-0"
@@ -284,7 +294,7 @@
                 <!-- Text 1 (Initial Title) -->
                 <div id="hero-title" class="relative text-center mb-6">
                   <h1
-                    class="text-[53px] md:text-[80px] leading-none tracking-[-0.04em] text-botanical-ink font-headings font-bold"
+                    class="text-[53px] md:text-[80px] leading-none tracking-[-0.04em] text-botanical-ink font-headings font-bold font-serif"
                   >
                     ФинПарк
                   </h1>
@@ -300,7 +310,7 @@
                     class="absolute top-0 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-center w-full"
                   >
                     <p
-                      class="text-2xl md:text-4xl lg:text-5xl text-botanical-ink font-body leading-tight px-4 whitespace-nowrap font-sans"
+                      class="text-2xl md:text-4xl lg:text-5xl text-botanical-ink font-body font-normal leading-tight px-4 whitespace-nowrap font-sans"
                     >
                       Аутсорсинг бухгалтерских услуг
                     </p>
@@ -312,7 +322,7 @@
                     class="absolute top-0 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-center w-full opacity-0"
                   >
                     <h2
-                      class="text-2xl md:text-4xl lg:text-5xl text-botanical-ink font-body leading-tight px-4 whitespace-nowrap font-sans"
+                      class="text-2xl md:text-4xl lg:text-5xl text-botanical-ink font-body font-normal leading-tight px-4 whitespace-nowrap font-sans"
                     >
                       Спокойствие и порядок в ваших финансах
                     </h2>
@@ -2047,7 +2057,7 @@
       gsap.registerPlugin(ScrollTrigger);
 
       // Phase 0: Preloader Logic
-      const totalFrames = 200;
+      const totalFrames = 160;
       const framePrefix = "Woman_with_laptop_in_park_202606160620_frame_";
       const frameFormat = (num) => num.toString().padStart(3, "0");
       const images = [];
@@ -2316,6 +2326,11 @@
       // We explicitly DO NOT fade out heroTitle and heroMiddleGroup here.
       // They should remain visible until the end of the 200 frame sequence.
 
+      // Right at the very end of the sequence, swap canvas to opacity 0, and finish image to opacity 1
+      const heroFinishImage = document.getElementById("hero-finish-image");
+      scrollytellingTl.to(canvas, { opacity: 0, duration: 0.1, ease: "none" }, 9.9);
+      scrollytellingTl.to(heroFinishImage, { opacity: 1, duration: 0.1, ease: "none" }, 9.9);
+
       // Phase 1.5: Canvas Folding 3D effect
       // As the trust section (which has -mt-[100vh] to overlap) comes up from the bottom,
       // fold the canvas backwards behind it.
@@ -2336,7 +2351,7 @@
           opacity: 1,
         },
         {
-          rotateX: -40,
+          rotateX: -60,
           scale: 0.8,
           y: -100,
           opacity: 0.3,
