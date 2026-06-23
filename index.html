@@ -630,7 +630,7 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
                 <!-- Left Column: Sticky SVG Illustrations -->
                 <div class="relative hidden md:block">
-                  <div class="sticky top-1/3 w-full aspect-square relative">
+                  <div class="sticky top-32 w-full aspect-square relative">
                 
                   <!-- Image 1: Experience -->
 <div id="illus-0" class="absolute inset-0 w-full h-full rounded-3xl overflow-hidden shadow-2xl opacity-0 transition-all duration-700 transform scale-95 bg-moss-veil flex items-center justify-center">
@@ -1213,14 +1213,14 @@
             </div>
           </div>
           <div class="browser-content flex-grow relative">
-            <iframe
-              src="https://yandex.ru/map-widget/v1/?um=constructor%3A9c855a9cf299bfdbbfdafb5d4a1329a28dbcc2a80dbafbfda4a1329a28dbcc2&amp;source=constructor"
-              width="100%"
-              height="100%"
-              frameborder="0"
-              class="w-full h-full grayscale opacity-80 absolute inset-0"
-              title="Yandex Map"
-            ></iframe>
+           <iframe
+  src="https://yandex.ru/map-widget/v1/?ll=49.135243%2C55.783637&mode=search&oid=164627962299&ol=biz&z=16"
+  width="100%"
+  height="100%"
+  frameborder="0"
+  class="w-full h-full grayscale opacity-80 absolute inset-0"
+  title="Yandex Map"
+></iframe>
           </div>
         </div>
 
@@ -2168,57 +2168,40 @@ gsap.to(["#hero-canvas", "#hero-finish-img", "#hero-image"], {
       });
 
       // Phase 2: Trust Triggers Logic
+      // Phase 2: Trust Triggers Logic (Aceternity Style)
       const trustItems = gsap.utils.toArray(".trust-item");
       const illustrations = gsap.utils.toArray('[id^="illus-"]');
+
+      // Инициализация: первый текст яркий, остальные тусклые
+      gsap.set(trustItems[0], { opacity: 1 });
+      gsap.set(trustItems.slice(1), { opacity: 0.2 });
+      gsap.set(illustrations[0], { opacity: 1, scale: 1 });
 
       trustItems.forEach((item, i) => {
         ScrollTrigger.create({
           trigger: item,
           start: "top center",
           end: "bottom center",
-          onEnter: () => activateIllustration(i),
-          onEnterBack: () => activateIllustration(i),
-        });
-
-        // Reveal animation for text (Fade in and Fade out)
-        gsap.fromTo(
-          item,
-          { opacity: 0.2, scale: 0.95 },
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 0.5,
-            scrollTrigger: {
-              trigger: item,
-              start: "top center",
-              end: "bottom center",
-              toggleActions: "play reverse play reverse",
-            },
-          },
-        );
-      });
-
-      function activateIllustration(index) {
-        illustrations.forEach((illus, i) => {
-          if (i === index) {
-            gsap.to(illus, {
-              opacity: 1,
-              y: -20,
-              duration: 0.5,
-              scale: 1,
-              ease: "power2.out",
-            });
-          } else {
-            gsap.to(illus, {
-              opacity: 0,
-              y: 20,
-              duration: 0.5,
-              scale: 0.95,
-              ease: "power2.out",
-            });
+          onToggle: (self) => {
+            if (self.isActive) {
+              // Когда доскроллили до пункта - делаем текст ярким
+              gsap.to(item, { opacity: 1, duration: 0.4, ease: "power2.out" });
+              
+              // Плавно меняем картинку слева
+              illustrations.forEach((illus, index) => {
+                if (index === i) {
+                  gsap.to(illus, { opacity: 1, scale: 1, duration: 0.6, ease: "expo.out" });
+                } else {
+                  gsap.to(illus, { opacity: 0, scale: 0.95, duration: 0.4 });
+                }
+              });
+            } else {
+              // Когда проскроллили пункт - уводим текст в тень (как в Aceternity)
+              gsap.to(item, { opacity: 0.2, duration: 0.4 });
+            }
           }
         });
-      }
+      });
 
       // Phase 3: Social Proof (Wallet) Stacking
       const cards = gsap.utils.toArray("#social-proof-section .card");
