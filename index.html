@@ -130,6 +130,26 @@
     <!-- GSAP & ScrollTrigger via CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <style>
+  @keyframes scroll-up {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(calc(-50% - 12px)); }
+  }
+  @keyframes scroll-down {
+    0% { transform: translateY(calc(-50% - 12px)); }
+    100% { transform: translateY(0); }
+  }
+  .animate-scroll-up {
+    animation: scroll-up 40s linear infinite;
+  }
+  .animate-scroll-down {
+    animation: scroll-down 40s linear infinite;
+  }
+  .animate-scroll-up:hover, .animate-scroll-down:hover {
+    animation-play-state: paused;
+  }
+</style>
   </head>
   <body>
     <!-- Phase 0: Preloader & Logo -->
@@ -745,73 +765,273 @@
 
       
       <!-- Phase 3: Social Proof (Reviews Grid) -->
+     <!-- Phase 3: Social Proof (Animated Marquee) -->
       <section id="social-proof-section" class="relative bg-cream-paper w-full py-32 z-30 overflow-hidden">
         <div class="max-w-[1200px] mx-auto px-8 relative">
-          <div class="text-center mb-16">
+          <div class="text-center mb-16 relative z-10">
             <h2 class="text-[47px] md:text-[53px] leading-tight tracking-[-2.12px] text-botanical-ink max-w-3xl mx-auto font-headings font-bold">
               Среди наших клиентов более 30-ти представителей бизнеса
             </h2>
           </div>
 
-          <!-- Masonry-style Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
-            
-            <!-- Card 1 -->
-            <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300">
-              <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
-                "Раньше обзванивала сервисы сама, тратила кучу времени. Тут все сразу видно – и цены, и отзывы. Сэкономила около 5000₽ на налогах."
-              </p>
-              <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
-                <div class="w-12 h-12 rounded-full bg-moss-veil flex items-center justify-center font-bold text-botanical-ink">Е</div>
-                <div>
-                  <p class="text-sm font-bold text-botanical-ink font-body">Елена В.</p>
-                  <p class="text-xs text-botanical-ink/60 font-body uppercase tracking-widest mt-1">ООО "СтройПроект"</p>
+          <!-- Marquee Container with Gradient Mask -->
+          <div class="relative h-[700px] overflow-hidden" style="-webkit-mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 h-full items-start">
+              
+              <!-- Column 1 (Scrolls Up) -->
+              <div class="flex flex-col gap-6 animate-scroll-up">
+                <!-- Wrapper for infinite duplication -->
+                <div class="flex flex-col gap-6">
+                  <!-- Card 1 -->
+                  <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300 w-full">
+                    <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
+                      "Раньше пыталась вести учет сама, тратила кучу времени. Тут все сразу видно и понятно. Сэкономила около 50000₽ на налогах."
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
+                      <div class="w-12 h-12 rounded-full bg-moss-veil flex items-center justify-center font-bold text-botanical-ink shrink-0">Е</div>
+                      <div>
+                        <p class="text-sm font-bold text-botanical-ink font-body">Елена В.</p>
+                        <p class="text-[10px] text-botanical-ink/60 font-body uppercase tracking-widest mt-1">ООО "СтройПроект"</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Card 2 -->
+                  <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300 w-full">
+                    <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
+                      "Боялся, что накрутят цену по факту, но в ФинПарк сумма фиксируется. Основательница Лейсан собрала сильную команду. Специфику сельхоз учета знают идеально."
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
+                      <div class="w-12 h-12 rounded-full bg-sage-mist flex items-center justify-center font-bold text-botanical-ink shrink-0">Д</div>
+                      <div>
+                        <p class="text-sm font-bold text-botanical-ink font-body">Дмитрий К.</p>
+                        <p class="text-[10px] text-botanical-ink/60 font-body uppercase tracking-widest mt-1">АгроКомплекс</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Card 3 -->
+                  <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300 w-full">
+                    <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
+                      "Очень удобный формат работы. Не нужно ездить в офис, все документы в облаке. Лицензия 1С в подарок — приятный бонус."
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
+                      <div class="w-12 h-12 rounded-full bg-eucalyptus flex items-center justify-center font-bold text-cream-paper shrink-0">С</div>
+                      <div>
+                        <p class="text-sm font-bold text-botanical-ink font-body">Светлана М.</p>
+                        <p class="text-[10px] text-botanical-ink/60 font-body uppercase tracking-widest mt-1">Сеть кофеен</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Duplicate Wrapper for Loop -->
+                <div class="flex flex-col gap-6">
+                  <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300 w-full">
+                    <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
+                      "Раньше пыталась вести учет сама, тратила кучу времени. Тут все сразу видно и понятно. Сэкономила около 50000₽ на налогах."
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
+                      <div class="w-12 h-12 rounded-full bg-moss-veil flex items-center justify-center font-bold text-botanical-ink shrink-0">Е</div>
+                      <div>
+                        <p class="text-sm font-bold text-botanical-ink font-body">Елена В.</p>
+                        <p class="text-[10px] text-botanical-ink/60 font-body uppercase tracking-widest mt-1">ООО "СтройПроект"</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300 w-full">
+                    <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
+                      "Боялся, что накрутят цену по факту, но в ФинПарк сумма фиксируется. Основательница Лейсан собрала сильную команду. Специфику сельхоз учета знают идеально."
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
+                      <div class="w-12 h-12 rounded-full bg-sage-mist flex items-center justify-center font-bold text-botanical-ink shrink-0">Д</div>
+                      <div>
+                        <p class="text-sm font-bold text-botanical-ink font-body">Дмитрий К.</p>
+                        <p class="text-[10px] text-botanical-ink/60 font-body uppercase tracking-widest mt-1">АгроКомплекс</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300 w-full">
+                    <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
+                      "Очень удобный формат работы. Не нужно ездить в офис, все документы в облаке. Лицензия 1С в подарок — приятный бонус."
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
+                      <div class="w-12 h-12 rounded-full bg-eucalyptus flex items-center justify-center font-bold text-cream-paper shrink-0">С</div>
+                      <div>
+                        <p class="text-sm font-bold text-botanical-ink font-body">Светлана М.</p>
+                        <p class="text-[10px] text-botanical-ink/60 font-body uppercase tracking-widest mt-1">Сеть кофеен</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Card 2 -->
-            <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300">
-              <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
-                "Боялся, что накрутят цену по факту, но в ФинПарк сумма фиксируется. Мастер попался толковый, рекомендую. Специфику сельхоз учета знают идеально."
-              </p>
-              <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
-                <div class="w-12 h-12 rounded-full bg-sage-mist flex items-center justify-center font-bold text-botanical-ink">Д</div>
-                <div>
-                  <p class="text-sm font-bold text-botanical-ink font-body">Дмитрий К.</p>
-                  <p class="text-xs text-botanical-ink/60 font-body uppercase tracking-widest mt-1">АгроКомплекс</p>
+              <!-- Column 2 (Scrolls Down) -->
+              <div class="hidden md:flex flex-col gap-6 animate-scroll-down">
+                <div class="flex flex-col gap-6">
+                  <!-- Card 4 -->
+                  <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300 w-full">
+                    <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
+                      "Сервис работает как часы. Никаких лишних звонков от налоговой и внезапных блокировок счетов. Всё максимально четко и по делу."
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
+                      <div class="w-12 h-12 rounded-full bg-warm-loam flex items-center justify-center font-bold text-cream-paper shrink-0">М</div>
+                      <div>
+                        <p class="text-sm font-bold text-botanical-ink font-body">Максим П.</p>
+                        <p class="text-[10px] text-botanical-ink/60 font-body uppercase tracking-widest mt-1">ИП ПЕТРОВ</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Card 5 -->
+                  <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300 w-full">
+                    <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
+                      "Перешли в ФинПарк после неудачного опыта с фрилансером. Руководитель Лейсан лично провела аудит и помогла исправить старые ошибки. Теперь спим спокойно."
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
+                      <div class="w-12 h-12 rounded-full bg-botanical-ink flex items-center justify-center font-bold text-cream-paper shrink-0">И</div>
+                      <div>
+                        <p class="text-sm font-bold text-botanical-ink font-body">Игорь Т.</p>
+                        <p class="text-[10px] text-botanical-ink/60 font-body uppercase tracking-widest mt-1">Производство</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Card 6 -->
+                  <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300 w-full">
+                    <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
+                      "Прозрачные тарифы, никаких скрытых платежей. Всегда на связи и готовы помочь с любым вопросом, от первички до годового баланса."
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
+                      <div class="w-12 h-12 rounded-full bg-moss-veil flex items-center justify-center font-bold text-botanical-ink shrink-0">О</div>
+                      <div>
+                        <p class="text-sm font-bold text-botanical-ink font-body">Ольга Д.</p>
+                        <p class="text-[10px] text-botanical-ink/60 font-body uppercase tracking-widest mt-1">IT-стартап</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Duplicate Wrapper for Loop -->
+                <div class="flex flex-col gap-6">
+                  <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300 w-full">
+                    <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
+                      "Сервис работает как часы. Никаких лишних звонков от налоговой и внезапных блокировок счетов. Всё максимально четко и по делу."
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
+                      <div class="w-12 h-12 rounded-full bg-warm-loam flex items-center justify-center font-bold text-cream-paper shrink-0">М</div>
+                      <div>
+                        <p class="text-sm font-bold text-botanical-ink font-body">Максим П.</p>
+                        <p class="text-[10px] text-botanical-ink/60 font-body uppercase tracking-widest mt-1">ИП ПЕТРОВ</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300 w-full">
+                    <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
+                      "Перешли в ФинПарк после неудачного опыта с фрилансером. Руководитель Лейсан лично провела аудит и помогла исправить старые ошибки. Теперь спим спокойно."
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
+                      <div class="w-12 h-12 rounded-full bg-botanical-ink flex items-center justify-center font-bold text-cream-paper shrink-0">И</div>
+                      <div>
+                        <p class="text-sm font-bold text-botanical-ink font-body">Игорь Т.</p>
+                        <p class="text-[10px] text-botanical-ink/60 font-body uppercase tracking-widest mt-1">Производство</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300 w-full">
+                    <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
+                      "Прозрачные тарифы, никаких скрытых платежей. Всегда на связи и готовы помочь с любым вопросом, от первички до годового баланса."
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
+                      <div class="w-12 h-12 rounded-full bg-moss-veil flex items-center justify-center font-bold text-botanical-ink shrink-0">О</div>
+                      <div>
+                        <p class="text-sm font-bold text-botanical-ink font-body">Ольга Д.</p>
+                        <p class="text-[10px] text-botanical-ink/60 font-body uppercase tracking-widest mt-1">IT-стартап</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Card 3 -->
-            <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300">
-              <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
-                "Сервис работает как часы. Заявка -> Предложение -> Ремонт. Никаких лишних звонков от менеджеров и блокировок счетов."
-              </p>
-              <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
-                <div class="w-12 h-12 rounded-full bg-eucalyptus flex items-center justify-center font-bold text-cream-paper">М</div>
-                <div>
-                  <p class="text-sm font-bold text-botanical-ink font-body">Максим П.</p>
-                  <p class="text-xs text-botanical-ink/60 font-body uppercase tracking-widest mt-1">ИП ПЕТРОВ</p>
+              <!-- Column 3 (Scrolls Up) -->
+              <div class="hidden lg:flex flex-col gap-6 animate-scroll-up" style="animation-delay: -15s;">
+                <div class="flex flex-col gap-6">
+                  <!-- Card 7 -->
+                  <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300 w-full">
+                    <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
+                      "Отличная команда профессионалов. Вся отчетность сдается вовремя, никаких штрафов за последние 3 года. Однозначно рекомендую!"
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
+                      <div class="w-12 h-12 rounded-full bg-sage-mist flex items-center justify-center font-bold text-botanical-ink shrink-0">А</div>
+                      <div>
+                        <p class="text-sm font-bold text-botanical-ink font-body">Анна С.</p>
+                        <p class="text-[10px] text-botanical-ink/60 font-body uppercase tracking-widest mt-1">Wildberries Seller</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Card 8 -->
+                  <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300 w-full">
+                    <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
+                      "Грамотные специалисты. Помогли оптимизировать НДС и выстроить работу с путевыми листами. Отдельное спасибо Лейсан за включенность в процесс!"
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
+                      <div class="w-12 h-12 rounded-full bg-eucalyptus flex items-center justify-center font-bold text-cream-paper shrink-0">Р</div>
+                      <div>
+                        <p class="text-sm font-bold text-botanical-ink font-body">Руслан З.</p>
+                        <p class="text-[10px] text-botanical-ink/60 font-body uppercase tracking-widest mt-1">Логистика</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Card 9 -->
+                  <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300 w-full">
+                    <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
+                      "Надежный партнер для бизнеса. Полностью закрывают вопросы по кадрам и зарплате. Освободили мне кучу времени для развития компании."
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
+                      <div class="w-12 h-12 rounded-full bg-warm-loam flex items-center justify-center font-bold text-cream-paper shrink-0">Т</div>
+                      <div>
+                        <p class="text-sm font-bold text-botanical-ink font-body">Тимур Р.</p>
+                        <p class="text-[10px] text-botanical-ink/60 font-body uppercase tracking-widest mt-1">Строительство</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Duplicate Wrapper for Loop -->
+                <div class="flex flex-col gap-6">
+                  <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300 w-full">
+                    <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
+                      "Отличная команда профессионалов. Вся отчетность сдается вовремя, никаких штрафов за последние 3 года. Однозначно рекомендую!"
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
+                      <div class="w-12 h-12 rounded-full bg-sage-mist flex items-center justify-center font-bold text-botanical-ink shrink-0">А</div>
+                      <div>
+                        <p class="text-sm font-bold text-botanical-ink font-body">Анна С.</p>
+                        <p class="text-[10px] text-botanical-ink/60 font-body uppercase tracking-widest mt-1">Wildberries Seller</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300 w-full">
+                    <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
+                      "Грамотные специалисты. Помогли оптимизировать НДС и выстроить работу с путевыми листами. Отдельное спасибо Лейсан за включенность в процесс!"
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
+                      <div class="w-12 h-12 rounded-full bg-eucalyptus flex items-center justify-center font-bold text-cream-paper shrink-0">Р</div>
+                      <div>
+                        <p class="text-sm font-bold text-botanical-ink font-body">Руслан З.</p>
+                        <p class="text-[10px] text-botanical-ink/60 font-body uppercase tracking-widest mt-1">Логистика</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300 w-full">
+                    <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
+                      "Надежный партнер для бизнеса. Полностью закрывают вопросы по кадрам и зарплате. Освободили мне кучу времени для развития компании."
+                    </p>
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
+                      <div class="w-12 h-12 rounded-full bg-warm-loam flex items-center justify-center font-bold text-cream-paper shrink-0">Т</div>
+                      <div>
+                        <p class="text-sm font-bold text-botanical-ink font-body">Тимур Р.</p>
+                        <p class="text-[10px] text-botanical-ink/60 font-body uppercase tracking-widest mt-1">Строительство</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-             <!-- Card 4 -->
-             <div class="bg-white rounded-2xl p-8 shadow-subtle border border-lichen flex flex-col gap-6 hover:shadow-xl transition-shadow duration-300 md:col-span-2 lg:col-span-1">
-              <p class="text-botanical-ink/80 font-body text-sm leading-relaxed">
-                "Отличная команда профессионалов. Вся отчетность сдается вовремя, никаких штрафов от налоговой за последние 3 года."
-              </p>
-              <div class="flex items-center gap-4 mt-auto pt-4 border-t border-lichen/50">
-                <div class="w-12 h-12 rounded-full bg-warm-loam flex items-center justify-center font-bold text-cream-paper">А</div>
-                <div>
-                  <p class="text-sm font-bold text-botanical-ink font-body">Анна С.</p>
-                  <p class="text-xs text-botanical-ink/60 font-body uppercase tracking-widest mt-1">Wildberries Seller</p>
-                </div>
-              </div>
             </div>
-
           </div>
         </div>
       </section>
