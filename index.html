@@ -243,7 +243,7 @@
     <main id="app" class="relative z-10">
       <!-- Phase 1: Hero & Canvas Scrollytelling with Macbook 3D -->
       <section id="scrollytelling-section" class="relative h-[4000px] w-full z-10 bg-botanical-ink" style="perspective: 2000px;">
-  <div id="hero-3d-fold" class="sticky top-0 w-full h-screen overflow-hidden bg-[#fbfdf6] transform-gpu origin-bottom">
+  <div id="hero-3d-fold" class="sticky top-0 w-full h-screen overflow-hidden bg-[#fbfdf6] transform-gpu" style="transform-origin: center top; border: 0px solid #111;">
           <!-- Layer 1: Hero Finish Image for the fold -->
           <img src="./Woman_with_laptop_in_park_202606160620_frames/Woman_with_laptop_in_park_202606160620_frame_160.webp" id="hero-finish-img" class="absolute top-0 left-0 w-full h-full object-cover opacity-0 origin-bottom z-0 transform-gpu scale-105" />
 
@@ -2321,15 +2321,18 @@
       // 2. Create the 3D Fold for the next section:
       // 2. Create the 3D Fold for the next section:
 gsap.to("#hero-3d-fold", {
-  rotateX: -50,
-  scale: 0.85,
-  y: -100,
-  opacity: 0,
+  rotateX: 20,                  // Мягкий наклон экрана (как в Aceternity)
+  scale: 0.85,                  // Плавное уменьшение до размера планшета
+  borderRadius: "32px",         // Появление скругленных углов
+  borderWidth: "16px",          // Появление черной рамки (корпус планшета)
+  y: -150,                      // Плавный отъезд наверх
+  boxShadow: "0 40px 80px rgba(0,0,0,0.5)", // Глубокая красивая тень
+  opacity: 0.8,                 // Оставляем его видимым дольше
   scrollTrigger: {
     trigger: "#trust-section",
     start: "top bottom",
-    end: "top 20%",
-    scrub: true
+    end: "top top",
+    scrub: 1                    // Значение '1' дает ту самую приятную инерцию, как во Framer Motion
   }
 });
 
