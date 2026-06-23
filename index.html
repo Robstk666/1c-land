@@ -245,17 +245,17 @@
       <section id="scrollytelling-section" class="relative h-[4000px] w-full z-10 bg-cream-paper" style="perspective: 2000px;">
   <div id="hero-3d-fold" class="sticky top-0 w-full h-screen overflow-hidden bg-[#fbfdf6] transform-gpu" style="transform-origin: center top; border: 0px solid #111;">
           <!-- Layer 1: Hero Finish Image for the fold -->
-          <img src="./hero-girl.jpg" id="hero-finish-img" class="absolute top-0 left-0 w-full h-full object-cover opacity-0 origin-bottom z-0 transform-gpu scale-105" />
+          <img src="./hero-girl.jpg" id="hero-finish-img" class="absolute top-0 left-0 w-full h-full object-cover opacity-0 origin-bottom z-0 transform-gpu " />
 
           <!-- Layer 2: Scrollytelling Canvas -->
-          <canvas id="hero-canvas" class="absolute top-0 left-0 w-full h-full object-cover z-10" style="transform: scale(1.05);"></canvas>
+          <canvas id="hero-canvas" class="absolute top-0 left-0 w-full h-full object-cover z-10" style="transform: ;"></canvas>
 
           <!-- Layer 3: Initial Hero Image that fades out at start -->
           <img
             id="hero-image"
             src="./hero-finish.jpg"
             alt="Woman with laptop in park"
-            class="absolute inset-0 w-full h-full object-cover z-20 transform-gpu scale-105"
+            class="absolute inset-0 w-full h-full object-cover z-20 transform-gpu "
           />
 
           <!-- Overlay Text & Marquee -->
@@ -2335,7 +2335,8 @@ gsap.to("#hero-3d-fold", {
     scrub: 1                    // Значение '1' дает ту самую приятную инерцию, как во Framer Motion
   }
 });
-gsap.to(["#hero-canvas", "#hero-finish-img"], {
+
+gsap.to(["#hero-canvas", "#hero-finish-img", "#hero-image"], {
   borderRadius: "16px",
   scrollTrigger: {
     trigger: "#trust-section",
