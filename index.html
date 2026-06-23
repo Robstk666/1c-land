@@ -627,7 +627,7 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
                 <!-- Left Column: Sticky SVG Illustrations -->
                 <div class="relative hidden md:block h-full">
-                  <div class="sticky top-[25vh] w-full aspect-square relative">
+                  <div class="sticky top-1/2 -translate-y-1/2 w-[70%] max-w-[450px] mx-auto aspect-square relative">
                 
                   <!-- Image 1: Experience -->
 <div id="illus-0" class="absolute inset-0 w-full h-full rounded-3xl overflow-hidden shadow-2xl opacity-0 transition-all duration-700 transform scale-95 bg-moss-veil flex items-center justify-center">
@@ -2177,24 +2177,24 @@ gsap.to(["#hero-canvas", "#hero-finish-img", "#hero-image"], {
       trustItems.forEach((item, i) => {
         ScrollTrigger.create({
           trigger: item,
-          start: "top center",
+          start: "top center", // Триггер срабатывает ровно когда верх текста касается центра экрана
           end: "bottom center",
           onToggle: (self) => {
             if (self.isActive) {
-              // Когда доскроллили до пункта - делаем текст ярким
-              gsap.to(item, { opacity: 1, duration: 0.4, ease: "power2.out" });
+              // Текст загорается моментально
+              gsap.to(item, { opacity: 1, duration: 0.2, ease: "power2.out" });
               
-              // Плавно меняем картинку слева
+              // Картинка меняется секунда в секунду
               illustrations.forEach((illus, index) => {
                 if (index === i) {
-                  gsap.to(illus, { opacity: 1, scale: 1, duration: 0.6, ease: "expo.out" });
+                  gsap.to(illus, { opacity: 1, scale: 1, duration: 0.2, ease: "power2.out" });
                 } else {
-                  gsap.to(illus, { opacity: 0, scale: 0.95, duration: 0.4 });
+                  gsap.to(illus, { opacity: 0, scale: 0.95, duration: 0.2 });
                 }
               });
             } else {
-              // Когда проскроллили пункт - уводим текст в тень (как в Aceternity)
-              gsap.to(item, { opacity: 0.2, duration: 0.4 });
+              // Текст тускнеет моментально
+              gsap.to(item, { opacity: 0.2, duration: 0.2 });
             }
           }
         });
