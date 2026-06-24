@@ -2113,13 +2113,13 @@ gsap.to(["#hero-canvas", "#hero-finish-img", "#hero-image"], {
   }
 });
 
-      // Fade out scroll icon when scrolling down
+      // Fade out scroll icon strictly at Services section
       gsap.to("#scroll-icon", {
         opacity: 0,
         scrollTrigger: {
-          trigger: "#scrollytelling-section",
-          start: "top top-=100",
-          end: "top top-=300",
+          trigger: "#services-section",
+          start: "top bottom", 
+          end: "top center",   
           scrub: 1,
         },
       });
